@@ -17,7 +17,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
    
-     <mvc:annotation-driven />
+     <mvc:annotation-driven conversion-service="conversionService"/>
 <context:property-placeholder ignore-unresolvable="true" location="classpath*:*.properties" ignore-resource-not-found="true"/>
       <!-- 内容协商管理器  -->
     <!--1、首先检查路径扩展名（如my.pdf）；2、其次检查Parameter（如my?format=pdf）；3、检查Accept Header-->
@@ -40,6 +40,17 @@
         默认的content type
         <property name="defaultContentType" value="text/html"/>
     </bean> -->
+
+    <!-- 配置日期转换器 -->
+       <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+           <property name="converters">
+               <set>
+                  <bean class="com.billiard.util.DateConverter"></bean>
+              </set>
+          </property>
+      </bean>
+
+
 
   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">   
           <property name="maxUploadSize"><value>20971520</value></property> 

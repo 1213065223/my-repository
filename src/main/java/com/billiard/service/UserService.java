@@ -9,4 +9,6 @@ public interface UserService {
 
 	JobResponse updateUser(User user);
 
+	User getUser(User user);
+
 }

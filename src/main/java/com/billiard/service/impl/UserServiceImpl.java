@@ -41,4 +41,18 @@ public class UserServiceImpl implements UserService {
 		
 		return JobResponse.successResponse(userMapper.updateByPrimaryKeySelective(user));
 	}
+
+	@Override
+	public User getUser(User user) {
+		UserExample example = new UserExample();
+		Criteria createCriteria = example.createCriteria();
+		createCriteria.andLoginNameEqualTo(user.getLoginName());
+		
+		List<User> selectByExample = userMapper.selectByExample(example);
+		if(selectByExample.isEmpty())
+		return null;
+		else {
+			return selectByExample.get(0);
+		}
+	}
 }
