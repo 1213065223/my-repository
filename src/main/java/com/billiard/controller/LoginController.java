@@ -35,7 +35,7 @@ public class LoginController {
 		if(findUser==null||!MD5Util.formPassToDBPass(user.getPassword(), findUser.getSalt()).equals(findUser.getPassword())) {
 			return JobResponse.errorResponse(100004, "用户名或密码错误！");
 		}
-		if(user.getIsstop()) {
+		if(user.getIsstop()==1) {
 			return JobResponse.errorResponse(100010, "用户已经禁用！");
 		}
 		HttpSession session = request.getSession();

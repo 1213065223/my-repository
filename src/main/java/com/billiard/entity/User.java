@@ -17,11 +17,11 @@ public class User {
 
     private Integer integral;
 
-    private Boolean sex;
+    private Integer sex;
 
     private String headImage;
 
-    private Boolean isstop;
+    private Integer isstop;
 
     public String getId() {
         return id;
@@ -87,11 +87,11 @@ public class User {
         this.integral = integral;
     }
 
-    public Boolean getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -103,11 +103,11 @@ public class User {
         this.headImage = headImage == null ? null : headImage.trim();
     }
 
-    public Boolean getIsstop() {
+    public Integer getIsstop() {
         return isstop;
     }
 
-    public void setIsstop(Boolean isstop) {
+    public void setIsstop(Integer isstop) {
         this.isstop = isstop;
     }
 }

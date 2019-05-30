@@ -42,7 +42,7 @@ public class RegistController {
 		
 		
 		try {
-			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(), "18740029390@163.com", "¿ÓÊ¬Ê¬’–…Ã“¯––µΩ’À1000000", "π§◊ ", url);
+			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(), "18740029390@163.com", "ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ–µÔøΩÔøΩÔøΩ1000000", "ÔøΩÔøΩÔøΩÔøΩ", url);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,11 +59,12 @@ public class RegistController {
 	@ResponseBody
 	public JobResponse sendEmailConfirm(String mail,Long code) {
 		
-		if(System.currentTimeMillis()-code>1000*60*6) {
-			JobResponse.errorResponse(100002, "¡¥Ω”“— ß–ß£°");
-		}
+		User user = new User();
+		user.setId(mail);
+		user.setIsstop(0);
 		
-		return JobResponse.successResponse(mail);
+		
+		return JobResponse.successResponse(userService.updateUser(user));
 	}
 	
 	

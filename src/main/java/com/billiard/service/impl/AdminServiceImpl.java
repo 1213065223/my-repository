@@ -1,5 +1,6 @@
 package com.billiard.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -7,16 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.billiard.dao.AdminMapper;
+import com.billiard.dao.AnnouncementMapper;
+import com.billiard.dao.AssociationMapper;
 import com.billiard.dao.IndexMapper;
 import com.billiard.dao.MatchMapper;
+import com.billiard.dao.OrganizationMapper;
 import com.billiard.entity.Admin;
 import com.billiard.entity.AdminExample;
 import com.billiard.entity.AdminExample.Criteria;
+import com.billiard.entity.Announcement;
+import com.billiard.entity.Association;
+import com.billiard.entity.AssociationExample;
 import com.billiard.entity.Index;
 import com.billiard.entity.IndexExample;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
 import com.billiard.entity.MatchWithBLOBs;
+import com.billiard.entity.Organization;
+import com.billiard.entity.OrganizationExample;
 import com.billiard.service.AdminService;
 import com.billiard.util.MD5Util;
 import com.github.pagehelper.PageHelper;
@@ -34,6 +43,16 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private MatchMapper matchMapper;
+	
+	@Autowired
+	private AssociationMapper associationMapper;
+	
+	@Autowired
+	private OrganizationMapper organizationMapper;
+	
+	@Autowired
+	private AnnouncementMapper announcementMapper;
+	
 	@Override
 	public JobResponse addAdmin(Admin admin) {
 		
@@ -139,6 +158,58 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Integer deleteMatch(String id) {
 		return matchMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Association> getAssociationList() {
+		AssociationExample  example= new AssociationExample();
+		return associationMapper.selectByExampleWithBLOBs(example);
+	}
+
+	@Override
+	public void updateAssociation(Association association) {
+		associationMapper.updateByPrimaryKeyWithBLOBs(association);
+	}
+
+	@Override
+	public void addAssociation(Association association) {
+		associationMapper.insertSelective(association);
+		
+	}
+
+	@Override
+	public List<Organization> getOrganizationList() {
+		OrganizationExample example= new OrganizationExample();
+		return organizationMapper.selectByExample(example);
+	}
+
+	@Override
+	public void updateOrganization(Organization organization) {
+		organizationMapper.updateByPrimaryKeyWithBLOBs(organization);
+	}
+
+	@Override
+	public void addOrganization(Organization organization) {
+		organizationMapper.insertSelective(organization);
+	}
+
+	@Override
+	public Integer announcementUpdateOrAdd(Announcement announcement, Admin a) {
+		
+		if(announcement.getId()==null) {
+			announcement.setCreateTime(new Date());
+			announcement.setCreateUser(a.getNickname());
+			return announcementMapper.insertSelective(announcement);
+		}
+		
+		announcement.setCreateTime(null);
+		announcement.setCreateUser(null);
+		return announcementMapper.updateByPrimaryKeySelective(announcement); 
+	}
+
+	@Override
+	public Integer announcementDelete(Integer id) {
+		return announcementMapper.deleteByPrimaryKey(id);
 	}
 
 }
