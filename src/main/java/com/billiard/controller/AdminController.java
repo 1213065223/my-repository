@@ -91,8 +91,6 @@ public class AdminController {
 			return JobResponse.errorResponse(100005, "管理员登录超时！");
 		}
 		
-		
-		
 		return adminService.updateAdmin(admin);
 	}
 	

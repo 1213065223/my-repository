@@ -2,18 +2,18 @@ package com.billiard.entity;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Match {
     private String id;
 
+    private String matchName;
+
     private String organization;
 
     private String matchContent;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date matchTime;
 
     private String matchPlace;
@@ -21,14 +21,23 @@ public class Match {
     private String planning;
 
     private String schedule;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date enrollTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date enrollTimeEnd;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     private String createUser;
+
+    private Integer matchDel;
+
+    private Integer matchNow;
+
+    private String timeQuantum;
 
     public String getId() {
         return id;
@@ -36,6 +45,14 @@ public class Match {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
+    }
+
+    public String getMatchName() {
+        return matchName;
+    }
+
+    public void setMatchName(String matchName) {
+        this.matchName = matchName == null ? null : matchName.trim();
     }
 
     public String getOrganization() {
@@ -116,5 +133,29 @@ public class Match {
 
     public void setCreateUser(String createUser) {
         this.createUser = createUser == null ? null : createUser.trim();
+    }
+
+    public Integer getMatchDel() {
+        return matchDel;
+    }
+
+    public void setMatchDel(Integer matchDel) {
+        this.matchDel = matchDel;
+    }
+
+    public Integer getMatchNow() {
+        return matchNow;
+    }
+
+    public void setMatchNow(Integer matchNow) {
+        this.matchNow = matchNow;
+    }
+
+    public String getTimeQuantum() {
+        return timeQuantum;
+    }
+
+    public void setTimeQuantum(String timeQuantum) {
+        this.timeQuantum = timeQuantum == null ? null : timeQuantum.trim();
     }
 }

@@ -2,6 +2,7 @@ package com.billiard.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public JobResponse insertUser(User user) {
+		String regex = "\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}";
+		if(StringUtils.isBlank(user.getLoginName())||!user.getLoginName().matches(regex)) {
+			return JobResponse.errorResponse(100014, "请输入正确的邮箱！");
+		}
 		UserExample userExample = new UserExample();
 		Criteria createCriteria = userExample.createCriteria();
 		createCriteria.andLoginNameEqualTo(user.getLoginName());

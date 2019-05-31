@@ -20,8 +20,50 @@ public class Index {
     private String createUser;
 
     private String content;
+    
+    
+    private String jumpTypeDetail;
+    
+    private String imageLocationDetail;
+    
+    
+    
 
-    public Integer getId() {
+    public String getJumpTypeDetail() {
+    	if(jumpType==null||jumpType==0) {
+    		jumpTypeDetail="超链接";
+    	}
+    	else {
+    		jumpTypeDetail="富文本";
+    	}
+    	
+		return jumpTypeDetail;
+	}
+
+	public void setJumpTypeDetail(String jumpTypeDetail) {
+		this.jumpTypeDetail = jumpTypeDetail;
+	}
+
+	public String getImageLocationDetail() {
+		// 1：banner 2：理事 3：赞助商 4：赛事冠名广告位
+		if(imageLocation==null||imageLocation==1) {
+			imageLocationDetail="banner";
+		}else if(imageLocation==2) {
+			imageLocationDetail="理事";
+		}else if(imageLocation==3) {
+			imageLocationDetail="赞助商";
+		}else if(imageLocation==4) {
+			imageLocationDetail="赛事冠名";
+		}
+		
+		return imageLocationDetail;
+	}
+
+	public void setImageLocationDetail(String imageLocationDetail) {
+		this.imageLocationDetail = imageLocationDetail;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -3,6 +3,7 @@
 <mapper namespace="com.billiard.dao.MatchMapper">
   <resultMap id="BaseResultMap" type="com.billiard.entity.Match">
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="match_name" jdbcType="VARCHAR" property="matchName" />
     <result column="organization" jdbcType="VARCHAR" property="organization" />
     <result column="match_content" jdbcType="VARCHAR" property="matchContent" />
     <result column="match_time" jdbcType="TIMESTAMP" property="matchTime" />
@@ -13,6 +14,9 @@
     <result column="enroll_time_end" jdbcType="TIMESTAMP" property="enrollTimeEnd" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="match_del" jdbcType="INTEGER" property="matchDel" />
+    <result column="match_now" jdbcType="INTEGER" property="matchNow" />
+    <result column="time_quantum" jdbcType="VARCHAR" property="timeQuantum" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.billiard.entity.MatchWithBLOBs">
     <result column="details" jdbcType="LONGVARCHAR" property="details" />
@@ -78,8 +82,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, organization, match_content, match_time, match_place, planning, schedule, enroll_time, 
-    enroll_time_end, create_time, create_user
+    id, match_name, organization, match_content, match_time, match_place, planning, schedule, 
+    enroll_time, enroll_time_end, create_time, create_user, match_del, match_now, time_quantum
   </sql>
   <sql id="Blob_Column_List">
     details, name_list, result
@@ -133,22 +137,29 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.billiard.entity.MatchWithBLOBs">
-    insert into t_match (id, organization, match_content, 
-      match_time, match_place, planning, 
-      schedule, enroll_time, enroll_time_end, 
-      create_time, create_user, details, 
-      name_list, result)
-    values (#{id,jdbcType=VARCHAR}, #{organization,jdbcType=VARCHAR}, #{matchContent,jdbcType=VARCHAR}, 
-      #{matchTime,jdbcType=TIMESTAMP}, #{matchPlace,jdbcType=VARCHAR}, #{planning,jdbcType=VARCHAR}, 
-      #{schedule,jdbcType=VARCHAR}, #{enrollTime,jdbcType=TIMESTAMP}, #{enrollTimeEnd,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{details,jdbcType=LONGVARCHAR}, 
-      #{nameList,jdbcType=LONGVARCHAR}, #{result,jdbcType=LONGVARCHAR})
+    insert into t_match (id, match_name, organization, 
+      match_content, match_time, match_place, 
+      planning, schedule, enroll_time, 
+      enroll_time_end, create_time, create_user, 
+      match_del, match_now, time_quantum, 
+      details, name_list, result
+      )
+    values (#{id,jdbcType=VARCHAR}, #{matchName,jdbcType=VARCHAR}, #{organization,jdbcType=VARCHAR}, 
+      #{matchContent,jdbcType=VARCHAR}, #{matchTime,jdbcType=TIMESTAMP}, #{matchPlace,jdbcType=VARCHAR}, 
+      #{planning,jdbcType=VARCHAR}, #{schedule,jdbcType=VARCHAR}, #{enrollTime,jdbcType=TIMESTAMP}, 
+      #{enrollTimeEnd,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{matchDel,jdbcType=INTEGER}, #{matchNow,jdbcType=INTEGER}, #{timeQuantum,jdbcType=VARCHAR}, 
+      #{details,jdbcType=LONGVARCHAR}, #{nameList,jdbcType=LONGVARCHAR}, #{result,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.billiard.entity.MatchWithBLOBs">
     insert into t_match
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="matchName != null">
+        match_name,
       </if>
       <if test="organization != null">
         organization,
@@ -180,6 +191,15 @@
       <if test="createUser != null">
         create_user,
       </if>
+      <if test="matchDel != null">
+        match_del,
+      </if>
+      <if test="matchNow != null">
+        match_now,
+      </if>
+      <if test="timeQuantum != null">
+        time_quantum,
+      </if>
       <if test="details != null">
         details,
       </if>
@@ -193,6 +213,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="matchName != null">
+        #{matchName,jdbcType=VARCHAR},
       </if>
       <if test="organization != null">
         #{organization,jdbcType=VARCHAR},
@@ -224,6 +247,15 @@
       <if test="createUser != null">
         #{createUser,jdbcType=VARCHAR},
       </if>
+      <if test="matchDel != null">
+        #{matchDel,jdbcType=INTEGER},
+      </if>
+      <if test="matchNow != null">
+        #{matchNow,jdbcType=INTEGER},
+      </if>
+      <if test="timeQuantum != null">
+        #{timeQuantum,jdbcType=VARCHAR},
+      </if>
       <if test="details != null">
         #{details,jdbcType=LONGVARCHAR},
       </if>
@@ -246,6 +278,9 @@
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matchName != null">
+        match_name = #{record.matchName,jdbcType=VARCHAR},
       </if>
       <if test="record.organization != null">
         organization = #{record.organization,jdbcType=VARCHAR},
@@ -277,6 +312,15 @@
       <if test="record.createUser != null">
         create_user = #{record.createUser,jdbcType=VARCHAR},
       </if>
+      <if test="record.matchDel != null">
+        match_del = #{record.matchDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.matchNow != null">
+        match_now = #{record.matchNow,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeQuantum != null">
+        time_quantum = #{record.timeQuantum,jdbcType=VARCHAR},
+      </if>
       <if test="record.details != null">
         details = #{record.details,jdbcType=LONGVARCHAR},
       </if>
@@ -294,6 +338,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update t_match
     set id = #{record.id,jdbcType=VARCHAR},
+      match_name = #{record.matchName,jdbcType=VARCHAR},
       organization = #{record.organization,jdbcType=VARCHAR},
       match_content = #{record.matchContent,jdbcType=VARCHAR},
       match_time = #{record.matchTime,jdbcType=TIMESTAMP},
@@ -304,6 +349,9 @@
       enroll_time_end = #{record.enrollTimeEnd,jdbcType=TIMESTAMP},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
+      match_del = #{record.matchDel,jdbcType=INTEGER},
+      match_now = #{record.matchNow,jdbcType=INTEGER},
+      time_quantum = #{record.timeQuantum,jdbcType=VARCHAR},
       details = #{record.details,jdbcType=LONGVARCHAR},
       name_list = #{record.nameList,jdbcType=LONGVARCHAR},
       result = #{record.result,jdbcType=LONGVARCHAR}
@@ -314,6 +362,7 @@
   <update id="updateByExample" parameterType="map">
     update t_match
     set id = #{record.id,jdbcType=VARCHAR},
+      match_name = #{record.matchName,jdbcType=VARCHAR},
       organization = #{record.organization,jdbcType=VARCHAR},
       match_content = #{record.matchContent,jdbcType=VARCHAR},
       match_time = #{record.matchTime,jdbcType=TIMESTAMP},
@@ -323,7 +372,10 @@
       enroll_time = #{record.enrollTime,jdbcType=TIMESTAMP},
       enroll_time_end = #{record.enrollTimeEnd,jdbcType=TIMESTAMP},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      create_user = #{record.createUser,jdbcType=VARCHAR}
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      match_del = #{record.matchDel,jdbcType=INTEGER},
+      match_now = #{record.matchNow,jdbcType=INTEGER},
+      time_quantum = #{record.timeQuantum,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -331,6 +383,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.billiard.entity.MatchWithBLOBs">
     update t_match
     <set>
+      <if test="matchName != null">
+        match_name = #{matchName,jdbcType=VARCHAR},
+      </if>
       <if test="organization != null">
         organization = #{organization,jdbcType=VARCHAR},
       </if>
@@ -361,6 +416,15 @@
       <if test="createUser != null">
         create_user = #{createUser,jdbcType=VARCHAR},
       </if>
+      <if test="matchDel != null">
+        match_del = #{matchDel,jdbcType=INTEGER},
+      </if>
+      <if test="matchNow != null">
+        match_now = #{matchNow,jdbcType=INTEGER},
+      </if>
+      <if test="timeQuantum != null">
+        time_quantum = #{timeQuantum,jdbcType=VARCHAR},
+      </if>
       <if test="details != null">
         details = #{details,jdbcType=LONGVARCHAR},
       </if>
@@ -375,7 +439,8 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.billiard.entity.MatchWithBLOBs">
     update t_match
-    set organization = #{organization,jdbcType=VARCHAR},
+    set match_name = #{matchName,jdbcType=VARCHAR},
+      organization = #{organization,jdbcType=VARCHAR},
       match_content = #{matchContent,jdbcType=VARCHAR},
       match_time = #{matchTime,jdbcType=TIMESTAMP},
       match_place = #{matchPlace,jdbcType=VARCHAR},
@@ -385,6 +450,9 @@
       enroll_time_end = #{enrollTimeEnd,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user = #{createUser,jdbcType=VARCHAR},
+      match_del = #{matchDel,jdbcType=INTEGER},
+      match_now = #{matchNow,jdbcType=INTEGER},
+      time_quantum = #{timeQuantum,jdbcType=VARCHAR},
       details = #{details,jdbcType=LONGVARCHAR},
       name_list = #{nameList,jdbcType=LONGVARCHAR},
       result = #{result,jdbcType=LONGVARCHAR}
@@ -392,7 +460,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.billiard.entity.Match">
     update t_match
-    set organization = #{organization,jdbcType=VARCHAR},
+    set match_name = #{matchName,jdbcType=VARCHAR},
+      organization = #{organization,jdbcType=VARCHAR},
       match_content = #{matchContent,jdbcType=VARCHAR},
       match_time = #{matchTime,jdbcType=TIMESTAMP},
       match_place = #{matchPlace,jdbcType=VARCHAR},
@@ -401,7 +470,10 @@
       enroll_time = #{enrollTime,jdbcType=TIMESTAMP},
       enroll_time_end = #{enrollTimeEnd,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      create_user = #{createUser,jdbcType=VARCHAR}
+      create_user = #{createUser,jdbcType=VARCHAR},
+      match_del = #{matchDel,jdbcType=INTEGER},
+      match_now = #{matchNow,jdbcType=INTEGER},
+      time_quantum = #{timeQuantum,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

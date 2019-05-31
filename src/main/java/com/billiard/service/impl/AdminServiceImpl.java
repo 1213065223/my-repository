@@ -61,7 +61,7 @@ public class AdminServiceImpl implements AdminService {
 		createCriteria.andLoginNameEqualTo(admin.getLoginName());
 		List<Admin> selectByExample = adminMapper.selectByExample(example);
 		if(!selectByExample.isEmpty()) {
-			return JobResponse.errorResponse(100007, "管理员账号名存在！");
+			return JobResponse.errorResponse(100007, "管理员账户已存在！");
 		}
 		return JobResponse.successResponse(adminMapper.insertSelective(admin));
 	}
@@ -81,7 +81,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public JobResponse getAdminList(Integer page, Integer size, String nick_name, String phone) {
-		PageHelper.startPage(page, size, "create_time");
+	
 		AdminExample example = new AdminExample();
 		Criteria createCriteria = example.createCriteria();
 		if(StringUtils.isNotBlank(nick_name)) {
@@ -90,6 +90,7 @@ public class AdminServiceImpl implements AdminService {
 		if(StringUtils.isNotBlank(phone)) {
 			createCriteria.andPhoneLike(phone);
 		}
+		PageHelper.startPage(page, size,"create_time");
 		List<Admin> selectByExample = adminMapper.selectByExample(example);
 		PageInfo<Admin> pageInfo = new PageInfo<>(selectByExample);
 		return JobResponse.successResponse(pageInfo);
@@ -99,7 +100,7 @@ public class AdminServiceImpl implements AdminService {
 	public JobResponse updateAdmin(Admin admin) {
 		Admin selectByPrimaryKey = adminMapper.selectByPrimaryKey(admin.getId());
 		if(selectByPrimaryKey==null) {
-			return JobResponse.errorResponse(100008, "该管理员不存在！");
+			return JobResponse.errorResponse(100008, "管理员信息不存在！");
 		}
 		if(StringUtils.isNotBlank(admin.getPassword())) {
 			admin.setPassword(MD5Util.formPassToDBPass(admin.getPassword(), selectByPrimaryKey.getSalt()));
@@ -119,7 +120,7 @@ public class AdminServiceImpl implements AdminService {
 		createCriteria.andImageLocationEqualTo(index.getImageLocation());
 		List<Index> selectByExample = indexMapper.selectByExample(indexExample);
 		if(!selectByExample.isEmpty()) {
-			return JobResponse.errorResponse(100010, "该图片已经添加过！");
+			return JobResponse.errorResponse(100010, "图片内容已经添加过！");
 		}
 		
 		return JobResponse.successResponse(indexMapper.insertSelective(index));
@@ -129,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
 	public JobResponse updateIndex(Index index) {
 		Index selectByPrimaryKey = indexMapper.selectByPrimaryKey(index.getId());
 		if(selectByPrimaryKey==null) {
-			return JobResponse.errorResponse(100011, "该首页记录不存在！");
+			return JobResponse.errorResponse(100011, "该条记录不存在！");
 		}
 		index.setCreateTime(null);
 		index.setCreateUser(null);
