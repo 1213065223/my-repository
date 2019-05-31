@@ -71,12 +71,12 @@ public class AdminController {
 	@ResponseBody
 	public JobResponse adminList(@RequestParam(value="page",defaultValue="1")Integer page ,@RequestParam(value="size",defaultValue="10")Integer size ,@RequestParam(value="nick_name",required=false) String nick_name ,@RequestParam(value="phone",required=false)String phone ,HttpServletRequest request ) {
 		HttpSession session = request.getSession();
-		Object attribute = session.getAttribute("admin_user");
-		if(attribute==null) {
-			log.info("管理员登录超时！");
-			return JobResponse.errorResponse(100005, "管理员登录超时！");
-		}
-		
+//		Object attribute = session.getAttribute("admin_user");
+//		if(attribute==null) {
+//			log.info("管理员登录超时！");
+//			return JobResponse.errorResponse(100005, "管理员登录超时！");
+//		}
+//		
 		return adminService.getAdminList(page,size,nick_name,phone);
 	}
 	
@@ -84,13 +84,13 @@ public class AdminController {
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse updateAdmin(@RequestBody Admin admin ,HttpServletRequest request ) {
-		HttpSession session = request.getSession();
-		Object attribute = session.getAttribute("admin_user");
-		if(attribute==null) {
-			log.info("管理员登录超时！");
-			return JobResponse.errorResponse(100005, "管理员登录超时！");
-		}
-		
+//		HttpSession session = request.getSession();
+//		Object attribute = session.getAttribute("admin_user");
+//		if(attribute==null) {
+//			log.info("管理员登录超时！");
+//			return JobResponse.errorResponse(100005, "管理员登录超时！");
+//		}
+//		
 		
 		
 		return adminService.updateAdmin(admin);

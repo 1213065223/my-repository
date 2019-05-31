@@ -1,0 +1,61 @@
+.System_AdvertisingSet {
+	width: 100%;
+	padding: 15px;
+	border-radius: 5px;
+	border-color: #e8eaec;
+	background: #fff;
+	font-size: 14px;
+	position: relative;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+
+.gd-table-div {
+	width: 100%;
+	overflow: auto;
+}
+
+.gd-table {
+	width: 100%;
+	border: 1px solid #dcdee2;
+	color: #515a6e;
+	font-size: 12px;
+}
+
+.gd-table>tbody>tr>th>div {
+	min-height: 40px;
+	background-color: #f8f8f9;
+}
+.gd-table>tbody>tr>td>div {
+	min-height: 50px;
+}
+.gd-table>tbody>tr {
+	border-bottom: 1px solid #dcdee2;
+}
+
+.gd-table>tbody>tr:last-child {
+	border-bottom: none;
+}
+
+.gd-table>tbody>tr>th {
+	border-right: 1px solid #dcdee2;
+}
+
+.gd-table>tbody>tr>th:last-child {
+	border-bottom: none;
+
+}
+
+.gd-table>tbody>tr>td {
+	border-right: 1px solid #dcdee2;
+}
+
+.gd-table>tbody>tr>td:last-child {
+	border-bottom: none;
+
+}
+
+.operation-but{
+	margin-right: 5px;
+}
