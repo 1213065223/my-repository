@@ -32,18 +32,18 @@
 				<dd src='System_AdvertisingSet'>
 					<span>广告设置</span>
 				</dd>
-				<dt>
+				<dt >
 					<i class="fa fa-address-book" aria-hidden="true"></i> <span>协会管理</span>
 					<i class="fa fa-angle-up" aria-hidden="true"></i>
 				</dt>
-				<dd>
+				<dd src='System_AssociationProfile'>
 					<span>协会简介</span>
 				</dd>
-				<dd>
-					<span>组织架构</span>
-				</dd>
-				<dd>
+				<dd src='System_associationAffiche'>
 					<span>协会公告</span>
+				</dd>
+				<dd src='System_Add_associationAffiche'>
+					<span>添加协会公告</span>
 				</dd>
 				<dt>
 					<i class="fa fa-address-book" aria-hidden="true"></i> <span>赛事管理</span>
@@ -118,18 +118,6 @@
 			<!-- style="padding: 0px 16px 16px;" -->
 			<div class="layout-content">
 				<div class="layout-breadcrumb">
-					<!-- <span>
-							<span>home</span>
-							<span>/</span>
-						</span>
-						<span>
-							<span>home</span>
-							<span>/</span>
-						</span>
-						<span>
-							<span>home</span>
-							<span>/</span>
-						</span> -->
 					<ol class="breadcrumb">
 						<li><a href="#">Home</a></li>
 						<li><a href="#">Library</a></li>
@@ -139,7 +127,7 @@
 
 				<div class="ivu-card ivu-card-bordered" id="ivu-card-div">
 					<iframe
-						src="http://localhost:9090/billiard/System_AdvertisingSet.jsp"
+						src="http://localhost:9090/billiard/System_Add_associationAffiche.jsp"
 						class="iframe" scrolling="yes" frameborder="0"></iframe>
 				</div>
 			</div>
@@ -149,6 +137,7 @@
 
 </body>
 <script type="text/javascript">
-	
+
+
 </script>
 </html>

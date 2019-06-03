@@ -1,0 +1,27 @@
+.text-title {
+	text-align: center;
+}
+.associationAffiche{
+	width:60%;
+	margin:auto;
+}
+.associationAffiche>div{
+	width: 90%;
+	margin-bottom: 20px;
+}
+.associationAffiche>div>p{
+	width: 60px;
+	text-align: left;
+}
+.associationAffiche>div:nth-child(2)>input{
+	width: 40%;
+}
+.associationAffiche>div:nth-child(3)>textarea{
+	width: 100%;
+	height: 100px;
+	padding: 5px;
+}
+.associationAffiche>div:last-child{
+	width: 30%;
+	margin: auto;
+}
