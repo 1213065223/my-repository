@@ -11,10 +11,13 @@
 	href="css/System_associationAffiche.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
+<link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.dialog.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
+
 <title>协会公告</title>
 </head>
 <body>
@@ -90,7 +93,7 @@ let data_arr = []
 												+ '</div></td>'
 												+ '<td style="width: 200px;"><div class="row-div">'
 												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('+item.id+')">编辑</button>'
-												+ '<button type="button" class="ivu-btn ivu-btn-error">删除</button>'
+												+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="hint('+item.id+')">删除</button>'
 												+ '</div></td></tr>';
 									});
 							$("#table>tbody").html(innhtml);
@@ -122,6 +125,52 @@ let data_arr = []
 	
 	function compile_click (id) {
 		parent.$(window.parent.document).find('.iframe').attr('src','http://localhost:9090/billiard/System_Add_associationAffiche.jsp?id='+id);
+	}
+	function hint (id) {
+		$.dialog.confirm({content:"你确定要删除吗",callback:"callback("+id+");"});
+	};
+	function callback (id) {
+		deleteRequest(id);
+	}
+	function deleteRequest (id) {
+		$
+		.ajax({
+			type : "POST",
+			async : true,
+			url : "${pageContext.request.contextPath}/admin/association/announcement/delete",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify({
+				"id" : id
+			}),
+			success : function(data) {
+				if (data.code === 200) {
+					spop({
+						template : '成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});
+					request();
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
 	}
 </script>
 </html>

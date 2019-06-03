@@ -49,8 +49,8 @@
 					<i class="fa fa-address-book" aria-hidden="true"></i> <span>赛事管理</span>
 					<i class="fa fa-angle-up" aria-hidden="true"></i>
 				</dt>
-				<dd>
-					<span>赛事管理</span>
+				<dd src='System_CompetitionList'>
+					<span>赛事列表</span>
 				</dd>
 				<dd>
 					<span>报名管理</span>
@@ -62,52 +62,28 @@
 					<span>赛事回顾</span>
 				</dd>
 				<dt>
-					<i class="fa fa-address-book" aria-hidden="true"></i> <span>赛事管理</span>
+					<i class="fa fa-address-book" aria-hidden="true"></i> <span>排名管理</span>
 					<i class="fa fa-angle-up" aria-hidden="true"></i>
 				</dt>
 				<dd>
-					<span>赛事管理</span>
+					<span>战绩排名管理</span>
 				</dd>
 				<dd>
-					<span>报名管理</span>
-				</dd>
-				<dd>
-					<span>赛事新闻</span>
-				</dd>
-				<dd>
-					<span>赛事回顾</span>
+					<span>积分排名管理</span>
 				</dd>
 				<dt>
-					<i class="fa fa-address-book" aria-hidden="true"></i> <span>赛事管理</span>
+					<i class="fa fa-address-book" aria-hidden="true"></i> <span>会员管理</span>
 					<i class="fa fa-angle-up" aria-hidden="true"></i>
 				</dt>
 				<dd>
-					<span>赛事管理</span>
-				</dd>
-				<dd>
-					<span>报名管理</span>
-				</dd>
-				<dd>
-					<span>赛事新闻</span>
-				</dd>
-				<dd>
-					<span>赛事回顾</span>
+					<span>会员列表</span>
 				</dd>
 				<dt>
-					<i class="fa fa-address-book" aria-hidden="true"></i> <span>赛事管理</span>
+					<i class="fa fa-address-book" aria-hidden="true"></i> <span>系统管理</span>
 					<i class="fa fa-angle-up" aria-hidden="true"></i>
 				</dt>
 				<dd>
-					<span>赛事管理</span>
-				</dd>
-				<dd>
-					<span>报名管理</span>
-				</dd>
-				<dd>
-					<span>赛事新闻</span>
-				</dd>
-				<dd>
-					<span>赛事回顾</span>
+					<span>网站设置</span>
 				</dd>
 			</dl>
 		</div>
@@ -127,7 +103,7 @@
 
 				<div class="ivu-card ivu-card-bordered" id="ivu-card-div">
 					<iframe
-						src="http://localhost:9090/billiard/System_Add_associationAffiche.jsp"
+						src="http://localhost:9090/billiard/System_Add_CompetitionList.jsp"
 						class="iframe" scrolling="yes" frameborder="0"></iframe>
 				</div>
 			</div>

@@ -165,6 +165,48 @@ public class EnrollExample {
             return (Criteria) this;
         }
 
+        public Criteria andSurnameIsNull() {
+            addCriterion("surname is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSurnameIsNotNull() {
+            addCriterion("surname is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSurnameEqualTo(String value) {
+            addCriterion("surname =", value, "surname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSurnameNotEqualTo(String value) {
+            addCriterion("surname <>", value, "surname");
+            return (Criteria) this;
+        }
+
+
+
+
+
+        public Criteria andSurnameLike(String value) {
+            addCriterion("surname like", value, "surname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSurnameNotLike(String value) {
+            addCriterion("surname not like", value, "surname");
+            return (Criteria) this;
+        }
+
+
+
+
+
+
+
+
+
         public Criteria andUserNameIsNull() {
             addCriterion("user_name is null");
             return (Criteria) this;

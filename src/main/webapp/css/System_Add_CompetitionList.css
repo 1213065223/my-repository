@@ -1,0 +1,47 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+.Add_CompetitionList {
+	width: 100%
+}
+
+.Add_CompetitionList-div-1 {
+	width: 80%
+}
+
+.Add_CompetitionList-div-1>div {
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 14px;
+	color: #657180;
+}
+
+.Add_CompetitionList-div-1>div>p {
+	width: 110px;
+	margin-right: 10px;
+}
+
+.gd-textarea {
+	min-height: 100px;
+	border: 1px solid #dcdee2;
+	padding: 6px 6px;
+}
+
+
+.jeinput {
+	display: block;
+	padding-left: 10px;
+	height: 36px;
+	line-height: 34px\9;
+	border: 1px solid #e6e6e6;
+	background-color: #fff;
+	border-radius: 3px;
+	background-color: #fcfcfc;
+}
+

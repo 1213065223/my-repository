@@ -1,5 +1,6 @@
 package com.billiard.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class IndexServiceImpl implements IndexService {
 	
 	@Override
 	public Map<String, List<Index>> list() {
+		List<Index> all = new ArrayList<>();
 		Map<String, List<Index>> res = new HashMap<>();
 		IndexExample example = new IndexExample();
 		IndexExample example2 = new IndexExample();
@@ -48,13 +50,23 @@ public class IndexServiceImpl implements IndexService {
 		Criteria createCriteria = example.createCriteria();
 		createCriteria.andIsHiddenEqualTo(false);
 		createCriteria.andImageLocationEqualTo(1);
-		res.put("banner", indexMapper.selectByExample(example)) ;
+		List<Index> selectByExample = indexMapper.selectByExample(example);
+		res.put("banner",selectByExample) ;
+		all.addAll(selectByExample);
 		example2.createCriteria().andImageLocationEqualTo(2).andIsHiddenEqualTo(false);
-		res.put("council", indexMapper.selectByExample(example2)) ;
+		List<Index> selectByExample2 = indexMapper.selectByExample(example2);
+		res.put("council", selectByExample2) ;
+		all.addAll(selectByExample2);
 		example3.createCriteria().andImageLocationEqualTo(3).andIsHiddenEqualTo(false);
-		res.put("sponsor", indexMapper.selectByExample(example3)) ;
+		List<Index> selectByExample3 = indexMapper.selectByExample(example3);
+		res.put("sponsor", selectByExample3) ;
+		all.addAll(selectByExample3);
 		example4.createCriteria().andImageLocationEqualTo(4).andIsHiddenEqualTo(false);
-		res.put("naming", indexMapper.selectByExample(example4)) ;
+		List<Index> selectByExample4 = indexMapper.selectByExample(example4);
+		res.put("naming", selectByExample4) ;
+		all.addAll(selectByExample4);
+		
+		res.put("all", all) ;
 		return res;
 	}
 
@@ -80,11 +92,11 @@ public class IndexServiceImpl implements IndexService {
 
 	@Override
 	public PageInfo<Announcement> organizationList(int page, int size) {
-		PageHelper.startPage(page, size, "create_time desc");
+		PageHelper.startPage(page, size,"create_time desc");
 		AnnouncementExample example= new AnnouncementExample();
 		List<Announcement> selectByExampleWithBLOBs = announcementMapper.selectByExampleWithBLOBs(example);
-		
-		return new PageInfo<>(selectByExampleWithBLOBs);
+		PageInfo<Announcement> p =new PageInfo<>(selectByExampleWithBLOBs);
+		return p;
 	}
 
 	@Override

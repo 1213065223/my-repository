@@ -3,9 +3,15 @@ package com.billiard.dao;
 import com.billiard.entity.Enroll;
 import com.billiard.entity.EnrollExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface EnrollMapper {
+	
+	List<Map<String,Object>> selectEnrollInfo (Enroll record);
+	
+	
     long countByExample(EnrollExample example);
 
     int deleteByExample(EnrollExample example);

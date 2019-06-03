@@ -199,7 +199,7 @@ $('input[name=radio-name]').click(function () {
 	};
 })
 $(".zxf_pagediv").createPage({
-	backfun : (e) => {
+	backfun : function (e) {
 		entity.size = e.current;
 		request();
 	}
@@ -212,9 +212,9 @@ function request () {
 	let phone = $("#phone").val();
 	$.ajax({
 		type : "GET",
-		url : "${pageContext.request.contextPath}/index/list?size=" + 1 + "&nick_name="+nick_name+"&phone="+phone,
+		url : "${pageContext.request.contextPath}/index/list?size=" + 10 + "&nick_name="+nick_name+"&phone="+phone,
 		dataType : "json",
-		success : (data) => {
+		success : function (data) {
 			if (data.code === 200) {
 				entity.pageNum = data.result.pages;
 				dataList.table = data.result.all;

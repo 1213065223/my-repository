@@ -37,11 +37,11 @@
 </head>
 <body>
 	<div>
-		<div  class="associationAffiche">
+		<div class="associationAffiche">
 			<h4 class="text-title" id="h4lable">添加协会公告</h4>
 			<div class="flex-start">
 				<p>标题</p>
-				<input type="text" id="title"/>
+				<input type="text" id="title" />
 			</div>
 			<div class="flex-start" style="align-items: flex-start;">
 				<p>介绍</p>
@@ -50,10 +50,10 @@
 			<div class="flex-start content-div" style="align-items: flex-start;">
 				<p>文本</p>
 				<textarea class="content"
-						style="width: 98%; height: 200px; visibility: hidden;"></textarea>
+					style="width: 98%; height: 200px; visibility: hidden;"></textarea>
 			</div>
-			<div class="flex-between" >
-				<button type="button" class="ivu-btn" onclick="cancel()">取消</button>
+			<div class="flex-between">
+				<button type="button" class="ivu-btn" >取消</button>
 				<button type="button" class="ivu-btn ivu-btn-primary"
 					onclick="insert()">提交</button>
 			</div>
@@ -63,25 +63,20 @@
 		onchange="UploadImage(this.files[0])" />
 </body>
 <script>
-console.log(window.location.search);
-let url = window.location.search;
-let id = null;
-if (url.indexOf("?") !== -1) {
-	  let str = url.substr(1);  
-	  let strs = str.split("&");  
-      console.log(strs)
-      for(let i =0; i<strs.length;i++){
-    	 let arr = strs[i].split("=");
-    	 id = arr[1]
-      }
-}
-console.log('id',id)
-if (id) {
-	$('#h4lable').val('编辑协会公告');
-	$("#title").val('');
-	$("#introduce").val('');
-	//editor.insertHtml();
-}
+	console.log(window.location.search);
+	let url = window.location.search;
+	let id = null;
+	if (url.indexOf("?") !== -1) {
+		let str = url.substr(1);
+		let strs = str.split("&");
+		for (let i = 0; i < strs.length; i++) {
+			let arr = strs[i].split("=");
+			id = arr[1]
+		}
+	}
+	if (id) {
+		request()
+	}
 	function cancel() {
 		editor.html('');
 		$("#title").val('');
@@ -133,84 +128,90 @@ if (id) {
 			});
 			return;
 		}
-		$.ajax({
-			type : "POST",
-			async : true,
-			url : "${pageContext.request.contextPath}/admin/association/announcement",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			data : JSON.stringify({
-				"id": id,
-				"title": $("#title").val(),
-				"introduce": $("#introduce").val(),
-				"content" : html
-			}),
-			success : function(data) {
-				if (data.code === 200) {
-					id = null;
-					$("#title").val('');
-					$("#introduce").val('');
-					editor.html('');
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
-					});
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
+		$
+				.ajax({
+					type : "POST",
+					async : true,
+					url : "${pageContext.request.contextPath}/admin/association/announcement",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : JSON.stringify({
+						"id" : id,
+						"title" : $("#title").val(),
+						"introduce" : $("#introduce").val(),
+						"content" : html
+					}),
+					success : function(data) {
+						if (data.code === 200) {
+							spop({
+								template : '成功',
+								group : 'submit-satus',
+								style : 'success',
+								autoclose : 5000
+							});
+							parent
+									.$(window.parent.document)
+									.find('.iframe')
+									.attr('src',
+											'http://localhost:9090/billiard/System_associationAffiche.jsp');
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			}
-		});
 	}
 
 	function request() {
 		/* 	let html = editor.html() */
-		$.ajax({
-			type : "post",
-			async : true,
-			url : "${pageContext.request.contextPath}/index/association",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			success : function(data) {
-				if (data.code === 200) {
-					editor.html('')
-					editor
-							.insertHtml("<p>" + data.result.introduction
+		$
+				.ajax({
+					type : "get",
+					async : true,
+					url : "${pageContext.request.contextPath}/index/announcement/detail?aid="
+							+ id,
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					success : function(res) {
+						if (res.code === 200) {
+							editor.html('');
+							$('#h4lable').text('编辑协会公告');
+							$("#title").val(res.result.title);
+							$("#introduce").val(res.result.introduce);
+							editor.insertHtml("<p>" + res.result.content
 									+ "</p>");
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			}
-		});
 	}
 </script>
 </html>

@@ -5,6 +5,8 @@ import java.util.Date;
 public class Enroll {
     private Integer id;
 
+    private String surname;
+
     private String userName;
 
     private String userId;
@@ -39,6 +41,19 @@ public class Enroll {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getSurname() {
+        return 
+surname;
+    }
+
+    public void setSurname(String 
+surname) {
+        this.
+surname = 
+surname == null ? null : 
+surname.trim();
     }
 
     public String getUserName() {
