@@ -13,6 +13,8 @@
     <result column="sex" jdbcType="BIT" property="sex" />
     <result column="head_image" jdbcType="VARCHAR" property="headImage" />
     <result column="isStop" jdbcType="BIT" property="isstop" />
+    <result column="surname" jdbcType="VARCHAR" property="surname" />
+    <result column="create_time" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -152,6 +154,12 @@
       <if test="isstop != null">
         isStop,
       </if>
+       <if test="surname != null">
+        surname,
+      </if>
+       <if test="createTime != null">
+        create_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -186,6 +194,12 @@
       </if>
       <if test="isstop != null">
         #{isstop,jdbcType=BIT},
+      </if>
+        <if test="surname != null">
+        #{surname},
+      </if>
+       <if test="createTime != null">
+       now(),
       </if>
     </trim>
   </insert>
@@ -285,6 +299,9 @@
       </if>
       <if test="isstop != null">
         isStop = #{isstop,jdbcType=BIT},
+      </if>
+       <if test="surname != null">
+        surname = #{surname},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}

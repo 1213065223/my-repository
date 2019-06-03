@@ -19,4 +19,6 @@ public interface IndexService {
 
 	PageInfo<Announcement> organizationList(int page, int size);
 
+	Announcement organizationDetail(int aid);
+
 }

@@ -1,5 +1,7 @@
 package com.billiard.entity;
 
+import java.util.Date;
+
 public class User {
     private String id;
 
@@ -22,6 +24,10 @@ public class User {
     private String headImage;
 
     private Integer isstop;
+    
+    private String surname;
+    
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -110,4 +116,23 @@ public class User {
     public void setIsstop(Integer isstop) {
         this.isstop = isstop;
     }
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+    
+    
+    
 }

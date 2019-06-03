@@ -86,5 +86,10 @@ public class IndexServiceImpl implements IndexService {
 		
 		return new PageInfo<>(selectByExampleWithBLOBs);
 	}
+
+	@Override
+	public Announcement organizationDetail(int aid) {
+		return announcementMapper.selectByPrimaryKey(aid);
+	}
 	
 }
