@@ -3,6 +3,7 @@ package com.billiard.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value="enroll",method=RequestMethod.GET)
-	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) String type,HttpServletRequest request) {
+	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) Integer type,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Object logUser = session.getAttribute("user");
 		
@@ -58,6 +59,7 @@ public class UserController {
 		log.info("我的报名->"+u.getNickname());
 		Enroll enroll = new Enroll();
 		enroll.setUserId(u.getId());
-		return JobResponse.successResponse(matchService.myEnrollList(enroll));
+		enroll.setEnrollType(type);
+		return JobResponse.successResponse(matchService.myEnrollList(enroll,page,size));
 	}
 }

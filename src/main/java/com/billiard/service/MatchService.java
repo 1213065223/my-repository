@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
+import com.billiard.entity.Match;
 import com.billiard.entity.MatchWithBLOBs;
 import com.github.pagehelper.PageInfo;
 
@@ -15,5 +16,10 @@ public interface MatchService {
 	JobResponse AddEnroll(Enroll enroll);
 
 	List<Map<String,Object>> myEnrollList(Enroll enroll);
+
+	PageInfo<Map<String, Object>> myEnrollList(Enroll enroll, Integer page, Integer size);
+
+
+	Match matchDetail(String mid);
 
 }

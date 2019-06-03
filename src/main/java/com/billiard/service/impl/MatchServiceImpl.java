@@ -170,4 +170,20 @@ public class MatchServiceImpl  implements MatchService{
 	public List<Map<String, Object>> myEnrollList(Enroll enroll) {
 		return enrollMapper.selectEnrollInfo(enroll);
 	}
+
+	@Override
+	public PageInfo<Map<String, Object>> myEnrollList(Enroll enroll, Integer page, Integer size) {
+		
+		PageHelper.startPage(page, size, "create_time desc");
+		
+		List<Map<String, Object>> selectEnrollInfo = enrollMapper.selectEnrollInfo(enroll);
+		
+		PageInfo<Map<String, Object>> res =  new PageInfo<>(selectEnrollInfo);
+		return res;
+	}
+
+	@Override
+	public Match matchDetail(String mid) {
+		return matchMapper.selectByPrimaryKey(mid);
+	}
 }

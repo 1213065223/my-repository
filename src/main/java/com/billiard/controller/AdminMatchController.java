@@ -22,10 +22,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.Admin;
+import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
+import com.billiard.entity.MatchCourse;
 import com.billiard.entity.MatchWithBLOBs;
 import com.billiard.service.AdminService;
+import com.billiard.service.EnrollService;
+import com.billiard.service.MatchCourseService;
+import com.billiard.service.MatchService;
 import com.billiard.util.MD5Util;
 
 @SuppressWarnings("unused")
@@ -37,6 +42,12 @@ public class AdminMatchController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private EnrollService enrollService;
+	
+	@Autowired
+	private MatchCourseService matchCourseService;
 	
 	/* @InitBinder
 	    public void initBinder(WebDataBinder binder) {
@@ -86,6 +97,46 @@ public class AdminMatchController {
 		return JobResponse.successResponse(adminService.deleteMatch(id));
 	}
 	
-	
+	@RequestMapping(value="enroll/verify",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse verify( @RequestBody Enroll  enroll,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin) attribute;
+		log.info("管理员"+a.getLoginName()+"开始报名审核:  "+enroll.getId() + " 设置状态为："+enroll.getEnrollType());
+		return JobResponse.successResponse(enrollService.enrollVerify(enroll));
+	}
    
+	
+	@RequestMapping(value="review",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse review( @RequestBody MatchCourse matchCourse,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin) attribute;
+		log.info("管理员"+a.getLoginName()+"添加比赛回顾:  "+matchCourse.getTitle());
+		return JobResponse.successResponse(matchCourseService.addMatchCourse(matchCourse));
+	}
+	
+	@RequestMapping(value="review/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse reviewDelete( @RequestBody MatchCourse matchCourse,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin) attribute;
+		log.info("管理员"+a.getLoginName()+"添加比赛回顾:  "+matchCourse.getTitle());
+		return JobResponse.successResponse(matchCourseService.deleteMatchCourse(matchCourse));
+	}
 }

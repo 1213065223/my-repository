@@ -5,6 +5,7 @@ import java.util.List;
 import com.billiard.entity.Admin;
 import com.billiard.entity.Announcement;
 import com.billiard.entity.Association;
+import com.billiard.entity.Enroll;
 import com.billiard.entity.Index;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.MatchWithBLOBs;
@@ -47,5 +48,6 @@ public interface AdminService {
 	Integer announcementUpdateOrAdd(Announcement announcement, Admin a);
 
 	Integer announcementDelete(Integer id);
+
 
 }
