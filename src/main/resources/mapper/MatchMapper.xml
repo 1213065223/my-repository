@@ -17,6 +17,8 @@
     <result column="match_del" jdbcType="INTEGER" property="matchDel" />
     <result column="match_now" jdbcType="INTEGER" property="matchNow" />
     <result column="time_quantum" jdbcType="VARCHAR" property="timeQuantum" />
+    <result column="is_end" jdbcType="BIT" property="isEnd" />
+    <result column="enroll_cost" jdbcType="INTEGER" property="enrollCost" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.billiard.entity.MatchWithBLOBs">
     <result column="details" jdbcType="LONGVARCHAR" property="details" />
@@ -83,7 +85,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, match_name, organization, match_content, match_time, match_place, planning, schedule, 
-    enroll_time, enroll_time_end, create_time, create_user, match_del, match_now, time_quantum
+    enroll_time, enroll_time_end, create_time, create_user, match_del, match_now, time_quantum, 
+    is_end, enroll_cost
   </sql>
   <sql id="Blob_Column_List">
     details, name_list, result
@@ -142,15 +145,15 @@
       planning, schedule, enroll_time, 
       enroll_time_end, create_time, create_user, 
       match_del, match_now, time_quantum, 
-      details, name_list, result
-      )
+      is_end, enroll_cost, details, 
+      name_list, result)
     values (#{id,jdbcType=VARCHAR}, #{matchName,jdbcType=VARCHAR}, #{organization,jdbcType=VARCHAR}, 
       #{matchContent,jdbcType=VARCHAR}, #{matchTime,jdbcType=TIMESTAMP}, #{matchPlace,jdbcType=VARCHAR}, 
       #{planning,jdbcType=VARCHAR}, #{schedule,jdbcType=VARCHAR}, #{enrollTime,jdbcType=TIMESTAMP}, 
       #{enrollTimeEnd,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
       #{matchDel,jdbcType=INTEGER}, #{matchNow,jdbcType=INTEGER}, #{timeQuantum,jdbcType=VARCHAR}, 
-      #{details,jdbcType=LONGVARCHAR}, #{nameList,jdbcType=LONGVARCHAR}, #{result,jdbcType=LONGVARCHAR}
-      )
+      #{isEnd,jdbcType=BIT}, #{enrollCost,jdbcType=INTEGER}, #{details,jdbcType=LONGVARCHAR}, 
+      #{nameList,jdbcType=LONGVARCHAR}, #{result,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.billiard.entity.MatchWithBLOBs">
     insert into t_match
@@ -199,6 +202,12 @@
       </if>
       <if test="timeQuantum != null">
         time_quantum,
+      </if>
+      <if test="isEnd != null">
+        is_end,
+      </if>
+      <if test="enrollCost != null">
+        enroll_cost,
       </if>
       <if test="details != null">
         details,
@@ -255,6 +264,12 @@
       </if>
       <if test="timeQuantum != null">
         #{timeQuantum,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null">
+        #{isEnd,jdbcType=BIT},
+      </if>
+      <if test="enrollCost != null">
+        #{enrollCost,jdbcType=INTEGER},
       </if>
       <if test="details != null">
         #{details,jdbcType=LONGVARCHAR},
@@ -321,6 +336,12 @@
       <if test="record.timeQuantum != null">
         time_quantum = #{record.timeQuantum,jdbcType=VARCHAR},
       </if>
+      <if test="record.isEnd != null">
+        is_end = #{record.isEnd,jdbcType=BIT},
+      </if>
+      <if test="record.enrollCost != null">
+        enroll_cost = #{record.enrollCost,jdbcType=INTEGER},
+      </if>
       <if test="record.details != null">
         details = #{record.details,jdbcType=LONGVARCHAR},
       </if>
@@ -352,6 +373,8 @@
       match_del = #{record.matchDel,jdbcType=INTEGER},
       match_now = #{record.matchNow,jdbcType=INTEGER},
       time_quantum = #{record.timeQuantum,jdbcType=VARCHAR},
+      is_end = #{record.isEnd,jdbcType=BIT},
+      enroll_cost = #{record.enrollCost,jdbcType=INTEGER},
       details = #{record.details,jdbcType=LONGVARCHAR},
       name_list = #{record.nameList,jdbcType=LONGVARCHAR},
       result = #{record.result,jdbcType=LONGVARCHAR}
@@ -375,7 +398,9 @@
       create_user = #{record.createUser,jdbcType=VARCHAR},
       match_del = #{record.matchDel,jdbcType=INTEGER},
       match_now = #{record.matchNow,jdbcType=INTEGER},
-      time_quantum = #{record.timeQuantum,jdbcType=VARCHAR}
+      time_quantum = #{record.timeQuantum,jdbcType=VARCHAR},
+      is_end = #{record.isEnd,jdbcType=BIT},
+      enroll_cost = #{record.enrollCost,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -425,6 +450,12 @@
       <if test="timeQuantum != null">
         time_quantum = #{timeQuantum,jdbcType=VARCHAR},
       </if>
+      <if test="isEnd != null">
+        is_end = #{isEnd,jdbcType=BIT},
+      </if>
+      <if test="enrollCost != null">
+        enroll_cost = #{enrollCost,jdbcType=INTEGER},
+      </if>
       <if test="details != null">
         details = #{details,jdbcType=LONGVARCHAR},
       </if>
@@ -453,6 +484,8 @@
       match_del = #{matchDel,jdbcType=INTEGER},
       match_now = #{matchNow,jdbcType=INTEGER},
       time_quantum = #{timeQuantum,jdbcType=VARCHAR},
+      is_end = #{isEnd,jdbcType=BIT},
+      enroll_cost = #{enrollCost,jdbcType=INTEGER},
       details = #{details,jdbcType=LONGVARCHAR},
       name_list = #{nameList,jdbcType=LONGVARCHAR},
       result = #{result,jdbcType=LONGVARCHAR}
@@ -473,7 +506,9 @@
       create_user = #{createUser,jdbcType=VARCHAR},
       match_del = #{matchDel,jdbcType=INTEGER},
       match_now = #{matchNow,jdbcType=INTEGER},
-      time_quantum = #{timeQuantum,jdbcType=VARCHAR}
+      time_quantum = #{timeQuantum,jdbcType=VARCHAR},
+      is_end = #{isEnd,jdbcType=BIT},
+      enroll_cost = #{enrollCost,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

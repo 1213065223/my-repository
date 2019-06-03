@@ -1094,6 +1094,126 @@ public class MatchExample {
             addCriterion("time_quantum not between", value1, value2, "timeQuantum");
             return (Criteria) this;
         }
+
+        public Criteria andIsEndIsNull() {
+            addCriterion("is_end is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndIsNotNull() {
+            addCriterion("is_end is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndEqualTo(Boolean value) {
+            addCriterion("is_end =", value, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndNotEqualTo(Boolean value) {
+            addCriterion("is_end <>", value, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndGreaterThan(Boolean value) {
+            addCriterion("is_end >", value, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_end >=", value, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndLessThan(Boolean value) {
+            addCriterion("is_end <", value, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_end <=", value, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndIn(List<Boolean> values) {
+            addCriterion("is_end in", values, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndNotIn(List<Boolean> values) {
+            addCriterion("is_end not in", values, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_end between", value1, value2, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEndNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_end not between", value1, value2, "isEnd");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostIsNull() {
+            addCriterion("enroll_cost is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostIsNotNull() {
+            addCriterion("enroll_cost is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostEqualTo(Integer value) {
+            addCriterion("enroll_cost =", value, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostNotEqualTo(Integer value) {
+            addCriterion("enroll_cost <>", value, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostGreaterThan(Integer value) {
+            addCriterion("enroll_cost >", value, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostGreaterThanOrEqualTo(Integer value) {
+            addCriterion("enroll_cost >=", value, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostLessThan(Integer value) {
+            addCriterion("enroll_cost <", value, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostLessThanOrEqualTo(Integer value) {
+            addCriterion("enroll_cost <=", value, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostIn(List<Integer> values) {
+            addCriterion("enroll_cost in", values, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostNotIn(List<Integer> values) {
+            addCriterion("enroll_cost not in", values, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostBetween(Integer value1, Integer value2) {
+            addCriterion("enroll_cost between", value1, value2, "enrollCost");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnrollCostNotBetween(Integer value1, Integer value2) {
+            addCriterion("enroll_cost not between", value1, value2, "enrollCost");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

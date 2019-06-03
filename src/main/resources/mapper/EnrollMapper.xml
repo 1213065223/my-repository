@@ -3,6 +3,9 @@
 <mapper namespace="com.billiard.dao.EnrollMapper">
   <resultMap id="BaseResultMap" type="com.billiard.entity.Enroll">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="
+surname" jdbcType="VARCHAR" property="
+surname" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -77,8 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, user_id, sex, birthday, phone, head_image, email, enroll_cost, certificate_image, 
-    enroll_type, user_type, match_id, is_hidden, create_time
+    id, 
+surname, user_name, user_id, sex, birthday, phone, head_image, email, enroll_cost, 
+    certificate_image, enroll_type, user_type, match_id, is_hidden, create_time
   </sql>
   <select id="selectByExample" parameterType="com.billiard.entity.EnrollExample" resultMap="BaseResultMap">
     select
@@ -111,24 +115,31 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.billiard.entity.Enroll">
-    insert into t_enroll (id, user_name, user_id, 
-      sex, birthday, phone, 
-      head_image, email, enroll_cost, 
-      certificate_image, enroll_type, user_type, 
-      match_id, is_hidden, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{headImage,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{enrollCost,jdbcType=INTEGER}, 
-      #{certificateImage,jdbcType=VARCHAR}, #{enrollType,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, 
-      #{matchId,jdbcType=VARCHAR}, #{isHidden,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into t_enroll (id, 
+surname, user_name, 
+      user_id, sex, birthday, 
+      phone, head_image, email, 
+      enroll_cost, certificate_image, enroll_type, 
+      user_type, match_id, is_hidden, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{
+surname,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{enrollCost,jdbcType=INTEGER}, #{certificateImage,jdbcType=VARCHAR}, #{enrollType,jdbcType=INTEGER}, 
+      #{userType,jdbcType=INTEGER}, #{matchId,jdbcType=VARCHAR}, #{isHidden,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.billiard.entity.Enroll">
     insert into t_enroll
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="
+surname != null">
+        
+surname,
       </if>
       <if test="userName != null">
         user_name,
@@ -176,6 +187,11 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="
+surname != null">
+        #{
+surname,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -233,6 +249,12 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.
+surname != null">
+        
+surname = #{record.
+surname,jdbcType=VARCHAR},
+      </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
@@ -283,6 +305,9 @@
   <update id="updateByExample" parameterType="map">
     update t_enroll
     set id = #{record.id,jdbcType=INTEGER},
+      
+surname = #{record.
+surname,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=INTEGER},
@@ -304,6 +329,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.billiard.entity.Enroll">
     update t_enroll
     <set>
+      <if test="
+surname != null">
+        
+surname = #{
+surname,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
@@ -351,7 +382,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.billiard.entity.Enroll">
     update t_enroll
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set 
+surname = #{
+surname,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       birthday = #{birthday,jdbcType=VARCHAR},
@@ -367,4 +401,62 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select  id="selectEnrollInfo" parameterType="com.billiard.entity.Enroll" resultType="HashMap">
+  		SELECT
+	t_enroll.*, t_match.enroll_cost cost,
+	t_match.match_del,
+	t_match.is_end,
+	t_user.isStop,
+	CASE
+WHEN t_enroll.user_type IS NULL THEN
+	CASE t_match.is_end
+WHEN 1 THEN
+	'已结束'
+ELSE
+	CASE t_enroll.enroll_type
+WHEN 1 THEN
+	'待付款'
+WHEN 2 THEN
+	'待审核'
+WHEN 3 THEN
+	'审核通过'
+WHEN 4 THEN
+	'审核拒绝'
+ELSE
+	'待付款'
+END
+END
+ELSE
+	CASE t_enroll.user_type
+WHEN 1 THEN
+	'备战中'
+WHEN 2 THEN
+	'已结束'
+WHEN 3 THEN
+	'已取消'
+END
+END user_status
+FROM
+	t_enroll
+JOIN t_user ON t_enroll.user_id = t_user.id
+JOIN t_match ON t_match.id = t_enroll.match_id
+  	 <where>
+  	   <trim prefixOverrides="and" suffixOverrides=",">
+  	  <if test="userId != null">
+      and t_enroll.user_id = #{userId},
+      </if>
+        <if test="matchId != null">
+       t_enroll.match_id = #{matchId},
+      </if>
+          <if test="enrollType != null">
+       t_enroll.enroll_type = #{enrollType},
+      </if>
+      </trim>
+  	 </where>
+  </select>
+  
+  
+  
 </mapper>

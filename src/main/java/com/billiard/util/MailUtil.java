@@ -15,65 +15,65 @@ import javax.mail.internet.MimeMessage;
 import com.sun.mail.util.MailSSLSocketFactory;
 
 public class MailUtil {
-	/*//ÓÊ¼ş·şÎñÆ÷Ö÷»úÃû    // QQÓÊÏäµÄ SMTP ·şÎñÆ÷µØÖ·Îª: smtp.qq.com   
+	/*//ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    // QQï¿½ï¿½ï¿½ï¿½ï¿½ SMTP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·Îª: smtp.qq.com   
 	private static String myEmailSMTPHost = "smtp.qq.com";        
-	//·¢¼şÈËÓÊÏä   
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
 	private static String myEmailAccount = "1213065223@qq.com";        
-	//·¢¼şÈËÓÊÏäÃÜÂë£¨ÊÚÈ¨Âë£©    //ÔÚ¿ªÆôSMTP·şÎñÊ±»á»ñÈ¡µ½Ò»¸öÊÚÈ¨Âë£¬°ÑÊÚÈ¨ÂëÌîÔÚÕâÀï    
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¨ï¿½ï¿½È¨ï¿½ë£©    //ï¿½Ú¿ï¿½ï¿½ï¿½SMTPï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½È¨ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 	private static String myEmailPassword = "";*/
 
 	public static void sendEmail(String myEmailSMTPHost,String myEmailAccount,String myEmailPassword, String toEmailAddress,String nickname, String emailTitle, String emailContent) throws Exception{ 
 		Properties props = new Properties();      
-		// ¿ªÆôdebugµ÷ÊÔ       
+		// ï¿½ï¿½ï¿½ï¿½debugï¿½ï¿½ï¿½ï¿½       
 		props.setProperty("mail.debug", "true");  
-		// ·¢ËÍ·şÎñÆ÷ĞèÒªÉí·İÑéÖ¤        
+		// ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ö¤        
 		props.setProperty("mail.smtp.auth", "true");              
-		// ¶Ë¿ÚºÅ       
+		// ï¿½Ë¿Úºï¿½       
 		//props.put("mail.smtp.port", 465);              
-		// ÉèÖÃÓÊ¼ş·şÎñÆ÷Ö÷»úÃû    
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 		props.setProperty("mail.smtp.host", myEmailSMTPHost);           
-		// ·¢ËÍÓÊ¼şĞ­ÒéÃû³Æ       
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Ğ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½       
 		props.setProperty("mail.transport.protocol", "smtp");                
-		/**SSLÈÏÖ¤£¬×¢ÒâÌÚÑ¶ÓÊÏäÊÇ»ùÓÚSSL¼ÓÃÜµÄ£¬ËùÒÔĞèÒª¿ªÆô²Å¿ÉÒÔÊ¹ÓÃ**/     
+		/**SSLï¿½ï¿½Ö¤ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ñ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ï¿½SSLï¿½ï¿½ï¿½ÜµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½**/     
 		MailSSLSocketFactory sf = new MailSSLSocketFactory();      
 		sf.setTrustAllHosts(true);              
-		//ÉèÖÃÊÇ·ñÊ¹ÓÃssl°²È«Á¬½Ó£¨Ò»°ã¶¼Ê¹ÓÃ£©      
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ê¹ï¿½ï¿½sslï¿½ï¿½È«ï¿½ï¿½ï¿½Ó£ï¿½Ò»ï¿½ã¶¼Ê¹ï¿½Ã£ï¿½      
 		props.put("mail.smtp.ssl.enable", "true");       
 		props.put("mail.smtp.ssl.socketFactory", sf);           
-		//´´½¨»á»°     
+		//ï¿½ï¿½ï¿½ï¿½ï¿½á»°     
 		Session session = Session.getInstance(props);              
-		//»ñÈ¡ÓÊ¼ş¶ÔÏó        //·¢ËÍµÄÏûÏ¢£¬»ùÓÚ¹Û²ìÕßÄ£Ê½½øĞĞÉè¼ÆµÄ     
+		//ï¿½ï¿½È¡ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½        //ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹Û²ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½     
 		Message msg = new MimeMessage(session);                
-		//ÉèÖÃÓÊ¼ş±êÌâ       
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½       
 		msg.setSubject(emailTitle);           
-		//ÉèÖÃÓÊ¼şÄÚÈİ        //Ê¹ÓÃStringBuilder£¬ÒòÎªStringBuilder¼ÓÔØËÙ¶È»á±ÈString¿ì£¬¶øÇÒÏß³Ì°²È«ĞÔÒ²²»´í    
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½        //Ê¹ï¿½ï¿½StringBuilderï¿½ï¿½ï¿½ï¿½ÎªStringBuilderï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È»ï¿½ï¿½Stringï¿½ì£¬ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì°ï¿½È«ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½    
 		StringBuilder builder = new StringBuilder();               
-		//Ğ´ÈëÄÚÈİ    
+		//Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 		builder.append("\n" + emailContent);             
-		//Ğ´ÈëÎÒµÄ¹ÙÍø      
-		//builder.append("\n¹ÙÍø£º" + "https://www.hbuecx.club");             
-		//¶¨ÒåÒªÊä³öÈÕÆÚ×Ö·û´®µÄ¸ñÊ½     
+		//Ğ´ï¿½ï¿½ï¿½ÒµÄ¹ï¿½ï¿½ï¿½      
+		//builder.append("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + "https://www.hbuecx.club");             
+		//ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ê½     
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");            
-		//ÔÚÄÚÈİºó¼ÓÈëÓÊ¼ş·¢ËÍµÄÊ±¼ä        
-		builder.append("\nÊ±¼ä£º" + sdf.format(new Date()));          
-		//ÉèÖÃÏÔÊ¾µÄ·¢¼şÊ±¼ä       
+		//ï¿½ï¿½ï¿½ï¿½ï¿½İºï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Íµï¿½Ê±ï¿½ï¿½        
+		builder.append("\næ—¶é—´" + sdf.format(new Date()));          
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ä·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½       
 		msg.setSentDate(new Date());             
-		//ÉèÖÃÓÊ¼şÄÚÈİ     
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½     
 		msg.setText(builder.toString());                
-		//ÉèÖÃ·¢¼şÈËÓÊÏä        // InternetAddress µÄÈı¸ö²ÎÊı·Ö±ğÎª: ·¢¼şÈËÓÊÏä, ÏÔÊ¾µÄêÇ³Æ(Ö»ÓÃÓÚÏÔÊ¾, Ã»ÓĞÌØ±ğµÄÒªÇó), êÇ³ÆµÄ×Ö·û¼¯±àÂë        
+		//ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        // InternetAddress ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Îª: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ç³ï¿½(Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾, Ã»ï¿½ï¿½ï¿½Ø±ï¿½ï¿½Òªï¿½ï¿½), ï¿½Ç³Æµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        
 		msg.setFrom(new InternetAddress(myEmailAccount,nickname, "UTF-8"));           
-		//µÃµ½ÓÊ²î¶ÔÏó      
+		//ï¿½Ãµï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½      
 		Transport transport = session.getTransport();                
-		//Á¬½Ó×Ô¼ºµÄÓÊÏäÕË»§        //ÃÜÂë²»ÊÇ×Ô¼ºQQÓÊÏäµÄÃÜÂë£¬¶øÊÇÔÚ¿ªÆôSMTP·şÎñÊ±Ëù»ñÈ¡µ½µÄÊÚÈ¨Âë        //connect(host, user, password)       
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½        //ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½Ô¼ï¿½QQï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½SMTPï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½        //connect(host, user, password)       
 		transport.connect( myEmailSMTPHost, myEmailAccount, myEmailPassword);               
-		//·¢ËÍÓÊ¼ş      
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½      
 		transport.sendMessage(msg, new Address[] { new InternetAddress(toEmailAddress) });            
 		transport.close();    
 	}
 
     public static void main(String[] args) {
     	try {
-			//sendEmail("18740029390@163.com", "²âÊÔ", "ÕâÊÇÒ»¸öÓĞÓªÑøµÄÓÊ¼ş");
+			//sendEmail("18740029390@163.com", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

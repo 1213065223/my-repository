@@ -39,10 +39,10 @@ public class RegistController {
 		String url = "http://192.168.9.148:8080/billiard/regist/mail/confirm?mail=18740029390@163.com&code="+System.currentTimeMillis();
 		
 		
-		
+	
 		
 		try {
-			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(), "18740029390@163.com", "�������������е���1000000", "����", url);
+			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(), "18740029390@163.com", "台球协会", "注册验证", 	URLEncoder.encode(url,"UTF-8" ));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class RegistController {
 	
 	@RequestMapping(value="mail/confirm",method=RequestMethod.GET)
 	@ResponseBody
-	public JobResponse sendEmailConfirm(String mail,Long code) {
+	public JobResponse sendEmailConfirm(String mail) {
 		
 		User user = new User();
 		user.setId(mail);

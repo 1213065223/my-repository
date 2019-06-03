@@ -39,6 +39,10 @@ public class Match {
 
     private String timeQuantum;
 
+    private Boolean isEnd;
+
+    private Integer enrollCost;
+
     public String getId() {
         return id;
     }
@@ -157,5 +161,21 @@ public class Match {
 
     public void setTimeQuantum(String timeQuantum) {
         this.timeQuantum = timeQuantum == null ? null : timeQuantum.trim();
+    }
+
+    public Boolean getIsEnd() {
+        return isEnd;
+    }
+
+    public void setIsEnd(Boolean isEnd) {
+        this.isEnd = isEnd;
+    }
+
+    public Integer getEnrollCost() {
+        return enrollCost;
+    }
+
+    public void setEnrollCost(Integer enrollCost) {
+        this.enrollCost = enrollCost;
     }
 }
