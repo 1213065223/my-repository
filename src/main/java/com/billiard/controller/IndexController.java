@@ -51,4 +51,11 @@ public class IndexController {
 		return JobResponse.successResponse(indexService.organizationList(page,size));
 	}
 	
+	@RequestMapping("announcement/detail")
+	@ResponseBody
+	public JobResponse organization(@RequestParam(value="aid") int aid  ) {
+		log.info("   at announcement detail! "+aid);
+		return JobResponse.successResponse(indexService.organizationDetail(aid));
+	}
+	
 }
