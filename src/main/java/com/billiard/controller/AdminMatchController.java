@@ -104,7 +104,7 @@ public class AdminMatchController {
 	
 	@ResponseBody
 	@RequestMapping(value="enroll/list",method=RequestMethod.GET)
-	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) Integer type,@RequestParam(value="phone",required=false) String phone,@RequestParam(value="email",required=false) String email,HttpServletRequest request) {
+	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) Integer type,@RequestParam(value="match_id",required=false) String match_id,@RequestParam(value="phone",required=false) String phone,@RequestParam(value="email",required=false) String email,@RequestParam(value="match_name",required=false) String match_name,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("admin_user");
 		if(attribute==null) {
@@ -117,6 +117,8 @@ public class AdminMatchController {
 		enroll.setEnrollType(type);
 		enroll.setEmail(email);
 		enroll.setPhone(phone);
+		enroll.setMatchId(match_id);
+		enroll.setCertificateImage(match_name);//用图片字段暂存 比赛名
 		return JobResponse.successResponse(matchService.myEnrollList(enroll,page,size));
 	}
 	
@@ -159,7 +161,7 @@ public class AdminMatchController {
 			return JobResponse.errorResponse(100005, "管理员登录超时！");
 		}
 		Admin a = (Admin) attribute;
-		log.info("管理员"+a.getLoginName()+"添加比赛回顾:  "+matchCourse.getTitle());
+		log.info("管理员"+a.getLoginName()+"删除比赛回顾:  "+matchCourse.getId());
 		return JobResponse.successResponse(matchCourseService.deleteMatchCourse(matchCourse));
 	}
 }

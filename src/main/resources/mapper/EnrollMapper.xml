@@ -444,25 +444,28 @@ surname != null">
 		JOIN t_match ON t_match.id = t_enroll.match_id
 		<where>
 			<trim prefixOverrides="and" suffixOverrides=",">
-				<if test="userId != null">
-					and t_enroll.user_id = #{userId},
+				<if test="userId != null and userId != ''">
+					and t_enroll.user_id = #{userId}
 				</if>
-				<if test="matchId != null">
-					t_enroll.match_id = #{matchId},
+				<if test="matchId != null and matchId != ''">
+					and t_enroll.match_id = #{matchId}
 				</if>
 				<if test="userType != null">
-					t_match.is_end = #{userType},
+					and t_match.is_end = #{userType}
 				</if>
 				<if test="enrollType != null">
-					t_enroll.enroll_type = #{enrollType},
+					and t_enroll.enroll_type = #{enrollType}
 				</if>
-				<if test="phone != null">
-					t_enroll.phone LIKE concat(concat('%',#{phone}),'%'),
+				<if test="phone != null and phone != ''">
+					and t_enroll.phone LIKE concat(concat('%',#{phone}),'%')
 				</if>
-				<if test="email != null">
-					t_enroll.email LIKE concat(concat('%',#{email}),'%'),
+				<if test="email != null and email != ''">
+					and t_enroll.email LIKE concat(concat('%',#{email}),'%')
 				</if>
-
+				<if test="certificateImage != null and certificateImage != ''"> 
+					and t_match.match_name LIKE concat(concat('%',#{certificateImage}),'%')
+				</if>
+				
 			</trim>
 		</where>
 	</select>
