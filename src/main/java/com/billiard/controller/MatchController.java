@@ -59,5 +59,10 @@ public class MatchController {
 		return JobResponse.successResponse(matchCourseService.reviewList(page,size,title));
 	}
 	
-	
+	@RequestMapping(value="/review/detail",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse reviewList( @RequestParam(value="cid",required=false)Integer cid,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at review detail!");
+		return JobResponse.successResponse(matchCourseService.reviewDetail(cid));
+	}
 }

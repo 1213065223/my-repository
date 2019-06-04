@@ -27,6 +27,7 @@ import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
 import com.billiard.entity.MatchCourse;
 import com.billiard.entity.MatchWithBLOBs;
+import com.billiard.entity.User;
 import com.billiard.service.AdminService;
 import com.billiard.service.EnrollService;
 import com.billiard.service.MatchCourseService;
@@ -48,6 +49,9 @@ public class AdminMatchController {
 	
 	@Autowired
 	private MatchCourseService matchCourseService;
+	
+	@Autowired
+	private MatchService matchService;
 	
 	/* @InitBinder
 	    public void initBinder(WebDataBinder binder) {
@@ -95,6 +99,25 @@ public class AdminMatchController {
 			return JobResponse.errorResponse(100005, "管理员登录超时！");
 		}
 		return JobResponse.successResponse(adminService.deleteMatch(id));
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="enroll/list",method=RequestMethod.GET)
+	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) Integer type,@RequestParam(value="phone",required=false) String phone,@RequestParam(value="email",required=false) String email,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		log.info("报名管理");
+		Enroll enroll = new Enroll();
+		//enroll.setUserId(u.getId());
+		enroll.setEnrollType(type);
+		enroll.setEmail(email);
+		enroll.setPhone(phone);
+		return JobResponse.successResponse(matchService.myEnrollList(enroll,page,size));
 	}
 	
 	@RequestMapping(value="enroll/verify",method=RequestMethod.POST)
