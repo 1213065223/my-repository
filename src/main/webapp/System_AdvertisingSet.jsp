@@ -220,12 +220,12 @@ function request () {
 				dataList.table = data.result.all;
 				let arr = data.result.all;
 				let innhtml = '<tr><th><div class="row-div gd-table-th">图片</div></th><th><div class="row-div">图片位置</div></th><th><div class="row-div">连接方式</div></th><th><div class="row-div">状态</div></th><th><div class="row-div">创建时间</div></th><th><div class="row-div">操作</div></th></tr>'
-				arr.forEach((item,index) => {
+				arr.forEach( function (item,index) {
 					let isHidden = item.isHidden ? '禁用': '显示';
 					innhtml += '<tr>' +
 					'<td><div class="row-div"><img src="'+item.imageUrl+'" style="widht:80px;height:80px;"/></div></td>'+
 					'<td><div class="row-div">'+item.imageLocationDetail+'</div></td>'+
-					'<td><div class="row-div">'+item.jumpTypeDetail+'</div></td>'+
+					'<td><div class="row-div">'+item.hrefUrl+'</div></td>'+
 					'<td><div class="row-div">'+(item.isHidden ? '禁用': '显示')+'</div></td>'+
 					'<td><div class="row-div">'+item.createTime+'</div></td>'+
 					'<td style="width: 200px;"><div class="row-div">'+
@@ -328,7 +328,7 @@ function Ok_click () {
 			"jumpType": jumpType,
 			"isHidden": false
 		}),
-		success : (data) => {
+		success : function (data) {
 			if (data.code === 200) {
 				entity = 'sss';
 				console.log(data)

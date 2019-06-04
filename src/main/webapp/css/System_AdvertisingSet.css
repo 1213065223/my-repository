@@ -32,7 +32,7 @@
 .gd-table>tbody>tr>td>div {
 	min-height: 50px;
 }
-.gd-table-tr {
+.gd-table>tbody>tr {
 	border-bottom: 1px solid #dcdee2;
 }
 

@@ -113,10 +113,12 @@
 				<div class="row-div" style="width: 100%;">
 					<button class="ivu-btn" style="margin-right: 20px;"
 						onclick="cancel()">取消</button>
-					<button class="ivu-btn ivu-btn-primary" onclick="insertRequest()">确定</button>
+					<button class="ivu-btn ivu-btn-primary" onclick="ok_click()">确定</button>
 				</div>
 			</div>
 		</div>
+		<input type="file" id="file" style="display: none;"
+		onchange="UploadImage(this.files[0])" />
 	</div>
 </body>
 <script type="text/javascript">
@@ -134,6 +136,20 @@
 	jeDate("#enrollTimeEnd", {
 		format : "YYYY-MM-DD hh:mm:ss"
 	});
+	let url = window.location.search;
+	let id = null;
+	if (url.indexOf("?") !== -1) {
+		let str = url.substr(1);
+		let strs = str.split("&");
+		for (let i = 0; i < strs.length; i++) {
+			let arr = strs[i].split("=");
+			id = arr[1]
+		}
+	}
+	console.log(id);
+	if (id) {
+		request()
+	}
 	function cancel() {
 		editor.html('');
 		$("#matchName").val('');
@@ -148,6 +164,13 @@
 		$("#timeQuantum").val('');
 		$("#enrollCost").val('');
 	};
+	function ok_click() {
+		if (id) {
+			updateRequest();
+		} else {
+			insertRequest();
+		}
+	}
 	function insertRequest() {
 		$
 				.ajax({
@@ -202,6 +225,141 @@
 						});
 					}
 				});
+	}
+	
+	function updateRequest() {
+		$
+				.ajax({
+					type : "POST",
+					async : true,
+					url : "${pageContext.request.contextPath}/admin/match/update",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : JSON.stringify({
+						"id": id,
+						"matchName" : $("#matchName").val(),
+						"organization" : $("#organization").val(),
+						"matchContent" : $("#matchContent").val(),
+						"matchTime" : $("#matchTime").val(),
+						"matchPlace" : $("#matchPlace").val(),
+						"planning" : $("#planning").val(),
+						"schedule" : $("#schedule").val(),
+						"enrollTime" : $("#enrollTime").val(),
+						"enrollTimeEnd" : $("#enrollTimeEnd").val(),
+						"timeQuantum" : $("#timeQuantum").val(),
+						"enrollCost" : $("#enrollCost").val(),
+						"details" : editor.html()
+					}),
+					success : function(data) {
+						if (data.code === 200) {
+							spop({
+								template : '成功',
+								group : 'submit-satus',
+								style : 'success',
+								autoclose : 5000
+							});
+							parent
+									.$(window.parent.document)
+									.find('.iframe')
+									.attr('src',
+											'http://localhost:9090/billiard/System_CompetitionList.jsp');
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
+				});
+	}
+	
+	function request () {
+		$
+		.ajax({
+			type : "get",
+			async : true,
+			url : "${pageContext.request.contextPath}/match/detail?mid="+id,
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			success : function(res) {
+				if (res.code === 200) {
+					editor.insertHtml(res.result.details);
+					$("#matchName").val(res.result.matchName);
+					$("#organization").val(res.result.organization);
+					$("#matchContent").val(res.result.matchContent);
+					$("#matchTime").val(res.result.matchTime);
+					$("#matchPlace").val(res.result.matchPlace);
+					$("#planning").val(res.result.planning);
+					$("#schedule").val(res.result.schedule);
+					$("#enrollTime").val(res.result.enrollTime);
+					$("#enrollTimeEnd").val(res.result.enrollTimeEnd);
+					$("#timeQuantum").val(res.result.timeQuantum);
+					$("#enrollCost").val(res.result.enrollCost);
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+	}
+	function UploadImage(file) {
+		let entity = null;
+		let formdata = new FormData();
+		formdata.append("file", file)
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
+			success : function(data) {
+				if (data.code === 200) {
+					editor.appendHtml('<img src="'+data.result+'" />');
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+		return entity;
 	}
 </script>
 </html>

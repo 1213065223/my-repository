@@ -52,13 +52,13 @@
 				<dd src='System_CompetitionList'>
 					<span>赛事列表</span>
 				</dd>
-				<dd>
+				<dd src='System_applyManage'>
 					<span>报名管理</span>
 				</dd>
 				<dd>
 					<span>赛事新闻</span>
 				</dd>
-				<dd>
+				<dd src='System_EventReview'>
 					<span>赛事回顾</span>
 				</dd>
 				<dt>
@@ -103,7 +103,7 @@
 
 				<div class="ivu-card ivu-card-bordered" id="ivu-card-div">
 					<iframe
-						src="http://localhost:9090/billiard/System_Add_CompetitionList.jsp"
+						src="http://localhost:9090/billiard/System_Add_EventReview.jsp"
 						class="iframe" scrolling="yes" frameborder="0"></iframe>
 				</div>
 			</div>

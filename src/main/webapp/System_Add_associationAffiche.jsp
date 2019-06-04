@@ -63,7 +63,6 @@
 		onchange="UploadImage(this.files[0])" />
 </body>
 <script>
-	console.log(window.location.search);
 	let url = window.location.search;
 	let id = null;
 	if (url.indexOf("?") !== -1) {

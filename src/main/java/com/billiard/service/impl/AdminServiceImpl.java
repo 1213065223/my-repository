@@ -19,6 +19,7 @@ import com.billiard.entity.AdminExample.Criteria;
 import com.billiard.entity.Announcement;
 import com.billiard.entity.Association;
 import com.billiard.entity.AssociationExample;
+import com.billiard.entity.Enroll;
 import com.billiard.entity.Index;
 import com.billiard.entity.IndexExample;
 import com.billiard.entity.JobResponse;
@@ -211,5 +212,7 @@ public class AdminServiceImpl implements AdminService {
 	public Integer announcementDelete(Integer id) {
 		return announcementMapper.deleteByPrimaryKey(id);
 	}
+
+	
 
 }

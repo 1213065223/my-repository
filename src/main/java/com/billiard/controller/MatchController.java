@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
+import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
 
 @Controller
@@ -24,7 +25,9 @@ public class MatchController {
 
 	@Autowired
 	private MatchService matchService;
-
+	
+	@Autowired
+	private MatchCourseService matchCourseService;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	@ResponseBody
@@ -33,11 +36,28 @@ public class MatchController {
 		return JobResponse.successResponse(matchService.matchList(page,size,match_name,time_quantum));
 	}
 	
+	@RequestMapping(value="/detail",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse matchDetail(@RequestParam(value="mid") String mid ,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at match detail!"+mid);
+		return JobResponse.successResponse(matchService.matchDetail(mid));
+	}
+	
+	
 	@RequestMapping(value="enroll",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse AddEnroll(@RequestBody Enroll enroll,HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at add  match enroll!");
 		return matchService.AddEnroll(enroll);
 	}
+	
+	
+	@RequestMapping(value="/review",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse reviewList(@RequestParam(value="page",defaultValue="1")Integer page,@RequestParam(value="size",defaultValue="20")Integer size, @RequestParam(value="title",required=false)String title,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at review list!");
+		return JobResponse.successResponse(matchCourseService.reviewList(page,size,title));
+	}
+	
 	
 }

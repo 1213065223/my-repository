@@ -3,9 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>赛事列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>报名管理</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
 <link rel="stylesheet" type="text/css"
@@ -13,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/dialog.css" />
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
+
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
@@ -22,18 +22,14 @@
 <body>
 	<div>
 		<div class="flex-start form-div">
-			<div>
-				<button type="button" class="ivu-btn ivu-btn-warning" id="insert"
-					onclick="add_click()">添加赛事</button>
-			</div>
 			<div class="row-div form-data">
-				<p style="width: 80px;">比赛名称</p>
+				<p style="width: 80px;">用户姓名</p>
 				<input type="text" class="gd-input" id="match_name" />
 			</div>
-			<!-- <div class="row-div form-data">
+			<div class="row-div form-data">
 				<p style="width: 80px;">手机号</p>
 				<input type="text" class="gd-input" id="phone" />
-			</div> -->
+			</div>
 			<div>
 				<button type="button" class="ivu-btn ivu-btn-primary"
 					onclick="request()">查询</button>
@@ -44,28 +40,28 @@
 				id="table">
 				<tr>
 					<th>
-						<div class="row-div gd-table-th">比赛名称</div>
+						<div class="row-div gd-table-th">用户姓名</div>
 					</th>
 					<th>
-						<div class="row-div gd-table-th">组织机构</div>
+						<div class="row-div gd-table-th">性别</div>
 					</th>
 					<th>
-						<div class="row-div">比赛项目内容</div>
+						<div class="row-div">生日</div>
 					</th>
 					<th>
-						<div class="row-div">时间地点</div>
+						<div class="row-div">联系电话</div>
 					</th>
 					<th>
-						<div class="row-div">规则</div>
+						<div class="row-div">照片头像</div>
 					</th>
 					<th>
-						<div class="row-div">日程安排</div>
+						<div class="row-div">邮箱</div>
 					</th>
 					<th>
-						<div class="row-div">开放报名时间</div>
+						<div class="row-div">参赛报名费用</div>
 					</th>
 					<th>
-						<div class="row-div">报名截止时间</div>
+						<div class="row-div">状态</div>
 					</th>
 					<th>
 						<div class="row-div">操作</div>
@@ -82,7 +78,6 @@
 
 	</div>
 </body>
-
 <script type="text/javascript">
 	var entity = {
 		size : 10,
@@ -97,14 +92,6 @@
 			request();
 		}
 	});
-	function add_click() {
-		parent
-		.$(window.parent.document)
-		.find('.iframe')
-		.attr('src',
-				'http://localhost:9090/billiard/System_Add_CompetitionList.jsp');
-	};
-	request();
 	function request() {
 		let match_name = $('#match_name').val();
 		$
@@ -120,21 +107,23 @@
 							dataList.table = data.result.list;
 							let arr = data.result.list;
 							let innhtml = '<tr>'
-									+ '<th><div class="row-div gd-table-th">比赛名称</div></th>'
-									+ '<th><div class="row-div gd-table-th">组织机构</div></th>'
-									+ '<th><div class="row-div">比赛项目内容</div></th>'
-									+ '<th><div class="row-div">时间地点</div></th>'
-									+ '<th><div class="row-div">规则</div></th>'
-									+ '<th><div class="row-div">日程安排</div></th>'
-									+ '<th><div class="row-div">开放报名时间</div></th>'
-									+ '<th><div class="row-div">报名截止时间</div></th>'
-									+ '<th><div class="row-div">比赛情况</div></th>'
+									+ '<th><div class="row-div">用户姓名</div></th>'
+									+ '<th><div class="row-div">性别</div></th>'
+									+ '<th><div class="row-div">生日</div></th>'
+									+ '<th><div class="row-div">联系电话</div></th>'
+									+ '<th><div class="row-div">照片头像</div></th>'
+									+ '<th><div class="row-div">邮箱</div></th>'
+									+ '<th><div class="row-div">参赛报名费用</div></th>'
+									+ '<th><div class="row-div">状态</div></th>'
 									+ '<th><div class="row-div">操作</div></th>'
 									+ '</tr>';
 							arr
 									.forEach(function(item, index) {
-										let isEnd = item.isEnd? "已结束" : "进行中";
-										let tml = item.isEnd? '' : '<button type="button" class="ivu-btn ivu-btn-warning operation-but" onclick="hint('+index+',-1)">结束比赛</button>'
+										let isEnd = item.isEnd ? "已结束" : "进行中";
+										let tml = item.isEnd ? ''
+												: '<button type="button" class="ivu-btn ivu-btn-warning operation-but" onclick="hint('
+														+ index
+														+ ',-1)">结束比赛</button>'
 										innhtml += '<tr>'
 												+ '<td><div class="row-div">'
 												+ item.matchName
@@ -165,8 +154,12 @@
 												+ '</div></td>'
 												+ '<td style="width: 230px;"><div class="row-div">'
 												+ tml
-												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('+index+')">编辑</button>'
-												+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="hint('+index+',1)">删除</button>'
+												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('
+												+ index
+												+ ')">编辑</button>'
+												+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="hint('
+												+ index
+												+ ',1)">删除</button>'
 												+ '</div></td></tr>';
 									})
 
@@ -195,108 +188,6 @@
 						});
 					}
 				});
-	}
-	
-	function hint (index,s) {
-		let str = s === 1 ? '你确定要删除吗?' : '你确定要结束比赛吗?'
-		$.dialog.confirm({content:str,callback:"callback("+index+","+s+");"});
-	};
-	function callback (index,s) {
-		if (s !== -1) {
-			deleteRequest(index);
-		} else {
-			overRequest(index);
-		}
-	}
-	function compile_click (index) {
-		let id = dataList.table[index].id
-		parent
-		.$(window.parent.document)
-		.find('.iframe')
-		.attr('src',
-				'http://localhost:9090/billiard/System_Add_CompetitionList.jsp?id='+id);
-	};
-	function deleteRequest (index) {
-		$
-		.ajax({
-			type : "POST",
-			async : true,
-			url : "${pageContext.request.contextPath}/admin/match/update ",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			data : JSON.stringify({
-				"id" : dataList.table[index].id,
-				matchDel: 1
-			}),
-			success : function(data) {
-				if (data.code === 200) {
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
-					});
-					request();
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
-				});
-			}
-		});
-	}
-	function overRequest (index) {
-		$
-		.ajax({
-			type : "POST",
-			async : true,
-			url : "${pageContext.request.contextPath}/admin/match/update",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			data : JSON.stringify({
-				"id" : dataList.table[index].id,
-				isEnd: 1
-			}),
-			success : function(data) {
-				if (data.code === 200) {
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
-					});
-					request();
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
-				});
-			}
-		});
 	}
 </script>
 </html>
