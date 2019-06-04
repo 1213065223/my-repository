@@ -49,6 +49,12 @@ public class MatchCourseServiceImpl implements MatchCourseService {
 		PageInfo<MatchCourse> re = new PageInfo<>(selectByExampleWithBLOBs);
 		return re;
 	}
+
+	@Override
+	public MatchCourse reviewDetail(Integer cid) {
+		
+		return matchCourseMapper.selectByPrimaryKey(cid);
+	}
 	
 	
 	

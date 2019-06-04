@@ -11,4 +11,6 @@ public interface MatchCourseService {
 
 	PageInfo<MatchCourse> reviewList(Integer page, Integer size, String title);
 
+	MatchCourse reviewDetail(Integer cid);
+
 }
