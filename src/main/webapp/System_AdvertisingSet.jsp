@@ -259,12 +259,12 @@ function add_click () {
 	$('#Modal-fu').show();
 }
 var file_Entity = {};
-let file_change = (file) => {
+let file_change = function(file)  {
 	let reader = new FileReader()
 	file_Entity ={
 		file: file
 	};
-	 reader.onload = (e) => {
+	 reader.onload = function(e)  {
 	        file_Entity = {
 	          name: file.name,
 	          file: file,

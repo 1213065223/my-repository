@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>赛事回顾</title>
+<title>赛事新闻</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
 <link rel="stylesheet" type="text/css" href="css/System_EventReview.css" />
@@ -23,7 +23,7 @@
 		<div class="flex-start form-div">
 			<div>
 				<button type="button" class="ivu-btn ivu-btn-warning" id="insert"
-					onclick="add_click()">添加回顾</button>
+					onclick="add_click()">添加新闻</button>
 			</div>
 			<div class="row-div form-data">
 				<p style="width: 80px;">赛事名称</p>

@@ -55,7 +55,7 @@
 				<dd src='System_applyManage'>
 					<span>报名管理</span>
 				</dd>
-				<dd>
+				<dd src='System_CompetitionNews'>
 					<span>赛事新闻</span>
 				</dd>
 				<dd src='System_EventReview'>
@@ -103,7 +103,7 @@
 
 				<div class="ivu-card ivu-card-bordered" id="ivu-card-div">
 					<iframe
-						src="http://localhost:9090/billiard/System_Add_EventReview.jsp"
+						src="http://localhost:9090/billiard/System_CompetitionNews.jsp"
 						class="iframe" scrolling="yes" frameborder="0"></iframe>
 				</div>
 			</div>

@@ -143,7 +143,7 @@
 	var dataList = {
 			table: []
 	};
-	$('#insert').click(() => {
+	$('#insert').click(function () {
 		$("#title").val('添加用户');
 		$("#loginName>input").val('');
 		$("#password").css('display','flex');
@@ -152,20 +152,20 @@
 		$("#isStop").css('display','none');
 		document.getElementById('data-modal').click();
 	});
-	let request = () => {
+	let request = function () {
 		let nick_name = $("#nick_name").val();
 		let phone = $("#phone").val();
 		$.ajax({
 			type : "GET",
 			url : "${pageContext.request.contextPath}/admin/list?size=" + entity.size + "&nick_name="+nick_name+"&phone="+phone,
 			dataType : "json",
-			success : (data) => {
+			success : function(data) {
 				if (data.code === 200) {
 					entity.pageNum = data.result.pages;
 					dataList.table = data.result.list;
 					let arr = data.result.list;
 					let innhtml ='<tr><th><div class="row-div gd-table-th">账号</div></th><th><div class="row-div">手机</div></th><th><div class="row-div">昵称</div></th><th><div class="row-div">状态</div></th><th><div class="row-div">创建时间</div></th><th><div class="row-div">操作</div></th></tr>';
-					arr.forEach((item,index) => {
+					arr.forEach(function(item,index) {
 						let isStop = !item.isStop ? '启用' : '禁用';
 						let isStopstr = item.isStop ? '启用' : '禁用';
 						let JSONstr = JSON.stringify(item);
@@ -204,13 +204,13 @@
 	}
 	request();
 	$(".zxf_pagediv").createPage({
-						backfun : (e) => {
+						backfun : function(e) {
 							entity.size = e.current;
 							request();
 						}
 					});
 	let userId = null;
-	let compile = (value) => {
+	let compile = function(value)  {
 		userId = value.id
 		$("#title").val('用户修改');
 		$("#loginName>input").val(value.loginName);
@@ -247,7 +247,7 @@
 				"isStop":isStop,
 				"id":id
 			}),
-			success : (data) => {
+			success : function(data)  {
 				console.log(data)
 				if (data.code === 200) {
 					request()
@@ -278,7 +278,7 @@
 				"password":$("#password>input").val(),
 				"phone":$("#phone>input").val()
 			}),
-			success : (data) => {
+			success : function(data)  {
 				if (data.code === 200) {
 					request();
 					document.getElementById('cancel').click();
@@ -324,7 +324,7 @@
 				"id": userId,
 				"isStop":$("input[name='radio-1']:checked").val()=== '1' ? false : true
 			}),
-			success : (data) => {
+			success : function(data)  {
 				if (data.code === 200) {
 					request();
 					document.getElementById('cancel').click();

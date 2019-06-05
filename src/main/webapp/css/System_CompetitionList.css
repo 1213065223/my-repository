@@ -1,3 +1,9 @@
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 0px;
+  
+}
+
 .gd-table {
 	border: 1px solid #dcdee2;
 }
@@ -25,6 +31,7 @@
 }
 
 .gd-table>tbody>tr {
+	display: table-row;
 	border-bottom: 1px solid #dcdee2;
 }
 
@@ -37,6 +44,7 @@
 }
 
 .gd-table>tbody>tr>td {
+	display: table-cell;
 	border-right: 1px solid #dcdee2;
 }
 

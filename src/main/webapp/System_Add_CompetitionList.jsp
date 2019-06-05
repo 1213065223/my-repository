@@ -79,14 +79,14 @@
 				<p>比赛日期</p>
 				<div class="jeinpbox">
 					<input type="text" class="jeinput" id="timeQuantum"
-						placeholder="请选择比赛日期范围" style="width: 300px;">
+						placeholder="请选择比赛日期范围" style="width: 300px;" autocomplete="off">
 				</div>
 			</div>
 			<div class="flex-start">
 				<p>比赛时间</p>
 				<div class="jeinpbox">
 					<input type="text" class="jeinput" id="matchTime"
-						placeholder="请选择比赛时间">
+						placeholder="请选择比赛时间" autocomplete="off">
 				</div>
 
 			</div>
@@ -94,14 +94,14 @@
 				<p>开放报名时间</p>
 				<div class="jeinpbox">
 					<input type="text" class="jeinput" id="enrollTime"
-						placeholder="请选择开放报名时间">
+						placeholder="请选择开放报名时间" autocomplete="off">
 				</div>
 			</div>
 			<div class="flex-start">
 				<p>报名截止时间</p>
 				<div class="jeinpbox">
 					<input type="text" class="jeinput" id="enrollTimeEnd"
-						placeholder="请选择报名截止时间">
+						placeholder="请选择报名截止时间" autocomplete="off">
 				</div>
 			</div>
 			<div class="flex-start" style="align-items: flex-start;">
@@ -146,7 +146,6 @@
 			id = arr[1]
 		}
 	}
-	console.log(id);
 	if (id) {
 		request()
 	}

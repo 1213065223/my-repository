@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>添加赛事回顾</title>
+<title>添加赛事新闻</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
 <link rel="stylesheet" type="text/css"
