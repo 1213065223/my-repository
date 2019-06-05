@@ -23,15 +23,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.Admin;
 import com.billiard.entity.Enroll;
+import com.billiard.entity.Integral;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
 import com.billiard.entity.MatchCourse;
 import com.billiard.entity.MatchWithBLOBs;
+import com.billiard.entity.News;
 import com.billiard.entity.User;
 import com.billiard.service.AdminService;
 import com.billiard.service.EnrollService;
+import com.billiard.service.IntegralService;
 import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
+import com.billiard.service.NewsService;
 import com.billiard.util.MD5Util;
 
 @SuppressWarnings("unused")
@@ -52,6 +56,12 @@ public class AdminMatchController {
 	
 	@Autowired
 	private MatchService matchService;
+	
+	@Autowired
+	private IntegralService integralService;
+	
+	@Autowired
+	private NewsService newsService;
 	
 	/* @InitBinder
 	    public void initBinder(WebDataBinder binder) {
@@ -164,4 +174,66 @@ public class AdminMatchController {
 		log.info("管理员"+a.getLoginName()+"删除比赛回顾:  "+matchCourse.getId());
 		return JobResponse.successResponse(matchCourseService.deleteMatchCourse(matchCourse));
 	}
+	
+	
+	@RequestMapping(value="integral",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse addIntegral( @RequestBody Integral integral,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin) attribute;
+		log.info("管理员"+a.getLoginName()+"设置选手积分:  "+integral.getUserId());
+		return integralService.addIntegral(integral);
+	}
+	
+	@RequestMapping(value="integral/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse deleteIntegral( @RequestBody Integral integral,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin) attribute;
+		log.info("管理员"+a.getLoginName()+"删除选手积分:  "+integral.getId());
+		return integralService.deleteIntegral(integral);
+	}
+	
+	@RequestMapping(value="integral/list",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse listIntegral( @RequestParam(value="page",defaultValue="1")Integer page,@RequestParam(value="size",defaultValue="20")Integer size, @RequestParam(value="name",required=false)String name, @RequestParam(value="match_name",required=false)String match_name,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin) attribute;
+		return JobResponse.successResponse(integralService.listIntegral(page,size,name,match_name));
+	}
+	
+	
+	@RequestMapping(value="news",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse addNews(@RequestBody News news ,HttpServletRequest request ) {
+		log.info("add match News"
+				+ " ");
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin)attribute;
+		
+		news.setCreateTime(new Date());
+		news.setCreateUser(a.getNickname());
+		return newsService.addMatchNews(news);
+	}
+	
 }

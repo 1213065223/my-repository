@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
+import com.billiard.service.IntegralService;
 import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
 
@@ -25,6 +26,9 @@ public class MatchController {
 
 	@Autowired
 	private MatchService matchService;
+	
+	@Autowired
+	private IntegralService integralService;
 	
 	@Autowired
 	private MatchCourseService matchCourseService;
@@ -65,4 +69,20 @@ public class MatchController {
 		log.info(request.getRemoteAddr() + "   is at review detail!");
 		return JobResponse.successResponse(matchCourseService.reviewDetail(cid));
 	}
+	
+	
+	@RequestMapping(value="/rank/integral",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse rankIntegral( HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at integral rank!");
+		return JobResponse.successResponse(integralService.rankIntegral());
+	}
+	
+	@RequestMapping(value="/rank/wins",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse rankWins( HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at integral rank!");
+		return JobResponse.successResponse(integralService.rankWins());
+	}
+	
 }
