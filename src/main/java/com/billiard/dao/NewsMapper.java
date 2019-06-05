@@ -33,4 +33,9 @@ public interface NewsMapper {
     int updateByPrimaryKeyWithBLOBs(News record);
 
     int updateByPrimaryKey(News record);
+    
+    News selectPrevious(News record);
+    
+    News selectNext(News record);
+    
 }

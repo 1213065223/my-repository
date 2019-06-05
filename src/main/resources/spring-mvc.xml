@@ -74,6 +74,15 @@
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
    	<mvc:resources mapping="/filesever/**" location="file:${file.upload.path}"/>
 	<mvc:resources mapping="/jsp/**" location="/WEB-INF/jsp/"/>
+	
+	 <mvc:interceptors>
+	 	 <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.billiard.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+	 </mvc:interceptors>
+	
+	
    <!-- 对模型视图添加前后缀 -->
      <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
       p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>

@@ -101,7 +101,7 @@ public class MatchController {
 	@ResponseBody
 	public JobResponse newsList( @RequestParam(value="nid",required=false)Integer nid,HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at news detail!");
-		return JobResponse.successResponse(newsService.newsDetail(nid));
+		return JobResponse.successResponse(newsService.newsDetailPreviousAndNext(nid));
 	}
 	
 	
