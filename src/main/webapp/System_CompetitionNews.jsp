@@ -91,7 +91,7 @@
 		.$(window.parent.document)
 		.find('.iframe')
 		.attr('src',
-				'http://localhost:9090/billiard/System_Add_EventReview.jsp');
+				'http://localhost:9090/billiard/System_Add_CompetitionNews.jsp');
 	}
 	request();
 	function request() {

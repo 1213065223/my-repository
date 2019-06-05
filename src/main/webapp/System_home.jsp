@@ -103,7 +103,7 @@
 
 				<div class="ivu-card ivu-card-bordered" id="ivu-card-div">
 					<iframe
-						src="http://localhost:9090/billiard/System_CompetitionNews.jsp"
+						src="http://localhost:9090/billiard/System_Add_CompetitionNews.jsp"
 						class="iframe" scrolling="yes" frameborder="0"></iframe>
 				</div>
 			</div>

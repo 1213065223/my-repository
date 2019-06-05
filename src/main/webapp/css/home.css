@@ -203,6 +203,7 @@ body {
 .home-div-2-2 {
 	width: 400px;
 	height: 470px;
+	overflow: hidden;
 }
 
 .home-div-2-2-1 {

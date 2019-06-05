@@ -43,30 +43,29 @@
 	<div class="Add_CompetitionList column-div">
 		<div class="column-start Add_CompetitionList-div-1">
 			<div class="flex-start">
-				<p>比赛名称</p>
+				<p>标题图片</p>
+				<label for="titleImage" class="row-div">
+					<p style="margin-right: 20px;" class="ivu-btn">上传图片</p> <input type="file" id="titleImage" style="display: none;" onchange="TitleUploadImage(this.files[0])"/>
+					<span id="titleImage-name"></span>
+				</label>
+			</div>
+			<div class="flex-start">
+				<p>标题</p>
 				<input type="text" class="gd-input" style="width: 40%;" id="title" />
 			</div>
 			<div class="flex-start">
-				<p>参赛队伍-主</p>
+				<p>比赛名称</p>
 				<input type="text" class="gd-input" style="width: 40%;"
-					id="teamOneName" />
-			</div>
-			<div class="flex-start">
-				<p>参赛队伍-次</p>
-				<input type="text" class="gd-input" style="width: 40%;"
-					id="teamTwoName" />
+					id="matchName" />
 			</div>
 			<div class="flex-start">
 				<p>比赛地点</p>
-				<input type="text" class="gd-input" style="width: 40%;"
-					id="coursePlace" />
+				<input type="text" class="gd-input" style="width: 40%;" id="place" />
 			</div>
-			<div class="flex-start">
-				<p>比赛时间</p>
-				<div class="jeinpbox">
-					<input type="text" class="jeinput" id="courseTime"
-						autocomplete="off" placeholder="请选择比赛时间">
-				</div>
+			<div class="flex-start" style="align-items: flex-start;">
+				<p>新闻简介</p>
+				<textarea rows="3" cols="20" class="gd-input"
+					style="width: 40%; height: 150px" id="profile"></textarea>
 			</div>
 			<div class="flex-start" style="align-items: flex-start;">
 				<p>文本详情</p>
@@ -86,16 +85,13 @@
 	</div>
 </body>
 <script type="text/javascript">
-	jeDate("#courseTime", {
-		format : "YYYY-MM-DD hh:mm:ss"
-	});
 	function cancel() {
 		editor.html('');
 		$("#title").val('');
-		$("#courseTime").val('');
-		$("#coursePlace").val('');
-		$("#teamOneName").val('');
-		$("#teamTwoName").val('');
+		$("#matchName").val('');
+		$("#place").val('');
+		$("#profile").val('');
+		Imagesrc = null;
 	};
 	function ok_click() {
 		insertRequest();
@@ -118,17 +114,17 @@
 				.ajax({
 					type : "POST",
 					async : true,
-					url : "${pageContext.request.contextPath}/admin/match/review",
+					url : "${pageContext.request.contextPath}/admin/match/news",
 					contentType : "application/json; charset=utf-8",
 					dataType : "json",
 					data : JSON.stringify({
-						"id": id,
+						"id" : id,
 						"title" : $("#title").val(),
-						"courseTime" : $("#courseTime").val(),
-						"coursePlace" : $("#coursePlace").val(),
-						"teamOneName" : $("#teamOneName").val(),
-						"teamTwoName" : $("#teamTwoName").val(),
-						"matchDetail" : editor.html()
+						"matchName" : $("#matchName").val(),
+						"place" : $("#place").val(),
+						"profile" : $("#profile").val(),
+						"titleImage" : Imagesrc,
+						"content" : editor.html()
 					}),
 					success : function(data) {
 						if (data.code === 200) {
@@ -142,7 +138,7 @@
 									.$(window.parent.document)
 									.find('.iframe')
 									.attr('src',
-											'http://localhost:9090/billiard/System_EventReview.jsp');
+											'http://localhost:9090/billiard/System_CompetitionNews.jsp');
 						} else {
 							spop({
 								template : data.message,
@@ -167,7 +163,8 @@
 		$.ajax({
 			type : "get",
 			async : true,
-			url : "${pageContext.request.contextPath}/match/review/detail?cid=" + id,
+			url : "${pageContext.request.contextPath}/match/review/detail?cid="
+					+ id,
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function(res) {
@@ -212,6 +209,78 @@
 			success : function(data) {
 				if (data.code === 200) {
 					editor.appendHtml('<img src="'+data.result+'" />');
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+		return entity;
+	}
+	function UploadImage(file) {
+		let entity = null;
+		let formdata = new FormData();
+		formdata.append("file", file)
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
+			success : function(data) {
+				if (data.code === 200) {
+					editor.appendHtml('<img src="'+data.result+'" />');
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+		return entity;
+	}
+	let Imagesrc = null;
+	function TitleUploadImage(file) {
+		$("#titleImage-name").text(file.name)
+		let entity = null;
+		let formdata = new FormData();
+		formdata.append("file", file)
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
+			success : function(data) {
+				if (data.code === 200) {
+					Imagesrc = data.result
 				} else {
 					spop({
 						template : data.message,

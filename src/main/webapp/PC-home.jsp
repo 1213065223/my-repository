@@ -136,27 +136,6 @@
 							<p>王小二</p>
 							<p>200</p>
 						</li>
-						<li class="flex-around">
-							<p>1</p>
-							<p>王小二</p>
-							<p>200</p>
-						</li>
-						<li class="flex-around">
-							<p>1</p>
-							<p>王小二</p>
-							<p>200</p>
-						</li>
-						<li class="flex-around">
-							<p>1</p>
-							<p>王小二</p>
-							<p>200</p>
-						</li>
-						<li class="flex-around">
-							<p>1</p>
-							<p>王小二</p>
-							<p>200</p>
-						</li>
-
 					</ul>
 				</div>
 			</div>
@@ -172,7 +151,7 @@
 			</div>
 			<div>
 				<div class="swiper-container swiper-3">
-					<div class="swiper-wrapper">
+					<div class="swiper-wrapper" id="review">
 						<div class="swiper-slide column-div" style="width: 225px;">
 							<div class="swiper-3-div column justify-start align-center">
 								<div class="column-div">
@@ -430,19 +409,7 @@
 		window.location.href = value + '.jsp';
 	}
 
-	new Swiper('.swiper-3', {
-		slidesPerView : 4,
-		spaceBetween : 20,
-		freeMode : true,
-		pagination : {
-			el : '.swiper-3-pagination',
-			clickable : true,
-		},
-		navigation : {
-			nextEl : '.swiper-button-next',
-			prevEl : '.swiper-button-prev',
-		},
-	});
+	
 
 	let Entity = null;
 	Request();
@@ -503,21 +470,19 @@
 	function matchRequest() {
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/match?size=10",
+			url : "${pageContext.request.contextPath}/match/rank/integral",
 			dataType : "json",
 			async : false,
 			success : function(res) {
 				if (res.code === 200) {
-					console.log(res.result)
 					let match = ''
-					res.result.list.forEach(function(item, index) {
-						match += '<li class="flex-around">'
-						'<p>1</p>'
-						'<p>王小二</p>'
-						'<p>200</p>'
-						'</li>'
+					res.result.forEach(function(item, index) {
+						match += '<li class="flex-around">' + '<p>'
+								+ (index + 1) + '</p>' + '<p>' + item.nickname
+								+ '</p>' + '<p>' + item.s + '</p>' + '</li>'
 					})
-					//$('#match').html(match)
+					$('#match').html(match);
+
 				} else {
 					spop({
 						template : data.message,
@@ -537,6 +502,57 @@
 				});
 			}
 		});
+	}
+	reviewhRequest();
+	function reviewhRequest() {
+		$
+				.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/match/review?page=1&size=20",
+					dataType : "json",
+					async : false,
+					success : function(res) {
+						if (res.code === 200) {
+							let review = ''
+							let arr = res.result.list
+							arr.forEach(function(item, index) {
+										review += '<div class="swiper-slide column-div" style="width: 225px;">'
+												+ '<div class="swiper-3-div column justify-start align-center">'
+												+ '<div class="column-div">'
+												+ '<p>'+item.courseTime+'</p>'
+												+ '<button type="button">敬请期待</button>'
+												+ '</div>'
+												+ '<div class="flex-around">'
+												+ '<p>'+item.teamOneName+'</p>'
+												+ '<p>VS</p>'
+												+ '<p>'+item.teamTwoName+'</p>'
+												+ '</div>'
+												+ '<p>'+item.title+'</p>'
+												+ '<p>地点：'+item.coursePlace+'</p>'
+												+ '</div>' + '</div>'
+									})
+							$('#review').html(review);
+							AddSwiper('review');
+
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '查询接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
+				});
 	}
 	function AddSwiper(name) {
 		if (name === 'banner') {
@@ -576,6 +592,20 @@
 				spaceBetween : 30,
 				pagination : {
 					el : '.swiper-4-pagination',
+					clickable : true,
+				},
+				navigation : {
+					nextEl : '.swiper-button-next',
+					prevEl : '.swiper-button-prev',
+				},
+			});
+		} else if (name === 'review') {
+			new Swiper('.swiper-3', {
+				slidesPerView : 4,
+				spaceBetween : 20,
+				freeMode : true,
+				pagination : {
+					el : '.swiper-3-pagination',
 					clickable : true,
 				},
 				navigation : {
