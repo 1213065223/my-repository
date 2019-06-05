@@ -221,8 +221,7 @@ public class AdminMatchController {
 	@RequestMapping(value="news",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse addNews(@RequestBody News news ,HttpServletRequest request ) {
-		log.info("add match News"
-				+ " ");
+		log.info("add match News"	);
 		HttpSession session = request.getSession();
 		Object attribute = session.getAttribute("admin_user");
 		if(attribute==null) {
@@ -235,5 +234,19 @@ public class AdminMatchController {
 		news.setCreateUser(a.getNickname());
 		return newsService.addMatchNews(news);
 	}
+	
+	@RequestMapping(value="news/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse deleteNews(@RequestBody News news ,HttpServletRequest request ) {
+		log.info("delete match News "+news.getId()	);
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		return newsService.deleteNews(news);
+	}
+	
 	
 }

@@ -17,6 +17,7 @@ import com.billiard.entity.JobResponse;
 import com.billiard.service.IntegralService;
 import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
+import com.billiard.service.NewsService;
 
 @Controller
 @RequestMapping("match")
@@ -32,6 +33,9 @@ public class MatchController {
 	
 	@Autowired
 	private MatchCourseService matchCourseService;
+	
+	@Autowired
+	private NewsService newsService;
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	@ResponseBody
@@ -84,5 +88,21 @@ public class MatchController {
 		log.info(request.getRemoteAddr() + "   is at integral rank!");
 		return JobResponse.successResponse(integralService.rankWins());
 	}
+	
+	
+	@RequestMapping(value="/news",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse newsList(@RequestParam(value="page",defaultValue="1")Integer page,@RequestParam(value="size",defaultValue="20")Integer size, @RequestParam(value="title",required=false)String title,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at news list!");
+		return JobResponse.successResponse(newsService.newsList(page,size,title));
+	}
+	
+	@RequestMapping(value="/news/detail",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse newsList( @RequestParam(value="nid",required=false)Integer nid,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at news detail!");
+		return JobResponse.successResponse(newsService.newsDetail(nid));
+	}
+	
 	
 }
