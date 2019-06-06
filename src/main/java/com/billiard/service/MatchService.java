@@ -22,4 +22,6 @@ public interface MatchService {
 
 	Match matchDetail(String mid);
 
+	MatchWithBLOBs matchCurrent();
+
 }

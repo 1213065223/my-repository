@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.billiard.dao.AdminMapper;
 import com.billiard.dao.AnnouncementMapper;
@@ -211,6 +212,28 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Integer announcementDelete(Integer id) {
 		return announcementMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	@Transactional
+	public JobResponse cancelAndSetCurrent(MatchWithBLOBs match) {
+		
+		MatchWithBLOBs selectByPrimaryKey = matchMapper.selectByPrimaryKey(match.getId());
+		if(selectByPrimaryKey ==null ||(selectByPrimaryKey!=null&&selectByPrimaryKey.getMatchDel()!=null&&selectByPrimaryKey.getMatchDel()==1)||(selectByPrimaryKey!=null&&selectByPrimaryKey.getIsEnd())) {
+			return JobResponse.errorResponse(100022, "该比赛已经删除或者已经结束！");
+		}
+		Match record= new Match();
+		record.setId(null);
+		record.setMatchNow(0);
+		
+		int cancelAndSetCurrent =matchMapper.cancelAndSetCurrent(record); 
+		int res =0;
+		if(cancelAndSetCurrent>0) {
+			record.setId(match.getId());
+			record.setMatchNow(1);
+			res=matchMapper.cancelAndSetCurrent(record);
+		}
+		return JobResponse.successResponse(res);
 	}
 
 	

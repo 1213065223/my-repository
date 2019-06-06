@@ -2,13 +2,16 @@ package com.billiard.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Announcement {
     private Integer id;
 
     private String title;
 
     private String introduce;
-
+    
+    @JsonFormat(pattern="yyyy/MM/dd")
     private Date createTime;
 
     private String createUser;

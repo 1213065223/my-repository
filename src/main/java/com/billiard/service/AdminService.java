@@ -49,5 +49,7 @@ public interface AdminService {
 
 	Integer announcementDelete(Integer id);
 
+	JobResponse cancelAndSetCurrent(MatchWithBLOBs match);
+
 
 }

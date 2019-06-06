@@ -337,4 +337,14 @@
       create_user = #{createUser,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectPrevious" parameterType="com.billiard.entity.News" resultMap="BaseResultMap">
+  	 SELECT id ,title,create_time from t_match WHERE create_time <![CDATA[>]]> #{createTime}  ORDER BY create_time LIMIT 1
+  	
+  </select>
+  <select id="selectNext" parameterType="com.billiard.entity.News" resultMap="BaseResultMap">
+  	 SELECT id ,title,create_time from t_match WHERE create_time <![CDATA[<]]> #{createTime}  ORDER BY create_time DESC LIMIT 1
+  	
+  </select>
+  
 </mapper>

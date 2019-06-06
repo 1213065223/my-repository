@@ -2,6 +2,8 @@ package com.billiard.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class News {
     private Integer id;
 
@@ -17,6 +19,8 @@ public class News {
 
     private String profile;
 
+    
+    @JsonFormat(pattern="yyyy/MM/dd")
     private Date createTime;
 
     private String createUser;

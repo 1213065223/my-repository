@@ -11,7 +11,10 @@ public class MatchCourse {
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date courseTime;
-
+    
+    @JsonFormat(pattern="MM-dd HH:mm",timezone = "GMT+8")
+    private Date courseFrontTime;
+    
     private String coursePlace;
 
     private String teamOneId;
@@ -56,7 +59,19 @@ public class MatchCourse {
         this.courseTime = courseTime;
     }
 
-    public String getCoursePlace() {
+    
+    
+    
+    public Date getCourseFrontTime() {
+    	courseFrontTime =courseTime;
+		return courseFrontTime;
+	}
+
+	public void setCourseFrontTime(Date courseFrontTime) {
+		this.courseFrontTime = courseFrontTime;
+	}
+
+	public String getCoursePlace() {
         return coursePlace;
     }
 

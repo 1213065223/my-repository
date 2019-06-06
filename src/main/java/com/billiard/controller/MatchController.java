@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
+import com.billiard.entity.Match;
 import com.billiard.service.IntegralService;
 import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
@@ -44,11 +45,26 @@ public class MatchController {
 		return JobResponse.successResponse(matchService.matchList(page,size,match_name,time_quantum));
 	}
 	
+	
+	@RequestMapping(value="current",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse matchCurrent(HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at match current!");
+		return JobResponse.successResponse(matchService.matchCurrent());
+	}
+	
+	
+	
+	
 	@RequestMapping(value="/detail",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse matchDetail(@RequestParam(value="mid") String mid ,HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at match detail!"+mid);
-		return JobResponse.successResponse(matchService.matchDetail(mid));
+		Match matchDetail = matchService.matchDetail(mid);
+		if(matchDetail==null||(matchDetail!=null&&matchDetail.getMatchDel()!=null&&matchDetail.getMatchDel()==1)) {
+			return JobResponse.errorResponse(100020, "比赛已经不存在！");
+		}
+		return JobResponse.successResponse(matchDetail);
 	}
 	
 	
@@ -101,7 +117,7 @@ public class MatchController {
 	@ResponseBody
 	public JobResponse newsList( @RequestParam(value="nid",required=false)Integer nid,HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at news detail!");
-		return JobResponse.successResponse(newsService.newsDetail(nid));
+		return JobResponse.successResponse(newsService.newsDetailPreviousAndNext(nid));
 	}
 	
 	

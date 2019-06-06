@@ -391,4 +391,17 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <select id="selectPrevious" parameterType="com.billiard.entity.MatchCourse" resultMap="BaseResultMap">
+  	 SELECT id ,title,create_time from t_match_course WHERE create_time <![CDATA[>]]> #{createTime}  ORDER BY create_time LIMIT 1
+  	
+  </select>
+  <select id="selectNext" parameterType="com.billiard.entity.MatchCourse" resultMap="BaseResultMap">
+  	 SELECT id ,title,create_time from t_match_course WHERE create_time <![CDATA[<]]> #{createTime}  ORDER BY create_time DESC LIMIT 1
+  	
+  </select>
+  
+  
 </mapper>
