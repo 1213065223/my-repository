@@ -259,14 +259,14 @@
 				</div>
 			</div>
 			<div class="flex-between flex-wrap" style="width: 100%;">
-				<div class="home-div-4-1 column-div">
+				<div class="home-div-4-1 column-div" id="news-A">
 					<img src="img/home/home-2-1.png" />
 					<p>台球世界锦标赛正赛17日在江西玉山拉开战幕</p>
 					<p>新华社江西玉山3月17日体育专电（记者郑直
 						梁金雄）中国·上饶·玉山2016CBSA“上菱电梯”杯中式台球世界锦标赛正赛17日在江西玉山拉开战幕</p>
 					<p>2016/03/18 地址：江西玉山</p>
 				</div>
-				<div class="home-div-4-2 column-div">
+				<div class="home-div-4-2 column-div" id="news-B">
 					<div class="flex-between flex-wrap">
 						<div class="column-div">
 							<img src="img/home/home-2-2.png" />
@@ -406,10 +406,8 @@
 </body>
 <script type="text/javascript">
 	function href_url(value) {
-		window.location.href = value + '.jsp';
+		window.location.href = 'PC-'+value + '.jsp';
 	}
-
-	
 
 	let Entity = null;
 	Request();
@@ -515,20 +513,31 @@
 						if (res.code === 200) {
 							let review = ''
 							let arr = res.result.list
-							arr.forEach(function(item, index) {
+							arr
+									.forEach(function(item, index) {
 										review += '<div class="swiper-slide column-div" style="width: 225px;">'
 												+ '<div class="swiper-3-div column justify-start align-center">'
 												+ '<div class="column-div">'
-												+ '<p>'+item.courseTime+'</p>'
+												+ '<p>'
+												+ item.courseTime
+												+ '</p>'
 												+ '<button type="button">敬请期待</button>'
 												+ '</div>'
 												+ '<div class="flex-around">'
-												+ '<p>'+item.teamOneName+'</p>'
+												+ '<p>'
+												+ item.teamOneName
+												+ '</p>'
 												+ '<p>VS</p>'
-												+ '<p>'+item.teamTwoName+'</p>'
+												+ '<p>'
+												+ item.teamTwoName
+												+ '</p>'
 												+ '</div>'
-												+ '<p>'+item.title+'</p>'
-												+ '<p>地点：'+item.coursePlace+'</p>'
+												+ '<p>'
+												+ item.title
+												+ '</p>'
+												+ '<p>地点：'
+												+ item.coursePlace
+												+ '</p>'
 												+ '</div>' + '</div>'
 									})
 							$('#review').html(review);
@@ -614,6 +623,84 @@
 				},
 			});
 		}
+	}
+
+	function pageFunction(arr, pageSize) {
+		let oldArr = arr;
+		let newArr = [];
+		let tmpArr = [];
+		const countByPage = pageSize;
+		oldArr.forEach(function(item, index) {
+			tmpArr.push(item);
+			if (index % countByPage === countByPage - 1
+					|| index === oldArr.length - 1) {
+				newArr.push(tmpArr);
+				tmpArr = [];
+			}
+		});
+		return newArr
+	}
+	newsrequest()
+	function newsrequest() {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/match/news?size=" + 5
+					+ "&page=" + 1,
+			dataType : "json",
+			success : function(data) {
+				if (data.code === 200) {
+					let arr = data.result.list;
+					let news_A = '<img src="'+arr[0].titleImage+'" />' + '<p>'
+							+ arr[0].title + '</p>' + '<p>' + arr[0].profile
+							+ '</p>' + '<p>'
+							+ (arr[0].createTime + '    ' + arr[0].place)
+							+ '</p>';
+					$("#news-A").html(news_A);
+					let news_B = ''
+					let list = [];
+					arr.forEach(function(item, index) {
+						if (index > 0)
+							list.push(item)
+					});
+					let arrList = pageFunction(list, 2);
+					arrList.forEach(function(item) {
+						news_B += '<div class="flex-between flex-wrap">'+ArrforEach(item)+'</div>'
+					});
+					$("#news-B").html(news_B);
+					function ArrforEach(arr) {
+						let arrStr = '';
+						arr.forEach(function(item) {
+							arrStr += '<div class="column-div">'
+									+ '<img src="'+item.titleImage+'"/>'
+									+ '<p class="home-div-4-2-tatle">'
+									+ item.title + '</p>'
+									+ '<p class="home-div-4-2-location">'
+									+ (item.createTime + item.place) + '</p>'
+									+ '</div>'
+
+						})
+						return arrStr;
+					}
+					;
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '查询接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
 	}
 </script>
 </html>

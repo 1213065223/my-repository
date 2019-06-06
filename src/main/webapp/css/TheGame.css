@@ -1,0 +1,210 @@
+.content-div {
+	width: 100%;
+
+}
+
+.content-div-1 {
+	width: 60%;
+	margin-bottom: 30px;
+}
+
+.content-div-title {
+	width: 60%;
+	height: 50px;
+	background: linear-gradient(0deg, rgba(37, 92, 160, 1), rgba(42, 125, 189, 1));
+	margin-bottom: 20px;
+	font-size: 18px;
+	font-family: SourceHanSansSC-Regular;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 1);
+}
+
+.content-div-title>p>span {
+	font-size: 12px;
+}
+
+.content-div-title>div {
+	width: 3px;
+	height: 45%;
+	background: #76BDFFFF;
+	margin: 0 10px 0px 10px;
+}
+
+.content-div-2 {
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.content-div-2>p {
+	font-size: 18px;
+	font-family: SourceHanSansSC-Regular;
+	font-weight: 400;
+	color: rgba(51, 51, 51, 1);
+	margin-bottom: 10px;
+}
+
+.content-div-2>p:nth-child(2) {
+	font-size: 14px;
+}
+
+.content-div-2>button {
+	background: linear-gradient(0deg, rgba(30, 40, 114, 1), rgba(46, 155, 216, 1));
+	border: 1px solid rgba(215, 215, 215, 1);
+	font-size: 16px;
+	font-family: SourceHanSansSC-Regular;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 1);
+}
+
+.content-div-3 {
+	width: 100%;
+	font-size: 14px;
+	font-family: SourceHanSansSC-Regular;
+	font-weight: bold;
+	color: rgba(51, 51, 51, 1);
+}
+
+
+
+
+/*模态框*/
+
+.modle-div {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);
+	transition: all 2s;
+	font-size: 14px;
+	color: #515a6e;
+	overflow: auto;
+}
+
+.modle-body {
+	width: 500px;
+	min-height: 300px;
+	background: white;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	margin: auto;
+	margin-top: 5%;
+}
+
+.modle-head {
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #dcdee2;
+	position: relative;
+}
+
+.p-cancel {
+	width: 20px;
+	height: 20px;
+	line-height: 17px;
+	font-size: 12px;
+	text-align: center;
+	border-radius: 20px;
+	border: 1px solid #dcdee2;
+	position: absolute;
+	right: 15px;
+}
+
+.p-cancel:hover {
+	cursor: pointer;
+}
+
+.modle-bottom {
+	width: 100%;
+	height: 50px;
+	border-top: 1px solid #dcdee2;
+}
+
+.cancel-but {
+	padding: 5px 15px 5px;
+	border: 1px solid #dcdee2;
+	border-radius: 5px;
+	background: white;
+	transition: all .5s;
+	font-size: 12px;
+	color: #515a6e;
+	margin-right: 15px;
+}
+
+.modle-content {
+	width: 100%;
+	font-size: 12px;
+	color: #515a6e;
+	padding: 10px;
+}
+
+.ok-but {
+	padding: 5px 15px 5px;
+	border: 1px solid #2b85e4;
+	border-radius: 5px;
+	background: #2b85e4;
+	transition: all .5s;
+	font-size: 12px;
+	color: white;
+}
+
+.modle-content {
+	width: 100%;
+}
+
+.modle-content-div {
+	width: 60%;
+	margin-bottom: 10px;
+}
+
+.modle-content-div>p {
+	width: 100px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.modle-content-div>div {
+	width: 60%;
+}
+
+
+input[type="radio"],
+input[type="checkbox"] {
+	margin: 0px 5px 0px 0px;
+
+}
+
+.label-2 {
+	width: 80px;
+	height: 80px;
+	background: url(../img/uploading.png) no-repeat center;
+	background-size: 50% 50%;
+	border: 1px solid #dcdee2;
+}
+
+.label-2:hover {
+	cursor: pointer;
+}
+
+
+.modle-content-div-2{
+	width: 60%;
+	margin-bottom: 10px;
+}
+.login-but{
+	width: 100%;
+	background: #0F4FA0FF;
+	height: 32px;
+	line-height: 32px;
+	color: white;
+	border: none;
+	letter-spacing: 5px;
+}
+.a-href{
+	list-style: none;
+	color: black;
+}

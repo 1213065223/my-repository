@@ -43,16 +43,16 @@
 				id="table">
 				<tr>
 					<th>
-						<div class="row-div">赛事名称</div>
+						<div class="row-div">新闻标题</div>
 					</th>
 					<th>
-						<div class="row-div">对战</div>
+						<div class="row-div">赛事名称</div>
 					</th>
 					<th>
 						<div class="row-div">比赛地点</div>
 					</th>
 					<th>
-						<div class="row-div">比赛时间</div>
+						<div class="row-div">新闻简介</div>
 					</th>
 					<th>
 						<div class="row-div">创建时间</div>
@@ -86,30 +86,31 @@
 			request();
 		}
 	});
-	function add_click () {
+	function add_click() {
 		parent
-		.$(window.parent.document)
-		.find('.iframe')
-		.attr('src',
-				'http://localhost:9090/billiard/System_Add_CompetitionNews.jsp');
+				.$(window.parent.document)
+				.find('.iframe')
+				.attr('src',
+						'http://localhost:9090/billiard/System_Add_CompetitionNews.jsp');
 	}
 	request();
 	function request() {
 		$
 				.ajax({
 					type : "GET",
-					url : "${pageContext.request.contextPath}/match/review?size="
-							+ entity.size + "&page=" + entity.pageNum + "&title=" + $("#match_name").val(),
+					url : "${pageContext.request.contextPath}/match/news?size="
+							+ entity.size + "&page=" + entity.pageNum
+							+ "&title=" + $("#match_name").val(),
 					dataType : "json",
 					success : function(data) {
 						if (data.code === 200) {
 							entity.pageNum = data.result.pages;
 							dataList.table = data.result.list;
 							let arr = data.result.list;
-							let innhtml = '<tr><th><div class="row-div">赛事名称</div></th>'
-									+ '<th><div class="row-div">对战</div></th>'
+							let innhtml = '<tr><th><div class="row-div">新闻标题</div></th>'
+									+ '<th><div class="row-div">赛事名称</div></th>'
 									+ '<th><div class="row-div">比赛地点</div></th>'
-									+ '<th><div class="row-div">比赛时间</div></th>'
+									+ '<th><div class="row-div">新闻简介</div></th>'
 									+ '<th><div class="row-div">创建时间</div></th>'
 									+ '<th><div class="row-div">操作</div></th></tr>';
 							arr
@@ -119,22 +120,23 @@
 												+ item.title
 												+ '</div></td>'
 												+ '<td><div class="row-div">'
-												+ item.teamOneName
-												+ 'vs'
-												+ item.teamTwoName
+												+ item.matchName
 												+ '</div></td>'
 												+ '<td><div class="row-div">'
-												+ item.coursePlace
+												+ item.place
 												+ '</div></td>'
 												+ '<td><div class="row-div">'
-												+ item.courseTime
+												+ item.profile
 												+ '</div></td>'
 												+ '<td><div class="row-div">'
 												+ item.createTime
 												+ '</div></td>'
 												+ '<td style="width: 200px;"><div class="row-div">'
-												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('+item.id+')">编辑</button>'
-												+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="delete_click('+item.id+')">删除</button>'
+												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('
+												+ item.id
+												+ ')">编辑</button>'
+												+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="delete_click('
+												+ item.id + ')">删除</button>'
 												+ '</div></td></tr>';
 									})
 
@@ -164,51 +166,57 @@
 					}
 				});
 	}
-	function compile_click (id) {
-		parent.$(window.parent.document).find('.iframe').attr('src','http://localhost:9090/billiard/System_Add_EventReview.jsp?id='+id);
+	function compile_click(id) {
+		parent.$(window.parent.document).find('.iframe').attr(
+				'src',
+				'http://localhost:9090/billiard/System_Add_CompetitionNews.jsp?id='
+						+ id);
 	}
-	function delete_click (id) {
-		$.dialog.confirm({content:"你确定要删除吗",callback:"deleteRequest("+id+");"});
-	};
-	function deleteRequest (id) {
-		$
-		.ajax({
-			type : "POST",
-			async : true,
-			url : "${pageContext.request.contextPath}/admin/match/review/delete",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			data : JSON.stringify({
-				"id" : id
-			}),
-			success : function(data) {
-				if (data.code === 200) {
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
-					});
-					request();
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
-				});
-			}
+	function delete_click(id) {
+		$.dialog.confirm({
+			content : "你确定要删除吗",
+			callback : "deleteRequest(" + id + ");"
 		});
+	};
+	function deleteRequest(id) {
+		$
+				.ajax({
+					type : "POST",
+					async : true,
+					url : "${pageContext.request.contextPath}/admin/match/news/delete",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : JSON.stringify({
+						"id" : id
+					}),
+					success : function(data) {
+						if (data.code === 200) {
+							spop({
+								template : '成功',
+								group : 'submit-satus',
+								style : 'success',
+								autoclose : 5000
+							});
+							request();
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
+				});
 	}
 </script>
 </html>

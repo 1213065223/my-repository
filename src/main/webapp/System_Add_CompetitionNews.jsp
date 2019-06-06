@@ -163,18 +163,21 @@
 		$.ajax({
 			type : "get",
 			async : true,
-			url : "${pageContext.request.contextPath}/match/review/detail?cid="
+			url : "${pageContext.request.contextPath}/match/news/detail?nid="
 					+ id,
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function(res) {
 				if (res.code === 200) {
-					editor.insertHtml(res.result.matchDetail);
+					console.log=(res)
+					editor.insertHtml(res.result.content);
 					$("#title").val(res.result.title);
-					$("#courseTime").val(res.result.courseTime);
-					$("#coursePlace").val(res.result.coursePlace);
-					$("#teamOneName").val(res.result.teamOneName);
-					$("#teamTwoName").val(res.result.teamTwoName);
+					$("#matchName").val(res.result.matchName);
+					$("#place").val(res.result.place);
+					$("#profile").val(res.result.profile);
+					$("#content").val(res.result.content);
+					let str = res.result.titleImage.split('/');
+					$("#titleImage-name").text(str[str.length-1])
 				} else {
 					spop({
 						template : data.message,

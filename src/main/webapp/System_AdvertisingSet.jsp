@@ -26,16 +26,16 @@
 <script charset="utf-8" type="text/javascript" src="lang/zh_CN.js"
 	charset="utf-8"></script>
 <script>
-var editor = null;
-KindEditor.ready(function(K) {
-	editor = K.create('textarea[name="content"]', {
-		autoHeightMode : true,
-		afterCreate : function() {
-			this.loadPlugin('autoheight');
-		}
+	var editor = null;
+	KindEditor.ready(function(K) {
+		editor = K.create('textarea[name="content"]', {
+			autoHeightMode : true,
+			afterCreate : function() {
+				this.loadPlugin('autoheight');
+			}
+		});
 	});
-});
-		</script>
+</script>
 </head>
 <body>
 	<div class="System_AdvertisingSet">
@@ -180,177 +180,206 @@ KindEditor.ready(function(K) {
 
 </body>
 <script type="text/javascript">
-request();
+	request();
 
-var entity = {
-		size: 1,
-		pageNum: 0
-};
-var dataList = {
-		table: []
-};
-$('input[name=radio-name]').click(function () {
-	if ($(this).val() === '1') {
-		$('#richText').css('display','none');
-		$('#hyperlink').css('display','flex');
-	} else {
-		$('#hyperlink').css('display','none');
-		$('#richText').css('display','flex');
+	var entity = {
+		size : 1,
+		pageNum : 0
 	};
-})
-$(".zxf_pagediv").createPage({
-	backfun : function (e) {
-		entity.size = e.current;
-		request();
-	}
-});
-$('.modle-cancel').click(function () {
-	$('#Modal-fu').hide();
-});
-function request () {
-	let nick_name = $("#nick_name").val();
-	let phone = $("#phone").val();
-	$.ajax({
-		type : "GET",
-		url : "${pageContext.request.contextPath}/index/list?size=" + 10 + "&nick_name="+nick_name+"&phone="+phone,
-		dataType : "json",
-		success : function (data) {
-			if (data.code === 200) {
-				entity.pageNum = data.result.pages;
-				dataList.table = data.result.all;
-				let arr = data.result.all;
-				let innhtml = '<tr><th><div class="row-div gd-table-th">图片</div></th><th><div class="row-div">图片位置</div></th><th><div class="row-div">连接方式</div></th><th><div class="row-div">状态</div></th><th><div class="row-div">创建时间</div></th><th><div class="row-div">操作</div></th></tr>'
-				arr.forEach( function (item,index) {
-					let isHidden = item.isHidden ? '禁用': '显示';
-					innhtml += '<tr>' +
-					'<td><div class="row-div"><img src="'+item.imageUrl+'" style="widht:80px;height:80px;"/></div></td>'+
-					'<td><div class="row-div">'+item.imageLocationDetail+'</div></td>'+
-					'<td><div class="row-div">'+item.hrefUrl+'</div></td>'+
-					'<td><div class="row-div">'+(item.isHidden ? '禁用': '显示')+'</div></td>'+
-					'<td><div class="row-div">'+item.createTime+'</div></td>'+
-					'<td style="width: 200px;"><div class="row-div">'+
-							'<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click()">编辑</button>'+
-							'<button type="button" class="ivu-btn ivu-btn-error">删除</button>'+
-						'</div></td></tr>';
-				})
-				
-				$("#table>tbody").html(innhtml);
-				$(".zxf_pagediv").createPage({
-					pageNum : data.result.pages,
-					current : data.result.pageNum,
-					total: data.result.total
+	var dataList = {
+		table : []
+	};
+	$('input[name=radio-name]').click(function() {
+		if ($(this).val() === '1') {
+			$('#richText').css('display', 'none');
+			$('#hyperlink').css('display', 'flex');
+		} else {
+			$('#hyperlink').css('display', 'none');
+			$('#richText').css('display', 'flex');
+		}
+		;
+	})
+	$(".zxf_pagediv").createPage({
+		backfun : function(e) {
+			entity.size = e.current;
+			request();
+		}
+	});
+	$('.modle-cancel').click(function() {
+		$('#Modal-fu').hide();
+	});
+	function request() {
+		let nick_name = $("#nick_name").val();
+		let phone = $("#phone").val();
+		$
+				.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/index/list?size="
+							+ 10 + "&nick_name=" + nick_name + "&phone="
+							+ phone,
+					dataType : "json",
+					success : function(data) {
+						if (data.code === 200) {
+							entity.pageNum = data.result.pages;
+							dataList.table = data.result.all;
+							let arr = data.result.all;
+							let innhtml = '<tr><th><div class="row-div gd-table-th">图片</div></th><th><div class="row-div">图片位置</div></th><th><div class="row-div">连接方式</div></th><th><div class="row-div">状态</div></th><th><div class="row-div">创建时间</div></th><th><div class="row-div">操作</div></th></tr>'
+							arr
+									.forEach(function(item, index) {
+										let isHidden = item.isHidden ? '禁用'
+												: '显示';
+										innhtml += '<tr>'
+												+ '<td><div class="row-div"><img src="'+item.imageUrl+'" style="widht:80px;height:80px;"/></div></td>'
+												+ '<td><div class="row-div">'
+												+ item.imageLocationDetail
+												+ '</div></td>'
+												+ '<td><div class="row-div">'
+												+ item.hrefUrl
+												+ '</div></td>'
+												+ '<td><div class="row-div">'
+												+ (item.isHidden ? '禁用' : '显示')
+												+ '</div></td>'
+												+ '<td><div class="row-div">'
+												+ item.createTime
+												+ '</div></td>'
+												+ '<td style="width: 200px;"><div class="row-div">'
+												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click()">编辑</button>'
+												+ '<button type="button" class="ivu-btn ivu-btn-error">删除</button>'
+												+ '</div></td></tr>';
+									})
+
+							$("#table>tbody").html(innhtml);
+							$(".zxf_pagediv").createPage({
+								pageNum : data.result.pages,
+								current : data.result.pageNum,
+								total : data.result.total
+							});
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '查询接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			} else {
-				spop({template: data.message,group: 'submit-satus',style: 'warning',autoclose: 5000});
-			}
-		},
-		error : function(jqXHR) {
-			console.log("Error: " + jqXHR.status);
-			spop({
-				template: '查询接口访问失败,请与系统管理员联系',
-				group: 'submit-satus',
-				style: 'error',
-				autoclose: 5000
-			});
-		}
-	});
-}
-function add_click () {
-	$('#Modal-fu').show();
-}
-var file_Entity = {};
-let file_change = function(file)  {
-	let reader = new FileReader()
-	file_Entity ={
-		file: file
+	}
+	function add_click() {
+		$('#Modal-fu').show();
+	}
+	var file_Entity = {};
+	let file_change = function(file) {
+		let reader = new FileReader()
+		file_Entity = {
+			file : file
+		};
+		reader.onload = function(e) {
+			file_Entity = {
+				name : file.name,
+				file : file,
+				imgOrigin : e.target.result
+			};
+		};
+		reader.readAsDataURL(file);
 	};
-	 reader.onload = function(e)  {
-	        file_Entity = {
-	          name: file.name,
-	          file: file,
-	          imgOrigin: e.target.result
-	        };
-	      };
-	      reader.readAsDataURL(file);
-};
-function UploadImage () {
-	let entity = null;
-	 let formdata = new FormData();
-    formdata.append("file", file_Entity.file)
-	$.ajax({
-		type : "POST",
-		url : "${pageContext.request.contextPath}/file/upload",
-		data: formdata,
-		contentType: false,
-		 processData: false,
-		 async: false,
-		success : function (data) {
-			if (data.code === 200) {
-				entity = data.result;
-			} else {
-				spop({template: data.message,group: 'submit-satus',style: 'warning',autoclose: 5000});
+	function UploadImage() {
+		let entity = null;
+		let formdata = new FormData();
+		formdata.append("file", file_Entity.file)
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
+			success : function(data) {
+				if (data.code === 200) {
+					entity = data.result;
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
 			}
-		},
-		error : function(jqXHR) {
-			console.log("Error: " + jqXHR.status);
-			spop({
-				template: '禁用或启用接口访问失败,请与系统管理员联系',
-				group: 'submit-satus',
-				style: 'error',
-				autoclose: 5000
-			});
+		});
+		return entity;
+	}
+	function Ok_click() {
+		let url = UploadImage();
+		let imageLocation = $("#imageLocation").val();
+		let hrefUrl = null;
+		let jumpType = null;
+		if ($('input[name=radio-name]:checked').val() === '1') {
+			hrefUrl = $("#hrefUrl").val();
+			jumpType = 0
+		} else {
+			hrefUrl = editor.html();
+			jumpType = 1
 		}
-	});
-	return entity;
-}
-function Ok_click () {
-	let url = UploadImage();
-	let imageLocation = $("#imageLocation").val();
-	let hrefUrl = null;
-	let jumpType = null;
-	if ($('input[name=radio-name]:checked').val() ==='1') {
-		hrefUrl = $("#hrefUrl").val();
-		jumpType = 0
-	} else {
-		hrefUrl = editor.html();
-		jumpType = 1
-	};
-	$.ajax({
-		type : "POST",
-		async: true,
-		url : "${pageContext.request.contextPath}/admin/index",
-		contentType: "application/json; charset=utf-8",
-		dataType: "json",
-		data: JSON.stringify({
-			"imageUrl":url,
-			"hrefUrl":hrefUrl,
-			"imageLocation": imageLocation,
-			"jumpType": jumpType,
-			"isHidden": false
-		}),
-		success : function (data) {
-			if (data.code === 200) {
-				entity = 'sss';
-				console.log(data)
-			} else {
-				spop({template: data.message,group: 'submit-satus',style: 'warning',autoclose: 5000});
+		;
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : "${pageContext.request.contextPath}/admin/index",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify({
+				"imageUrl" : url,
+				"hrefUrl" : hrefUrl,
+				"imageLocation" : imageLocation,
+				"jumpType" : jumpType,
+				"isHidden" : false
+			}),
+			success : function(data) {
+				if (data.code === 200) {
+					entity = 'sss';
+					console.log(data)
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
 			}
-		},
-		error : function(jqXHR) {
-			console.log("Error: " + jqXHR.status);
-			spop({
-				template: '禁用或启用接口访问失败,请与系统管理员联系',
-				group: 'submit-satus',
-				style: 'error',
-				autoclose: 5000
-			});
-		}
-	});
-}
+		});
+	}
 	/* spop({
 		template : '3 seconds autoclose',
 		autoclose : 3000
 	}); */
-	
 </script>
 </html>
