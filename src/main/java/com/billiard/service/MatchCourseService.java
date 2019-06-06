@@ -15,6 +15,6 @@ public interface MatchCourseService {
 
 	MatchCourse reviewDetail(Integer cid);
 	
-	Map<String,MatchCourse> getPreviousAndNext(MatchCourse matchCourse);
+	Map<String,MatchCourse> getPreviousAndNext(Integer matchCourse);
 	
 }
