@@ -7,7 +7,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MatchMapper {
-    long countByExample(MatchExample example);
+	
+	MatchWithBLOBs getCurrentMatch(MatchWithBLOBs record);
+	
+	int cancelAndSetCurrent(Match record);
+    
+	long countByExample(MatchExample example);
 
     int deleteByExample(MatchExample example);
 

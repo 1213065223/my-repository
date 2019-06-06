@@ -186,4 +186,13 @@ public class MatchServiceImpl  implements MatchService{
 	public Match matchDetail(String mid) {
 		return matchMapper.selectByPrimaryKey(mid);
 	}
+
+	@Override
+	public MatchWithBLOBs matchCurrent() {
+		MatchWithBLOBs record = new MatchWithBLOBs();
+		record.setMatchNow(1);
+		record.setMatchDel(1);
+		MatchWithBLOBs currentMatch = matchMapper.getCurrentMatch(record);
+		return currentMatch;
+	}
 }

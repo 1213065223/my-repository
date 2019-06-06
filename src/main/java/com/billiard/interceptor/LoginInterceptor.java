@@ -29,6 +29,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		
+		
+		  String urlString = request.getRequestURI();
+          
+	        ///olForum/forumList.html模拟登录页
+	        if(urlString.indexOf("admin/login")>-1){
+	            return true;
+	        }
 		 HttpSession session = request.getSession();
 			Object attribute = session.getAttribute("admin_user");
 		          //判断session中是否有用户数据，如果有，则返回true，继续向下执行

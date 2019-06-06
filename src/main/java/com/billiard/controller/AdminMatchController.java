@@ -87,6 +87,24 @@ public class AdminMatchController {
 		return adminService.addMatch(match);
 	}
 	
+	@RequestMapping(value="current",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse cancelAndSetCurrent(@RequestBody MatchWithBLOBs match ,HttpServletRequest request ) {
+		log.info("add match ");
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		Admin a = (Admin)attribute;
+		
+		
+		return adminService.cancelAndSetCurrent(match);
+	}
+	
+	
+	
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse update(@RequestBody MatchWithBLOBs match  ,HttpServletRequest request ) {

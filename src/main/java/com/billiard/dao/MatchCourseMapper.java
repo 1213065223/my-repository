@@ -6,6 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MatchCourseMapper {
+	
+	MatchCourse selectPrevious(MatchCourse record);
+	
+	MatchCourse selectNext(MatchCourse record);
+	
     long countByExample(MatchCourseExample example);
 
     int deleteByExample(MatchCourseExample example);

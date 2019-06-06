@@ -511,4 +511,15 @@
       enroll_cost = #{enrollCost,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  
+  <select id="getCurrentMatch" parameterType="com.billiard.entity.Match" resultMap="ResultMapWithBLOBs">
+  	select * from t_match where match_del != #{matchDel} and match_now = #{matchNow}
+  </select>
+  <update id="cancelAndSetCurrent" parameterType="com.billiard.entity.Match">
+  	update t_match set match_now =#{matchNow} 
+  		<if test="id != null">
+      WHERE  id = #{id}
+      </if>
+  </update>
 </mapper>
