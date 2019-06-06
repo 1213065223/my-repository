@@ -9,6 +9,8 @@ public class Announcement {
 
     private String title;
 
+    private String titleImage;
+    
     private String introduce;
     
     @JsonFormat(pattern="yyyy/MM/dd")
@@ -34,7 +36,15 @@ public class Announcement {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getIntroduce() {
+    public String getTitleImage() {
+		return titleImage;
+	}
+
+	public void setTitleImage(String titleImage) {
+		this.titleImage = titleImage;
+	}
+
+	public String getIntroduce() {
         return introduce;
     }
 

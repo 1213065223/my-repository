@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.billiard.entity.Announcement">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+     <result column="title_image" jdbcType="VARCHAR" property="titleImage" />
     <result column="introduce" jdbcType="VARCHAR" property="introduce" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />

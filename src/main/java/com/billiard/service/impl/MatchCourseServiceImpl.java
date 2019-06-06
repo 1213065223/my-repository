@@ -60,9 +60,9 @@ public class MatchCourseServiceImpl implements MatchCourseService {
 	}
 
 	@Override
-	public Map<String, MatchCourse> getPreviousAndNext(MatchCourse matchCourse) {
+	public Map<String, MatchCourse> getPreviousAndNext(Integer matchCourse) {
 		Map<String,MatchCourse> res = new HashMap<>();
-		MatchCourse reviewDetail = reviewDetail(matchCourse.getId());
+		MatchCourse reviewDetail = reviewDetail(matchCourse);
 		if(reviewDetail==null) {
 			res.put("current", null);
 			res.put("previous", null);

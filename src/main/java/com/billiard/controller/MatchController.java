@@ -87,7 +87,7 @@ public class MatchController {
 	@ResponseBody
 	public JobResponse reviewList( @RequestParam(value="cid",required=false)Integer cid,HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at review detail!");
-		return JobResponse.successResponse(matchCourseService.reviewDetail(cid));
+		return JobResponse.successResponse(matchCourseService.getPreviousAndNext(cid));
 	}
 	
 	
