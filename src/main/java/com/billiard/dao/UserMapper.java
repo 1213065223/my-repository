@@ -3,9 +3,14 @@ package com.billiard.dao;
 import com.billiard.entity.User;
 import com.billiard.entity.UserExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
+	
+	List<Map<String,Object>> getAllUser(User record);
+	
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);

@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, introduce, create_time, create_user
+    id, title,title_image, introduce, create_time, create_user
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -126,10 +126,10 @@
   </delete>
   <insert id="insert" parameterType="com.billiard.entity.Announcement">
     insert into t_announcement (id, title, introduce, 
-      create_time, create_user, content
+      create_time, create_user, content,title_image
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR},#{titleImage}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.billiard.entity.Announcement">
@@ -153,6 +153,10 @@
       <if test="content != null">
         content,
       </if>
+       <if test="titleImage != null">
+        title_image,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -172,6 +176,9 @@
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="titleImage != null">
+         #{titleImage},
       </if>
     </trim>
   </insert>
@@ -202,6 +209,9 @@
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
+      <if test="titleImage != null">
+        title_image  = #{record.titleImage},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -214,7 +224,8 @@
       introduce = #{record.introduce,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       create_user = #{record.createUser,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=LONGVARCHAR}
+      content = #{record.content,jdbcType=LONGVARCHAR},
+        title_image  = #{record.titleImage}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -248,6 +259,9 @@
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
+      <if test="titleImage != null">
+        title_image  = #{titleImage},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -265,7 +279,8 @@
     set title = #{title,jdbcType=VARCHAR},
       introduce = #{introduce,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      create_user = #{createUser,jdbcType=VARCHAR}
+      create_user = #{createUser,jdbcType=VARCHAR},
+        title_image  = #{titleImage} 
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -2,6 +2,8 @@ package com.billiard.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class User {
     private String id;
 
@@ -27,8 +29,14 @@ public class User {
     
     private String surname;
     
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date paramStart;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date paramEnd;
+    
     public String getId() {
         return id;
     }
@@ -131,6 +139,22 @@ public class User {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Date getParamStart() {
+		return paramStart;
+	}
+
+	public void setParamStart(Date paramStart) {
+		this.paramStart = paramStart;
+	}
+
+	public Date getParamEnd() {
+		return paramEnd;
+	}
+
+	public void setParamEnd(Date paramEnd) {
+		this.paramEnd = paramEnd;
 	}
     
     

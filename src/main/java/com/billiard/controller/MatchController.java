@@ -1,5 +1,8 @@
 package com.billiard.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.billiard.entity.Config;
 import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
+import com.billiard.entity.MatchWithBLOBs;
+import com.billiard.service.ConfigService;
 import com.billiard.service.IntegralService;
 import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
@@ -38,6 +44,9 @@ public class MatchController {
 	@Autowired
 	private NewsService newsService;
 	
+	@Autowired
+	private ConfigService configService;
+	
 	@RequestMapping(value="",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse matchList(@RequestParam(value="page",defaultValue="1") int page  ,@RequestParam(value="size",defaultValue="20") int size  ,@RequestParam(value="match_name",required=false)String match_name,@RequestParam(value="time_quantum",required=false)String time_quantum,HttpServletRequest request) {
@@ -50,7 +59,14 @@ public class MatchController {
 	@ResponseBody
 	public JobResponse matchCurrent(HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at match current!");
-		return JobResponse.successResponse(matchService.matchCurrent());
+		
+		
+		Config config = configService.getConfig();
+		MatchWithBLOBs matchCurrent = matchService.matchCurrent();
+		Map<String,Object> res = new HashMap<>();
+		res.put("match", matchCurrent);
+		res.put("config", config);
+		return JobResponse.successResponse(res);
 	}
 	
 	
