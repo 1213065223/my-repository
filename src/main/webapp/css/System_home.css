@@ -1,5 +1,5 @@
 body {
-	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "寰蒋闆呴粦", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 1.5;
 	color: #515a6e;
@@ -33,19 +33,21 @@ body {
 	font-size: 14px;
 	font-weight: normal;
 	letter-spacing: 1px;
-	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "寰蒋闆呴粦", Arial, sans-serif;
 }
 
 .menuBar>dl>dt>i:last-child {
 	display: inline-block;
 	position: absolute;
 	right: 15px;
+	font-size: 15px;
 }
 
 .menuBar>dl>dt>i:first-child {
 	display: inline-block;
 	position: absolute;
 	left: 20px;
+	font-size: 18px;
 }
 
 .menuBar>dl>dd {
@@ -60,7 +62,7 @@ body {
 	font-size: 14px;
 	font-weight: normal;
 	letter-spacing: 1px;
-	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "寰蒋闆呴粦", Arial, sans-serif;
 }
 
 .menuBar>dl>dd:hover {
@@ -68,7 +70,10 @@ body {
 	color: white;
 	background: #2b85e4;
 }
-
+.dd-choice{
+	color: white;
+	background: #2b85e4;
+}
 .menuBar>dl>dt:hover {
 	cursor: pointer;
 }
@@ -124,14 +129,14 @@ body {
   background: white;
 }
 
-/*定义滚动条轨道 内阴影+圆角*/
+/*瀹氫箟婊氬姩鏉¤建閬� 鍐呴槾褰�+鍦嗚*/
 .menuBar::-webkit-scrollbar-track
 {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   border-radius: 10px;
 }
 
-/*定义滑块 内阴影+圆角*/
+/*瀹氫箟婊戝潡 鍐呴槾褰�+鍦嗚*/
 .menuBar::-webkit-scrollbar-thumb
 {
   border-radius: 10px;

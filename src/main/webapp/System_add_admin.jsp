@@ -3,269 +3,585 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
+<title>后台管理</title>
+<link rel="stylesheet" type="text/css"
+	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
-<link rel="stylesheet" type="text/css" href="css/component.css" />
-<link rel="stylesheet" type="text/css" href="css/System_add_admin.css" />
+<link rel="stylesheet" type="text/css" href="css/System_home.css" />
+<link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/home.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.dialog.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript"
 	charset="utf-8"></script>
-<title></title>
 </head>
 <body>
-	<div class=System_add_admin>
-
-		<div class="flex-start form-div">
-			<div>
-				<button type="button" class="ivu-btn ivu-btn-warning" id="insert">添加</button>
-			</div>
-			<div class="row-div form-data">
-				<p style="width: 80px;">昵称</p>
-				<input type="text" class="gd-input" id="nick_name" />
-			</div>
-			<div class="row-div form-data">
-				<p style="width: 80px;">手机号</p>
-				<input type="text" class="gd-input" id="phone" />
-			</div>
-			<div>
-				<button type="button" class="ivu-btn ivu-btn-primary"
-					onclick="request()">查询</button>
-			</div>
+	<div>
+		<div class="menuBar" id="menuBar">
+			<dl class="column-div">
+				<dt active-name="display">
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>管理员管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd src='System_add_admin'
+					style="color: white; background: #2b85e4;">
+					<span>管理员列表</span>
+				</dd>
+				<dt>
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>广告管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd src='System_AdvertisingSet'>
+					<span>广告设置</span>
+				</dd>
+				<dt>
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>协会管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd src='System_AssociationProfile'>
+					<span>协会简介</span>
+				</dd>
+				<dd src='System_associationAffiche'>
+					<span>协会公告</span>
+				</dd>
+				<dd src='System_Add_associationAffiche'>
+					<span>添加协会公告</span>
+				</dd>
+				<dt>
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>赛事管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd src='System_CompetitionList'>
+					<span>赛事列表</span>
+				</dd>
+				<dd src='System_applyManage'>
+					<span>报名管理</span>
+				</dd>
+				<dd src='System_CompetitionNews'>
+					<span>赛事新闻</span>
+				</dd>
+				<dd src='System_EventReview'>
+					<span>赛事回顾</span>
+				</dd>
+				<dt>
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>排名管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd>
+					<span>战绩排名管理</span>
+				</dd>
+				<dd>
+					<span>积分排名管理</span>
+				</dd>
+				<dt>
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>会员管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd>
+					<span>会员列表</span>
+				</dd>
+				<dt>
+					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>系统管理</span>
+					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
+				</dt>
+				<dd>
+					<span>网站设置</span>
+				</dd>
+			</dl>
 		</div>
-		<div class="gd-table-div">
-			<table border="0" cellspacing="0" cellpadding="0" class="gd-table"
-				id="table">
-				<tr>
-					<th>
-						<div class="row-div gd-table-th">账号</div>
-					</th>
-					<th>
-						<div class="row-div">手机</div>
-					</th>
-					<th>
-						<div class="row-div">昵称</div>
-					</th>
-					<th>
-						<div class="row-div">状态</div>
-					</th>
-					<th>
-						<div class="row-div">创建时间</div>
-					</th>
-					<th>
-						<div class="row-div">操作</div>
-					</th>
-				</tr>
-				<tr>
-					<td>
-						<div class="row-div">Data</div>
-					</td>
-					<td>
-						<div class="row-div">Data</div>
-					</td>
-					<td>
-						<div class="row-div">Data</div>
-					</td>
-					<td>
-						<div class="row-div">Data</div>
-					</td>
-					<td>
-						<div class="row-div">Data</div>
-					</td>
-					<td style="width: 200px;">
-						<div class="row-div">
-							<button type="button" class="ivu-btn ivu-btn-info operation-but"
-								data-modal="modal-1">编辑</button>
-							<button type="button" class="ivu-btn ivu-btn-error">删除</button>
+
+
+		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
+			id="mvvm">
+			<div class="layout-header"></div>
+			<!-- style="padding: 0px 16px 16px;" -->
+			<div class="layout-content" style="padding: 0px 16px 16px;">
+				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
+					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">管理员管理</span>
+						<span class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">管理员列表</span>
+						<span class="ivu-breadcrumb-item-separator">/</span>
+					</span>
+				</div>
+
+				<div class="ivu-card ivu-card-body" id="ivu-card-div">
+
+
+					<form autocomplete="off"
+						class="ivu-form ivu-form-label-right ivu-form-inline">
+						<div class="ivu-form-item ivu-form-item-required">
+							<div class="ivu-form-item-content">
+								<button type="button" class="ivu-btn ivu-btn-warning"
+									onclick="Modal_show()">
+									<span>添加管理员</span>
+								</button>
+							</div>
 						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class="zxf_pagediv"></div>
-		<a href="javascript:;" class="md-trigger btn btn-primary btn-sm"
-			data-modal="modal-1" id="data-modal" style="display: none">编辑</a>
-	</div>
-	<div class="md-modal md-effect-1" id="modal-1">
-		<div class="md-content">
-			<h3 id="title">用户修改</h3>
-			<div>
-				<ul class="md-modal-ul">
-					<li class="flex-start" id="loginName">
-						<p>用户名</p> <input type="text" class="gd-input"></input>
-					</li>
-					<li class="flex-start" id="password">
-						<p>密码</p> <input type="text" class="gd-input"></input>
-					</li>
-					<li class="flex-start" id="nickname">
-						<p>昵称</p> <input type="text" class="gd-input"></input>
-					</li>
-					<li class="flex-start" id="phone">
-						<p>手机号</p> <input type="text" class="gd-input"></input>
-					</li>
-					<li class="flex-start" id="">
-						<p>选择用户组</p> <select class="gd-input">
-							<option value="1">管理员</option>
-					</select>
-					</li>
-					<li class="flex-start label-radio" id="isStop">
-						<p>启用状态</p> <label for="ok" class="row-div"> <span>启用</span>
-							<input type="radio" value="1" name="radio-1" id="ok" />
+						<div class="ivu-form-item ">
+							<div class="ivu-form-item-content row-div" style="width: 260px">
+								<p style="width: 100px;" class="ivu-form-item-label">昵称</p>
+								<input type="text" spellcheck="false" autocomplete="off"
+									class="ivu-input ivu-input-default" v-model="name" />
+							</div>
+						</div>
+						<div class="ivu-form-item ">
+							<div class="ivu-form-item-content row-div" style="width: 260px">
+								<p style="width: 100px;" class="ivu-form-item-label">手机号</p>
+								<input type="text" spellcheck="false" autocomplete="off"
+									class="ivu-input ivu-input-default" v-model="number" />
+							</div>
+						</div>
+						<div class="ivu-form-item ivu-form-item-required">
+							<div class="ivu-form-item-content" style="width: 200px">
+								<button type="button" class="ivu-btn ivu-btn-primary"
+									onclick="Request()">
+									<span>查询</span>
+								</button>
+							</div>
+						</div>
+					</form>
+					<div class="ivu-table-body">
+						<table cellspacing="0" cellpadding="0" border="0"
+							style="width: 100%" class="ivu-table ivu-table-border">
+							<tbody class="ivu-table-tbody" id="tbody">
+								<tr class="ivu-table-row">
+									<th class="ivu-table-column-center">
+										<div class="ivu-table-cell">账号</div>
+									</th>
+									<th class="ivu-table-column-center">
+										<div class="ivu-table-cell">手机</div>
+									</th>
+									<th class="ivu-table-column-center">
+										<div class="ivu-table-cell">昵称</div>
+									</th>
+									<th class="ivu-table-column-center">
+										<div class="ivu-table-cell">状态</div>
+									</th>
+									<th class="ivu-table-column-center">
+										<div class="ivu-table-cell">创建时间</div>
+									</th>
+									<th class="ivu-table-column-center">
+										<div class="ivu-table-cell">操作</div>
+									</th>
+								</tr>
+								<tr class="ivu-table-row">
+									<td class="ivu-table-column-center" colspan="6">
+										<div class="ivu-table-cell">没有数据</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="zxf_pagediv"></div>
 
-					</label> <label for="no" class="row-div "> <span>禁用</span> <input
-							type="radio" value="2" name="radio-1" id="no" />
-					</label>
-					</li>
-				</ul>
-				<div class="flex-around">
-					<button class="md-close ivu-btn" id="cancel">取消</button>
-					<button class="ivu-btn ivu-btn-primary" onclick="butupdata()">提交</button>
+
+					<!-- 提示框 -->
+					<div class="v-transfer-dom" id="transfer-dom"
+						style="display: none;">
+						<div class="ivu-modal-mask" style="z-index: 1003;"></div>
+						<div class="ivu-modal-wrap" style="z-index: 1003;">
+							<div class="ivu-modal" style="width: 416px;">
+								<div class="ivu-modal-content">
+									<div class="ivu-modal-body">
+										<div class="ivu-modal-confirm">
+											<div class="ivu-modal-confirm-head">
+												<div
+													class="ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-warning">
+													<i class="ivu-icon ivu-icon-ios-alert"></i>
+												</div>
+												<div class="ivu-modal-confirm-head-title">警告</div>
+											</div>
+											<div class="ivu-modal-confirm-body">
+												<div>
+													<p>确定要禁用吗?</p>
+												</div>
+											</div>
+											<div class="ivu-modal-confirm-footer">
+												<button type="button" class="ivu-btn ivu-btn-small"
+													style="margin-right: 5px;" onclick="transfer_cancel()">取消</button>
+												<button type="button"
+													class="ivu-btn ivu-btn-primary ivu-btn-large"
+													onclick="transfer_ok()">确定</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal框 -->
+					<div class="v-transfer-dom" id="Modal-Add" style="display: none;">
+						<div class="ivu-modal-mask" style="z-index: 1002;"></div>
+						<div class="ivu-modal-wrap" style="z-index: 1002;">
+							<div class="ivu-modal" style="width: 520px;">
+								<div class="ivu-modal-content">
+									<a class="ivu-modal-close" onclick="Modal_cancel()"><i
+										class="ivu-icon ivu-icon-ios-close"></i></a>
+									<div class="ivu-modal-header">
+										<div class="ivu-modal-header-inner">{{Add_header}}</div>
+									</div>
+									<div class="ivu-modal-body">
+										<div style="width: 100%;" class="column-center">
+											<form class="form-model column-start" label-width="100"
+												id="form-model">
+												<div class="form-model-div flex-start">
+													<p class="flex-end form-p">
+														<span class="form-span">*</span> <span>用户名</span>
+													</p>
+													<div class="form-input-parent">
+														<input type="text" class="ivu-input ivu-input-default"
+															id="loginName" autocomplete="off" spellcheck="false"
+															v-model="details.loginName"/>
+													</div>
+												</div>
+												<div class="form-model-div flex-start">
+													<p class="flex-end form-p">
+														<span class="form-span">*</span> <span>密码</span>
+													</p>
+													<div class="form-input-parent">
+														<input type="password" class="ivu-input ivu-input-default"
+															id="password" autocomplete="off" spellcheck="false"
+															v-model="details.password" value=""/>
+													</div>
+												</div>
+												<div class="form-model-div flex-start">
+													<p class="flex-end form-p">
+														<span class="form-span">*</span> <span>昵称</span>
+													</p>
+													<div class="form-input-parent">
+														<input type="text" class="ivu-input ivu-input-default"
+															id="nickname" autocomplete="off" spellcheck="false"
+															v-model="details.nickname" />
+													</div>
+												</div>
+												<div class="form-model-div flex-start">
+													<p class="flex-end form-p">
+														<span class="form-span">*</span> <span>手机号</span>
+													</p>
+													<div class="form-input-parent">
+														<input type="email" class="ivu-input ivu-input-default"
+															id="phone" autocomplete="off" spellcheck="false"
+															v-model="details.phone" />
+													</div>
+												</div>
+												<div class="form-model-div flex-start">
+													<p class="flex-end form-p">
+														<span class="form-span">*</span> <span>选择用户组</span>
+													</p>
+													<div class="form-input-parent">
+														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
+														<select name="" class="ivu-input ivu-input-default">
+															<option value="1">管理员</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-model-div flex-start" style="display: none;">
+													<p class="flex-end form-p">
+														<span class="form-span">*</span> <span>启用状态</span>
+													</p>
+													<div class="form-input-parent flex-around" id="User-state">
+														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
+														<label for="radio-1" class="row-div"> <span
+															style="margin-right: 5px">启用</span> <input type="radio"
+															name="radio-name" id="radio-1" value="1"
+															checked="checked" />
+														</label> <label for="radio-2" class="row-div"> <span
+															style="margin-right: 5px">禁用</span> <input type="radio"
+															name="radio-name" id="radio-2" value="2" />
+														</label>
+													</div>
+												</div>
+
+											</form>
+										</div>
+									</div>
+									<div class="ivu-modal-footer">
+										<button type="button"
+											class="ivu-btn ivu-btn-text ivu-btn-large"
+											onclick="Modal_cancel()">取消</button>
+										<button type="button"
+											class="ivu-btn ivu-btn-primary ivu-btn-large"
+											onclick="Modal_ok()">确定</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="md-overlay"></div>
+
+
 </body>
-<script src="js/classie.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/modalEffects.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	var entity = {
-			size: 1,
-			pageNum: 0
-	};
-	var dataList = {
-			table: []
-	};
-	$('#insert').click(function () {
-		$("#title").val('添加用户');
-		$("#loginName>input").val('');
-		$("#password").css('display','flex');
-		$("#phone>input").val('');
-		$("#nickname>input").val('');
-		$("#isStop").css('display','none');
-		document.getElementById('data-modal').click();
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			Add_header: '添加管理员',
+			name : '',
+			number : '',
+			size : 10,
+			pageNum : 1,
+			table : [],
+			id : '',
+			isStop : null,
+			details : {
+				createUser : "",
+				id : null,
+				isStop : false,
+				loginName : "",
+				nickname : "",
+				password : "",
+				phone : "",
+				salt : "",
+				userType : "",
+			}
+		}
 	});
-	let request = function () {
-		let nick_name = $("#nick_name").val();
-		let phone = $("#phone").val();
+	$(".zxf_pagediv").createPage({
+		pageNum : 1,
+		current : 1,
+		total : 0,
+		backfun : function(e) {
+			vm.pageNum = e.current;
+			Request();
+		}
+	});
+	Request();
+	function Request() {
+		let url = "/admin/list?size=" + vm.size + "&pageNum=" + vm.pageNum
+				+ "&nick_name=" + vm.name + "&phone=" + vm.number
 		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/admin/list?size=" + entity.size + "&nick_name="+nick_name+"&phone="+phone,
+			type : 'get',
+			url : "${pageContext.request.contextPath}" + url,
 			dataType : "json",
-			success : function(data) {
-				if (data.code === 200) {
-					entity.pageNum = data.result.pages;
-					dataList.table = data.result.list;
-					let arr = data.result.list;
-					let innhtml ='<tr><th><div class="row-div gd-table-th">账号</div></th><th><div class="row-div">手机</div></th><th><div class="row-div">昵称</div></th><th><div class="row-div">状态</div></th><th><div class="row-div">创建时间</div></th><th><div class="row-div">操作</div></th></tr>';
-					arr.forEach(function(item,index) {
-						let isStop = !item.isStop ? '启用' : '禁用';
-						let isStopstr = item.isStop ? '启用' : '禁用';
-						let JSONstr = JSON.stringify(item);
-						innhtml +="<tr>";
-						innhtml +="<td><div class='row-div'>"+item.loginName+"</div></td>";
-						innhtml +="<td><div class='row-div'>"+item.phone+"</div></td>";
-						innhtml +="<td><div class='row-div'>"+item.nickname+"</div></td>";
-						innhtml +="<td><div class='row-div'>"+isStop+"</div></td>";
-						innhtml +="<td><div class='row-div'>"+item.createTime+"</div></td>";
-						
-						innhtml +="<td style='width: 200px;'><div class='row-div'>"+
-						"<button type='button' class='ivu-btn ivu-btn-info operation-but' onclick='compile("+JSONstr+")' data-modal='modal-1' href='javascript:;'>编辑</button><button type='button' class='ivu-btn ivu-btn-error'  onclick='deleteRequest("+JSONstr+")'>"+isStopstr+"</button></div></td>";
-						innhtml +="</tr>";
-						
-					})
-					$("#table>tbody").html(innhtml);
+			data : {},
+			success : function(res) {
+				if (res.code === 200) {
+					vm.table = res.result.list;
+					addTable(res.result.list)
 					$(".zxf_pagediv").createPage({
-						pageNum : data.result.pages,
-						current : data.result.pageNum,
-						total: data.result.total
+						pageNum : res.result.pages,
+						current : vm.pageNum,
+						total : res.result.total
 					});
-				} else {
-					spop({template: data.message,group: 'submit-satus',style: 'warning',autoclose: 5000});
 				}
 			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template: '查询接口访问失败,请与系统管理员联系',
-					group: 'submit-satus',
-					style: 'error',
-					autoclose: 5000
-				});
+			error : function(e) {
+				console.log(e)
 			}
 		});
+	};
+	function addTable(arr) {
+		let html = '<tr class="ivu-table-row">'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">账号</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">手机</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">昵称</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">状态</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">创建时间</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">操作</div></th></tr>';
+		arr
+				.forEach(function(item, index) {
+					let isStop = !item.isStop ? '启用' : '禁用';
+					let isStopBut = item.isStop ? '启用' : '禁用';
+					html += '<tr class="ivu-table-row">'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.loginName
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.phone
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.nickname
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ isStop
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.createTime
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ '<button type="button" class="ivu-btn ivu-btn-primary ivu-btn-small" style="margin-right: 5px;" onclick="Modal_show('
+							+ index
+							+ ')">编辑</button>'
+							+ '<button type="button" class="ivu-btn '
+							+ (item.isStop ? 'ivu-btn-success'
+									: 'ivu-btn-error')
+							+ ' ivu-btn-small" onclick="forbidden('
+							+ item.id
+							+ ','
+							+ item.isStop
+							+ ')">'
+							+ isStopBut
+							+ '</button>' + '</div></td></tr>'
+				})
+		$("#tbody").html(html);
 	}
-	request();
-	$(".zxf_pagediv").createPage({
-						backfun : function(e) {
-							entity.size = e.current;
-							request();
-						}
-					});
-	let userId = null;
-	let compile = function(value)  {
-		userId = value.id
-		$("#title").val('用户修改');
-		$("#loginName>input").val(value.loginName);
-		$("#password").css('display','none');
-		$("#phone>input").val(value.phone);
-		$("#nickname>input").val(value.nickname);
-		if (value.isStop) {
-			$("#ok").removeAttr("checked");
-			$("#no").attr('checked',true);
-		} else {
-			$("#no").removeAttr("checked");
-			$("#ok").attr('checked',true);
-			
-		}
-		document.getElementById('data-modal').click();
-		/* $("#data-modal").click() */
-	}
-	let deleteRequest = (value) => {
-		let entity = value;
-		//console.log();
-		let str = JSON.stringify(entity);
-		$.dialog.confirm({content:entity.isStop?"你确定要禁用吗":"你确定要启用吗", callback:"DisabledRequesr("+entity.id+","+entity.isStop+");"});
-	}
-	function callback(id,isStop){
-		DisabledRequesr(id,isStop);
-	}
-	function DisabledRequesr (id,isStop) {
+	function DisabledRequesr() {
 		$.ajax({
 			type : "POST",
 			url : "${pageContext.request.contextPath}/admin/update",
-			 contentType: "application/json; charset=utf-8",
-			 dataType: "json",
-			data: JSON.stringify({
-				"isStop":isStop,
-				"id":id
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify({
+				"isStop" : !vm.isStop,
+				"id" : vm.id
 			}),
-			success : function(data)  {
-				console.log(data)
+			success : function(data) {
 				if (data.code === 200) {
-					request()
+					$("#transfer-dom").slideUp(300);
+					Request();
+					spop({
+						template: '成功',
+						group: 'submit-satus',
+						style: 'success',
+						autoclose: 5000
+					});
 				} else {
-					spop({template: data.message,group: 'submit-satus',style: 'warning',autoclose: 5000});
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
 				}
 			},
 			error : function(jqXHR) {
 				console.log("Error: " + jqXHR.status);
 				spop({
-					template: '禁用或启用接口访问失败,请与系统管理员联系',
-					group: 'submit-satus',
-					style: 'error',
-					autoclose: 5000
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
 				});
 			}
 		});
+	};
+
+	let entity = {
+		phone : {
+			RegExptype : 'phone',
+			message : '请输入手机号',
+			trigger : 'blur',
+			id : 'phone'
+		},
+		loginName : {
+			RegExptype : 'string',
+			message : '请输入用户名',
+			trigger : 'blur',
+			id : 'loginName'
+		},
+		nickname : {
+			RegExptype : 'string',
+			message : '请输入昵称',
+			trigger : 'blur',
+			id : 'nickname'
+		},
+		password : {
+			RegExptype : 'string',
+			message : '请输密码',
+			trigger : 'blur',
+			id : 'password'
+		}
 	}
+	let formRegExpList =[]
+	for(let i in entity){
+		formRegExpList.push(new formRegExp(entity[i], 'form-model'))
+	}
+	let label_width = document.getElementById('form-model').getAttribute(
+			'label-width');
+	let arr = document.getElementsByClassName('form-p')
+		for (let i = 0; i < arr.length; i++) {
+			arr[i].style.width = label_width + 'px';
+		}
+	
+	function Modal_show(index) {
+		let entity = vm.table[index];
+		if (entity) {
+			vm.Add_header = "编辑管理员"
+			vm.details = entity;
+			$('#password').parent().parent().hide();
+			$('#loginName').attr('readonly','readonly');
+			//$('#User-state').parent().show();
+		} else {
+			vm.Add_header = "添加管理员"
+			vm.details={
+				id : null,
+				isStop : false,
+				loginName : "",
+				nickname : "",
+				password : "",
+				phone : "",
+			}
+			$('#password').parent().parent().show()
+			$('#loginName').removeAttr('readonly');
+			//$('#User-state').parent().hide()
+		}
+		$("#Modal-Add").toggle(300);
+	};
+	function Modal_ok() {
+		let arr = []
+		for(let i =0; i<formRegExpList.length;i++){
+			if (formRegExpList[i].result) {
+				arr.push(true)
+			} else {
+				formRegExpList[i].onceEvent();
+				arr.push(false)
+			}
+		}
+		let boo = true;
+		for(let i =0; i<arr.length;i++){
+			if (!arr[i]) {
+				boo = false
+			}
+		}
+		if (boo) {
+			if (vm.Add_header === "添加管理员") {
+				insertRequesr();
+			} else {
+				updataRequesr()
+			}
+			
+		}
+	};
+	function Modal_cancel() {
+		$("#Modal-Add").toggle(300);
+	};
+	function forbidden(id, isStop) {
+		vm.id = id;
+		vm.isStop = isStop;
+		$("#transfer-dom").toggle(300);
+	};
+	function transfer_ok() {
+		DisabledRequesr();
+	};
+	function transfer_cancel() {
+		$("#transfer-dom").toggle(300);
+	};
 	function insertRequesr () {
 		$.ajax({
 			type : "POST",
@@ -273,16 +589,21 @@
 			 contentType: "application/json; charset=utf-8",
 			 dataType: "json",
 			data: JSON.stringify({
-				"nickname":$("#nickname>input").val(),
-				"loginName":$("#loginName>input").val(),
-				"password":$("#password>input").val(),
-				"phone":$("#phone>input").val()
+				"nickname":vm.details.nickname,
+				"loginName":vm.details.loginName,
+				"password":vm.details.password,
+				"phone":vm.details.phone
 			}),
 			success : function(data)  {
 				if (data.code === 200) {
-					request();
-					document.getElementById('cancel').click();
-					spop('<h4 class="spop-title">成功</h4>'+data.message, 'success');
+					$("#Modal-Add").toggle(300);
+					Request();
+					spop({
+						template: '成功',
+						group: 'submit-satus',
+						style: 'success',
+						autoclose: 5000
+					});
 				} else {
 					spop({
 						template: data.message,
@@ -303,32 +624,30 @@
 			}
 		});
 	}
-	function butupdata (){
-		if ($("#title").val() === '添加用户') {
-			insertRequesr();
-		} else {
-			updataRequesr();
-		};
-	}
 	function updataRequesr () {
+		// "isStop":$("input[name='radio-1']:checked").val()=== '1' ? false : true
 		$.ajax({
 			type : "POST",
 			url : "${pageContext.request.contextPath}/admin/update",
 			 contentType: "application/json; charset=utf-8",
 			 dataType: "json",
 			data: JSON.stringify({
-				"nickname":$("#nickname>input").val(),
-				"loginName":$("#loginName>input").val(),
-				"password":"",
-				"phone":$("#phone>input").val(),
-				"id": userId,
-				"isStop":$("input[name='radio-1']:checked").val()=== '1' ? false : true
+				"nickname":vm.details.nickname,
+				"loginName":vm.details.loginName,
+				"password":'',
+				"phone":vm.details.phone,
+				"id": vm.details.id
 			}),
 			success : function(data)  {
 				if (data.code === 200) {
-					request();
-					document.getElementById('cancel').click();
-					spop('<h4 class="spop-title">成功</h4>'+data.message, 'success');
+					Request();
+					spop({
+						template: '成功',
+						group: 'submit-satus',
+						style: 'success',
+						autoclose: 5000
+					});
+					$("#Modal-Add").toggle(300);
 				} else {
 					spop({
 						template: data.message,
@@ -349,7 +668,5 @@
 			}
 		});
 	}
-	
-	
 </script>
 </html>

@@ -107,12 +107,12 @@
 				style="width: 60%; height: 3px; background: rgba(226, 226, 226, 1); margin-bottom: 15px;"></div>
 			<div class="content-div-1 flex-between">
 				<div class="row-div">
-					<button type="button" class="ivu-btn">上一条</button>
-					<p style="margin-left: 10px;">无</p>
+					<button type="button" class="ivu-btn" id="on_up" onclick="record(this)">上一条</button>
+					<p style="margin-left: 10px;" id="on_up-p">无</p>
 				</div>
 				<div class="row-div">
-					<p style="margin-right: 10px;">无</p>
-					<button type="button" class="ivu-btn">下一条</button>
+					<p style="margin-right: 10px;" id="on_down-p">无</p>
+					<button type="button" class="ivu-btn" id="on_down" onclick="record(this)">下一条</button>
 				</div>
 			</div>
 		</div>
@@ -175,6 +175,11 @@
 	if (id) {
 		request();
 	}
+	function record (entity) {
+		if($(entity).attr('value')){
+			window.location.href = 'PC-' + 'ScheduleReviewDetails.jsp?id=' + $(entity).attr('value');
+		}
+	};
 	function request() {
 		$.ajax({
 			type : "GET",
@@ -183,7 +188,7 @@
 			success : function(data) {
 				if (data.code === 200) {
 					console.log(data)
-					let entity = data.result;
+					let entity = data.result.current;
 					$("#matchDetail").html(entity.matchDetail);
 					$("#title").html(entity.title);
 					$("#teamOneName").html(entity.teamOneName);
@@ -191,7 +196,14 @@
 					$("#title").html(entity.title);
 					$("#courseTime").html(
 							entity.courseTime + ' 地址：' + entity.coursePlace);
-					
+					if (data.result.next) {
+						$("#on_down").attr('value',data.result.next.id);
+						$("#on_down-p").text(data.result.next.title);
+					}
+					if (data.result.previous) {
+						$("#on_up").attr('value',data.result.previous.id);
+						$("#on_up-p").text(data.result.previous.title);
+					}
 				} else {
 					spop({
 						template : data.message,
