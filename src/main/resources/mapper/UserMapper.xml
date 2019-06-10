@@ -320,4 +320,29 @@
       isStop = #{isstop,jdbcType=BIT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getAllUser" resultType="HashMap" parameterType="com.billiard.entity.User">
+  SELECT t_user.id,t_user.surname,t_user.nickname,t_user.login_name,t_user.phone,t_user.birthday,CASE t_user.sex WHEN 1 THEN '男' ELSE '女' END sex ,t_user.head_image ,t_user.isStop ,t_user.create_time ,IFNULL(b.wins,0)wins,IFNULL(b.lose,0)lose,IFNULL(b.plan,0)plan,IFNULL(b.intg,0)intg from t_user LEFT JOIN (SELECT user_id,SUM(CASE t_integral.winning WHEN 1 THEN 1 ELSE 0 END)wins ,SUM(CASE t_integral.winning WHEN -1 THEN 1 ELSE 0 END)lose,SUM(CASE t_integral.winning WHEN 0 THEN 1 ELSE 0 END)plan , SUM(CASE t_integral.winning WHEN 1 THEN IFNULL(t_integral.integral,0) ELSE 0 END) intg FROM t_integral GROUP BY user_id ) b ON b.user_id =t_user.id  
+  <where>
+  	  <trim  prefixOverrides="and" >
+  	  	 <if test="paramStart != null" >
+       <![CDATA[  and t_user.create_time >= #{paramStart} ]]>
+      </if>
+      <if test="paramEnd != null" >
+        <![CDATA[  and t_user.create_time <= #{paramEnd}]]>
+      </if>
+     <if test="nickname != null and nickname != ''" >
+        and t_user.nickname LIKE CONCAT('%',#{nickname},'%') 
+      </if>
+     <if test="phone != null and phone != ''" >
+        and t_user.phone LIKE CONCAT('%',#{phone},'%') 
+      </if>
+     <if test="loginName != null and loginName !=''" >
+        and t_user.login_name LIKE CONCAT('%',#{loginName},'%') 
+      </if>
+  	  </trim>
+  </where>
+  
+  ORDER BY t_user.create_time desc
+  </select>
 </mapper>

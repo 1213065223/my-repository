@@ -1,6 +1,7 @@
 package com.billiard.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import com.billiard.entity.UserExample;
 import com.billiard.entity.UserExample.Criteria;
 import com.billiard.service.UserService;
 import com.billiard.util.MD5Util;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 
 @Service
@@ -54,5 +57,23 @@ public class UserServiceImpl implements UserService {
 		else {
 			return selectByExample.get(0);
 		}
+	}
+
+	@Override
+	public PageInfo<Map<String, Object>> getUserList(User user, Integer page, Integer size) {
+		
+		PageHelper.startPage(page, size);
+		List<Map<String, Object>> allUser = userMapper.getAllUser(user);
+		PageInfo<Map<String, Object>> res = new PageInfo<>(allUser);
+		return res;
+	}
+
+	@Override
+	public Integer forbiddenUser(User user) {
+		
+		User dest = new User();
+		dest.setId(user.getId());
+		dest.setIsstop(user.getIsstop());
+		return userMapper.updateByPrimaryKeySelective(dest);
 	}
 }
