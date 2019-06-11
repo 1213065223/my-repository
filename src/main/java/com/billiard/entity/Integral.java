@@ -2,11 +2,14 @@ package com.billiard.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Integral {
     private Integer id;
 
     private String ranking;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")  
     private Date matchTime;
 
     private Integer integral;

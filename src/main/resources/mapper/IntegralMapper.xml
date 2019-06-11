@@ -395,4 +395,16 @@ FROM
 	) r
  </select>
   
+  <select id="getUserIntegral" parameterType="String" resultType="HashMap">
+  	SELECT t_integral.*,SUM(CASE t_integral.winning WHEN 1 THEN 1 ELSE 0 END)wins ,SUM(CASE t_integral.winning WHEN -1 THEN 1 ELSE 0 END)lose,SUM(CASE t_integral.winning WHEN 0 THEN 1 ELSE 0 END)plan , SUM(CASE t_integral.winning WHEN 1 THEN IFNULL(t_integral.integral,0) ELSE 0 END) intg FROM t_integral WHERE user_id=#{value} GROUP BY user_id
+  </select>
+  <select id="getUserMatch" parameterType="com.billiard.entity.Integral" resultType="HashMap">
+  	SELECT t_integral.*,SUM(CASE t_integral.winning WHEN 1 THEN 1 ELSE 0 END)wins ,SUM(CASE t_integral.winning WHEN -1 THEN 1 ELSE 0 END)lose,SUM(CASE t_integral.winning WHEN 0 THEN 1 ELSE 0 END)plan , SUM(CASE t_integral.winning WHEN 1 THEN IFNULL(t_integral.integral,0) ELSE 0 END) intg FROM t_integral WHERE user_id=#{userId} and match_id=#{matchId}
+  </select>
+  
+  
+  <select id="getUserIntegralList"  parameterType="String" resultType="HashMap">
+  SELECT i.*,m.match_place FROM t_integral i JOIN t_match m ON i.match_id = m.id WHERE i.user_id =#{value} and i.winning<![CDATA[>]]>0 ORDER BY i.match_time DESC
+  </select>
+  
 </mapper>

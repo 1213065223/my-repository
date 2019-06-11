@@ -130,6 +130,31 @@ public class AdminMatchController {
 	}
 	
 	
+	
+	@RequestMapping(value="all/match",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse allMatch(HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		return JobResponse.successResponse(matchService.selectAllMatch());
+	}
+	
+	@RequestMapping(value="/match/members/{match_id}",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse membersMatch(@PathVariable("match_id") String matchId,HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		return JobResponse.successResponse(matchService.selectMembers(matchId));
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="enroll/list",method=RequestMethod.GET)
 	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) Integer type,@RequestParam(value="match_id",required=false) String match_id,@RequestParam(value="phone",required=false) String phone,@RequestParam(value="email",required=false) String email,@RequestParam(value="match_name",required=false) String match_name,HttpServletRequest request) {

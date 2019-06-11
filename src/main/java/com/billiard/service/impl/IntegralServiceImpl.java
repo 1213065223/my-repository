@@ -119,4 +119,26 @@ public class IntegralServiceImpl implements IntegralService {
 		
 		return integralMapper.selectWinsRank(record);
 	}
+
+	@Override
+	public Map<String, Object> getUserIntegral(String id) {
+		return integralMapper.getUserIntegral(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserIntegralList(String id) {
+		return integralMapper.getUserIntegralList(id);
+	}
+
+	@Override
+	public Integral getIntegral(String matchId, String userId) {
+	
+		IntegralExample example= new IntegralExample();
+		example.createCriteria().andMatchIdEqualTo(matchId).andUserIdEqualTo(userId);
+		List<Integral> selectByExample = integralMapper.selectByExample(example);
+		if(selectByExample.size()>0) {
+			return selectByExample.get(0);
+		}
+		return null;
+	}
 }

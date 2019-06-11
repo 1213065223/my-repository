@@ -55,13 +55,13 @@ public class AdminController {
 		
 		Admin adminFind = adminService.getAdminByLoginName(admin.getLoginName());
 		
+		if(adminFind==null||!MD5Util.formPassToDBPass(admin.getPassword(), adminFind.getSalt()).equals(adminFind.getPassword())) {
+			return JobResponse.errorResponse(100004, "用户名或密码错误！");
+		}
 		if(adminFind.getIsStop()) {
 			return JobResponse.errorResponse(100008, "账号已经禁用！");
 		}
 		
-		if(adminFind==null||!MD5Util.formPassToDBPass(admin.getPassword(), adminFind.getSalt()).equals(adminFind.getPassword())) {
-			return JobResponse.errorResponse(100004, "用户名或密码错误！");
-		}
 		session.setAttribute("admin_user",adminFind);
 		return JobResponse.successResponse(adminFind);
 	}

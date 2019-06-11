@@ -33,4 +33,10 @@ public interface IntegralMapper {
     List<Map<String, Object>> selectIntegralRank(Integral record);
     
     List<Map<String, Object>> selectWinsRank(Integral record);
+    
+    Map<String, Object> getUserIntegral(String userId);
+    
+    Map<String, Object> getUserMatch(Integral record);
+    
+    List<Map<String, Object>> getUserIntegralList(String userId);
 }

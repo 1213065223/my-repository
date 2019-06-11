@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.billiard.controller.MatchController;
 import com.billiard.dao.EnrollMapper;
 import com.billiard.dao.MatchMapper;
 import com.billiard.dao.UserMapper;
@@ -194,5 +193,21 @@ public class MatchServiceImpl  implements MatchService{
 		record.setMatchDel(1);
 		MatchWithBLOBs currentMatch = matchMapper.getCurrentMatch(record);
 		return currentMatch;
+	}
+
+	@Override
+	public List<Match> selectAllMatch() {
+		MatchExample example= new MatchExample();
+		example.createCriteria().andMatchDelNotEqualTo(1);
+		
+		return matchMapper.selectByExample(example);
+	}
+
+	@Override
+	public List<Enroll> selectMembers(String matchId) {
+		EnrollExample example= new EnrollExample();
+		example.createCriteria().andMatchIdEqualTo(matchId).andEnrollTypeEqualTo(3); //3为审核成功
+		
+		return enrollMapper.selectByExample(example);
 	}
 }
