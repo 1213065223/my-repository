@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 		
 		PageHelper.startPage(page, size);
 		List<Map<String, Object>> allUser = userMapper.getAllUser(user);
+		System.out.println(allUser.get(0).keySet());
 		PageInfo<Map<String, Object>> res = new PageInfo<>(allUser);
 		return res;
 	}
