@@ -103,5 +103,20 @@ public class IndexServiceImpl implements IndexService {
 	public Announcement organizationDetail(int aid) {
 		return announcementMapper.selectByPrimaryKey(aid);
 	}
+
+	@Override
+	public PageInfo<Index> list(Integer type, Integer page, Integer size) {
+		IndexExample example= new IndexExample();
+		if(type!=null) {
+			example.createCriteria().andImageLocationEqualTo(type);
+			example.setOrderByClause("create_time ");
+		}else {
+			example.setOrderByClause("image_location ,create_time ");
+		}
+		PageHelper.startPage(page, size);
+		List<Index> selectByExample = indexMapper.selectByExample(example);
+		PageInfo<Index> res = new PageInfo<>(selectByExample);
+		return res;
+	}
 	
 }

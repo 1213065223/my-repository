@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.Admin;
 import com.billiard.entity.Index;
 import com.billiard.entity.JobResponse;
 import com.billiard.service.AdminService;
+import com.billiard.service.IndexService;
 
 @Controller
 @RequestMapping("admin/index")
@@ -29,7 +31,8 @@ private static final Logger log = LoggerFactory.getLogger(AdminIndexController.c
 	
 	@Autowired
 	private AdminService adminService;
-	
+	@Autowired
+	private IndexService indexService;
 	
 	
 	
@@ -83,4 +86,12 @@ private static final Logger log = LoggerFactory.getLogger(AdminIndexController.c
 		}
 		return JobResponse.successResponse(adminService.deleteIndex(intid));
 	}
+	
+	@RequestMapping("list")
+	@ResponseBody
+	public JobResponse list(@RequestParam(value="type",required=false) Integer type,@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at admin index!");
+		return JobResponse.successResponse(indexService.list(type,page,size));
+	}
+	
 }

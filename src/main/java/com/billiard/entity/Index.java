@@ -2,6 +2,8 @@ package com.billiard.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Index {
     private Integer id;
 
@@ -15,6 +17,7 @@ public class Index {
 
     private Integer imageLocation;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     private String createUser;

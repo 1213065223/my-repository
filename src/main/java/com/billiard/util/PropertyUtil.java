@@ -24,8 +24,8 @@ public class PropertyUtil {
 	@Value("${file.prefix}")
 	private String filePrefix;
 	
-	
-	
+	@Value("${regist.mail.url}")
+	private String registMailUrl;
 	
 	public String getFilePrefix() {
 		return filePrefix;
@@ -33,6 +33,16 @@ public class PropertyUtil {
 
 	public void setFilePrefix(String filePrefix) {
 		this.filePrefix = filePrefix;
+	}
+
+	
+	
+	public String getRegistMailUrl() {
+		return registMailUrl;
+	}
+
+	public void setRegistMailUrl(String registMailUrl) {
+		this.registMailUrl = registMailUrl;
 	}
 
 	public String getUploadPath() {
