@@ -18,4 +18,10 @@ public interface IntegralService {
 	List<Map<String,Object>> rankIntegral();
 	List<Map<String,Object>> rankWins();
 
+	Map<String, Object> getUserIntegral(String id);
+
+	List<Map<String, Object>> getUserIntegralList(String id);
+
+	Integral getIntegral(String matchId, String id);
+
 }

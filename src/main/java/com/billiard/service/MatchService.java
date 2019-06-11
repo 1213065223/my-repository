@@ -24,4 +24,8 @@ public interface MatchService {
 
 	MatchWithBLOBs matchCurrent();
 
+	List<Match> selectAllMatch();
+
+	List<Enroll> selectMembers(String matchId);
+
 }
