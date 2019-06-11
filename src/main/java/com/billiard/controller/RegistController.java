@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.User;
+import com.billiard.redis.RedisCache;
 import com.billiard.service.UserService;
 import com.billiard.util.MailUtil;
 import com.billiard.util.PropertyUtil;
@@ -25,6 +26,9 @@ public class RegistController {
 	private PropertyUtil propertyUtil;
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RedisCache redisCache;
 	
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
@@ -70,6 +74,14 @@ public class RegistController {
 	
 	
 	
-	
+	@RequestMapping(value="test",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse test() {
+			
+		redisCache.put("123", "哈哈哈哈哈");
+		
+		System.out.println(redisCache.get("123"));
+		return JobResponse.successResponse();
+	}
 	
 }

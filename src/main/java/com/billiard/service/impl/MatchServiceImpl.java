@@ -143,7 +143,7 @@ public class MatchServiceImpl  implements MatchService{
 		return JobResponse.successResponse(	enrollMapper.insertSelective(enroll));
 	}
 
-	private void sendMail(String userId) {
+	private void sendMail(final String userId) {
 		
 		ExecutorService executorService = Executors.newSingleThreadExecutor();
 		

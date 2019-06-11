@@ -1,6 +1,8 @@
 package com.billiard.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.billiard.entity.Admin;
 import com.billiard.entity.Config;
 import com.billiard.entity.JobResponse;
+import com.billiard.entity.Week;
 import com.billiard.service.ConfigService;
 
 @Controller
@@ -52,6 +55,29 @@ public class AdminConfigController {
 			log.info("管理员登录超时！");
 			return JobResponse.errorResponse(100005, "管理员登录超时！");
 		}
-		return JobResponse.successResponse(configService.getConfig());
+		Map<String,Object> res = new HashMap<>();
+		res.put("config", configService.getConfig());
+		res.put("week", configService.selectWeek());
+		return JobResponse.successResponse();
 	}
+	
+	@RequestMapping(value="week",method=RequestMethod.POST)
+	@ResponseBody
+	public JobResponse updateWeek(@RequestBody Week week,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at add  week !"+week);
+		HttpSession session = request.getSession();
+		Object attribute = session.getAttribute("admin_user");
+		if(attribute==null) {
+			log.info("管理员登录超时！");
+			return JobResponse.errorResponse(100005, "管理员登录超时！");
+		}
+		return configService.addWeek(week);
+	}
+	
+	@RequestMapping(value="week",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse detailWeek(HttpServletRequest request) {
+		return JobResponse.successResponse(configService.selectWeek());
+	}
+	
 }
