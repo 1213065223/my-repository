@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 <link rel="stylesheet" href="jeui/css/jeui.css">
+<link rel="stylesheet" type="text/css" href="skin/jedate.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/home.js" type="text/javascript" charset="utf-8"></script>
@@ -20,11 +21,17 @@
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
-<script src="jeui/js/modules/jeCheck.js"></script>
+<script src="jeui/js/modules/jeSelect.js" charset="utf-8"></script>
+<script src="src/jedate.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	$.cookie('active-name', 'With-integral');
 	$.cookie('active-src', 'System_standings');
 </script>
+<style type="text/css">
+.je-select {
+	width: 100%;
+}
+</style>
 </head>
 <body>
 	<div>
@@ -40,9 +47,9 @@
 				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
 					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
 						class="ivu-breadcrumb-item-separator">/</span>
-					</span> <span> <span class="ivu-breadcrumb-item-link">管理员管理</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">排名管理</span>
 						<span class="ivu-breadcrumb-item-separator">/</span>
-					</span> <span> <span class="ivu-breadcrumb-item-link">管理员列表</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">战绩排名管理</span>
 						<span class="ivu-breadcrumb-item-separator">/</span>
 					</span>
 				</div>
@@ -56,7 +63,7 @@
 							<div class="ivu-form-item-content">
 								<button type="button" class="ivu-btn ivu-btn-warning"
 									onclick="Modal_show()">
-									<span>添加管理员</span>
+									<span>添加战绩</span>
 								</button>
 							</div>
 						</div>
@@ -178,11 +185,8 @@
 															<option value="2">管理员</option>
 															<option value="3">管理员</option>
 														</select> -->
-														<select class="myselect" v-model="details.matchId" id="matchId">
-															<option value="交互设计">交互设计</option>
-															<option value="视觉设计">视觉设计</option>
-															<option value="用户研究">用户研究</option>
-															<option value="产品经理">产品经理</option>
+														<select class="je-select" v-model="details.matchId"
+															id="matchId">
 														</select>
 													</div>
 												</div>
@@ -191,11 +195,14 @@
 														<span class="form-span">*</span> <span>用户</span>
 													</p>
 													<div class="form-input-parent">
-														<select name="" class="ivu-input ivu-input-default"
+														<!-- <select name="" class="ivu-input ivu-input-default"
 															v-model="details.userId" id="userId">
 															<option value="1">管理员</option>
 															<option value="2">管理员</option>
 															<option value="3">管理员</option>
+														</select> -->
+														<select class="je-select User-select"
+															v-model="details.userId" id="userId">
 														</select>
 													</div>
 												</div>
@@ -276,22 +283,41 @@
 
 </body>
 <script type="text/javascript">
-$(function(){
-    $(".myselect").jeSelect({
-        sosList:false
-    });
-})
+	jeDate("#matchTime", {
+		format : "YYYY-MM-DD hh:mm:ss",
+		donefun : function(obj) {
+			RegExpEntity.matchTime.Event.onceEvent();
+			vm.details.matchTime = obj.val;
+		}
+	});
+	$.jeSelect("#matchId", {
+		size : 8, //设置高度(个数)
+		zIndex : 2099, //下拉弹层的层级高度
+		sosList : false
+	});
+	$.jeSelect("#userId", {
+		size : 8, //设置高度(个数)
+		zIndex : 2099, //下拉弹层的层级高度
+		itemfun : function(elem, index, val) {
+			if (elem.attr('id') === 'matchId') {
+				RegExpEntity.matchId.Event.onceEvent();
+				RequestUser(vm.matchIdSelect[index].id);
+				vm.details.matchId = vm.matchIdSelect[index].id
+			} else {
+				RegExpEntity.userId.Event.onceEvent();
+				vm.details.userId = vm.userIdSelect[index].userId
+			}
+		}, //点击当前的回调，elem：当前Select的ID index：索引 val：选中的值
+		success : null,
+		sosList : false
+	})
+
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
 			Add_header : '添加战绩排名',
-			name : '',
-			number : '',
-			size : 10,
-			pageNum : 1,
-			table : [],
-			id : '',
-			isStop : null,
+			matchIdSelect : [],
+			userIdSelect : [],
 			details : {
 				ranking : "", //比赛名次
 				matchTime : "",//比赛时间
@@ -316,12 +342,72 @@ $(function(){
 					console.log(res)
 					vm.table = res.result;
 					addTable(res.result)
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				}
 			},
 			error : function(e) {
 				console.log(e)
 			}
 		});
+	};
+	RequestMatch()
+	function RequestMatch() {
+		let url = "/admin/match/all/match";
+		$.ajax({
+			type : 'get',
+			url : "${pageContext.request.contextPath}" + url,
+			dataType : "json",
+			data : {},
+			success : function(res) {
+				if (res.code === 200) {
+					vm.matchIdSelect = res.result;
+					addSelect(res.result)
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				}
+			},
+			error : function(e) {
+				console.log(e)
+			}
+		});
+	};
+	function RequestUser(value) {
+		let url = "/admin/match/match/members/" + value;
+		$.ajax({
+			type : 'get',
+			url : "${pageContext.request.contextPath}" + url,
+			dataType : "json",
+			data : {},
+			success : function(res) {
+				if (res.code === 200) {
+					vm.userIdSelect = res.result;
+					addSelectUser(res.result)
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				}
+			},
+			error : function(e) {
+				console.log(e)
+			}
+		});
+	};
+	function addSelect(arr) {
+		let html = ''
+		arr.forEach(function(item) {
+			html += '<option class="je-select-open" value="'+item.id+'">'
+					+ item.matchName + '</option>'
+		})
+
+		$("#matchId").html(html);
+	};
+	function addSelectUser(arr) {
+		let html = ''
+		arr.forEach(function(item) {
+			html += '<option class="je-select-open" value="'+item.userId+'">'
+					+ (item.surname + item.userName) + '</option>'
+		})
+		$("#userId").html(html);
 	};
 	function addTable(arr) {
 		let html = '<tr class="ivu-table-row">'
@@ -368,46 +454,6 @@ $(function(){
 				})
 		$("#tbody").html(html);
 	}
-	function DisabledRequesr() {
-		$.ajax({
-			type : "POST",
-			url : "${pageContext.request.contextPath}/admin/update",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			data : JSON.stringify({
-				"isStop" : !vm.isStop,
-				"id" : vm.id
-			}),
-			success : function(data) {
-				if (data.code === 200) {
-					$("#transfer-dom").slideUp(300);
-					Request();
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
-					});
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
-				});
-			}
-		});
-	};
 	let RegExpEntity = {
 		ranking : {
 			RegExptype : 'string',
@@ -430,13 +476,13 @@ $(function(){
 		matchId : {
 			RegExptype : 'string',
 			message : '请选择比赛',
-			trigger : 'blur',
+			trigger : 'change',
 			id : 'matchId'
 		},
 		userId : {
 			RegExptype : 'string',
 			message : '请选择用户',
-			trigger : 'blur',
+			trigger : 'change',
 			id : 'userId'
 		}
 	}
@@ -467,7 +513,9 @@ $(function(){
 				boo = false;
 			}
 		}
-		console.log(entity)
+		if (boo) {
+			insertRequesr()
+		} 
 	};
 	function Modal_cancel() {
 		$("#Modal-Add").toggle(300);
@@ -486,15 +534,10 @@ $(function(){
 	function insertRequesr() {
 		$.ajax({
 			type : "POST",
-			url : "${pageContext.request.contextPath}/admin",
+			url : "${pageContext.request.contextPath}/admin/match/integral",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
-			data : JSON.stringify({
-				"nickname" : vm.details.nickname,
-				"loginName" : vm.details.loginName,
-				"password" : vm.details.password,
-				"phone" : vm.details.phone
-			}),
+			data : JSON.stringify(vm.details),
 			success : function(data) {
 				if (data.code === 200) {
 					$("#Modal-Add").toggle(300);

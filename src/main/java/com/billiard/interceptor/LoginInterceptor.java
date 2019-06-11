@@ -29,8 +29,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		
-		
-		  String urlString = request.getRequestURI();
+		return true;
+	/*	  String urlString = request.getRequestURI();
           
 	        ///olForum/forumList.html模拟登录页
 	        if(urlString.indexOf("admin/login")>-1){
@@ -44,7 +44,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		          }
 		         log.info("管理员登录超时！");
 		         response.sendRedirect(request.getContextPath()+"/System_login.jsp");  
-		return false;
+		return false;*/
 	}
 
 }

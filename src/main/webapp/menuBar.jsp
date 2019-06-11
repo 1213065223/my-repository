@@ -67,21 +67,21 @@
 				<dd src='System_standings'>
 					<span>战绩排名管理</span>
 				</dd>
-				<dd>
+				<dd src='System_integral'>
 					<span>积分排名管理</span>
 				</dd>
-				<dt>
+				<dt active-name="VIP-List">
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>会员管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
-				<dd>
+				<dd src='System_VIP-List'> 
 					<span>会员列表</span>
 				</dd>
-				<dt>
+				<dt active-name="SiteSettings">
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>系统管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
-				<dd>
+				<dd  src='System_SiteSettings'>
 					<span>网站设置</span>
 				</dd>
 			</dl>
@@ -98,7 +98,7 @@
 		$("#menuBar > dl > dd").hide();
 		if (active_name && active_src) {
 			let dl = $("#menuBar> dl > dt[active-name=" + active_name + "]");
-			dl.nextUntil("#menuBar > dl >dt").slideDown(100);
+			dl.nextUntil("#menuBar > dl >dt").show();
 			dl.children('i:last-child').attr('class',
 					'ivu-icon ivu-icon-ios-arrow-up');
 			$('dd[src=' + active_src + ']').css('color', 'white').css(
