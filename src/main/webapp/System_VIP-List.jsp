@@ -233,7 +233,7 @@
 	});
 	Request();
 	function Request() {
-		let url = "/admin/user?size=" + vm.size + "&pageNum=" + vm.pageNum+ "&loginName=" + vm.loginName+ "&nickname=" + vm.nickname+ "&phone=" + vm.phone;
+		let url = "/admin/user?size=" + vm.size + "&page=" + vm.pageNum+ "&loginName=" + vm.loginName+ "&nickname=" + vm.nickname+ "&phone=" + vm.phone;
 		$.ajax({
 			type : 'get',
 			url : "${pageContext.request.contextPath}" + url,

@@ -251,7 +251,7 @@
 			bankName : '',//银行名称
 			bank : '',//开户行
 			society : '',//会社名称
-			weeks: '',
+			weeks : '',
 			attention : ''//注意事项
 		}
 	});
@@ -266,19 +266,22 @@
 			success : function(res) {
 				if (res.code === 200) {
 					console.log(res)
-					vm.webName = res.result.webName;//  网站名称
-					vm.website = res.result.website;//网址
-					vm.webDescribe = res.result.webDescribe;//网站描述
-					vm.region = res.result.region;//地区
-					vm.address = res.result.address;//公司详细地址
-					vm.phone = res.result.phone;//电话热线
-					vm.authority = res.result.authority;//备案
-					vm.copyright = res.result.copyright;//版权信息
-					vm.account = res.result.account;//银行账号
-					vm.bankName = res.result.bankName;//银行名称
-					vm.bank = res.result.bank;//开户行
-					vm.society = res.result.society;//会社名称
-					vm.attention = res.result.attention;//注意事项
+					vm.webName = res.result.config.webName;//  网站名称
+					vm.website = res.result.config.website;//网址
+					vm.webDescribe = res.result.config.webDescribe;//网站描述
+					vm.region = res.result.config.region;//地区
+					vm.address = res.result.config.address;//公司详细地址
+					vm.phone = res.result.config.phone;//电话热线
+					vm.authority = res.result.config.authority;//备案
+					vm.copyright = res.result.config.copyright;//版权信息
+					vm.account = res.result.config.account;//银行账号
+					vm.bankName = res.result.config.bankName;//银行名称
+					vm.bank = res.result.config.bank;//开户行
+					vm.society = res.result.config.society;//会社名称
+					vm.attention = res.result.config.attention;//注意事项
+					if (res.result.week) {
+						vm.weeks = res.result.week.weeks;
+					}
 					//addTable(res.result)
 				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
@@ -399,14 +402,15 @@
 		}
 	};
 	function transfer_ok() {
-		insertRequesr()
+		insertRequesr();
+		insertRequesrweek();
 	};
 	function transfer_cancel() {
 		$("#transfer-dom").toggle(300);
 	};
 	function insertRequesr() {
 		let entity = {};
-		for (let i in vm._data) {
+		for ( let i in vm._data) {
 			if (i !== 'weeks') {
 				entity[i] = vm._data[i];
 			}
@@ -436,6 +440,7 @@
 					});
 				}
 				;
+
 			},
 			error : function(jqXHR) {
 				console.log("Error: " + jqXHR.status);
@@ -447,33 +452,36 @@
 				});
 			}
 		});
-		function insertRequesrweek() {
-			$.ajax({
-				type : "POST",
-				url : "${pageContext.request.contextPath}/admin/config/week",
-				contentType : "application/json; charset=utf-8",
-				dataType : "json",
-				data : JSON.stringify(vm.weeks),
-				success : function(data) {
-					if (data.code !== 200) {
-						spop({
-							template : data.message,
-							group : 'submit-satus',
-							style : 'warning',
-							autoclose : 5000
-						});
-					}
-				},
-				error : function(jqXHR) {
-					console.log("Error: " + jqXHR.status);
+	}
+	function insertRequesrweek() {
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/admin/config/week",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify({
+				weeks: vm.weeks
+			}),
+			success : function(data) {
+				if (data.code !== 200) {
 					spop({
-						template : '添加接口访问失败,请与系统管理员联系',
+						template : data.message,
 						group : 'submit-satus',
-						style : 'error',
+						style : 'warning',
 						autoclose : 5000
 					});
 				}
-			});
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '添加接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
 	}
 </script>
 </html>

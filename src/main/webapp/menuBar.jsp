@@ -24,7 +24,7 @@
 				<dd src='System_add_admin'>
 					<span>管理员列表</span>
 				</dd>
-				<dt>
+				<dt active-name='AdvertisingSet'>
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>广告管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>

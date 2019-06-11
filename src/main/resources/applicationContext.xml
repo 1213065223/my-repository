@@ -23,4 +23,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     
     <import resource="classpath:spring-mybatis.xml" />
     
+    <import resource="classpath:redis-context.xml" />
+    
 </beans>

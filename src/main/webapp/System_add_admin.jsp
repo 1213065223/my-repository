@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>后台管理</title>
+<title>管理员管理</title>
 <link rel="stylesheet" type="text/css"
 	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
@@ -372,7 +372,7 @@
 	});
 	Request();
 	function Request() {
-		let url = "/admin/list?size=" + vm.size + "&pageNum=" + vm.pageNum
+		let url = "/admin/list?size=" + vm.size + "&page=" + vm.pageNum
 				+ "&nick_name=" + vm.name + "&phone=" + vm.number
 		$.ajax({
 			type : 'get',
