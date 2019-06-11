@@ -18,9 +18,10 @@ $(function() {
 //		$("#menuBar > dl > dd").css('');
 //		$(this).css('background', '#2b85e4').css('color', 'white');dd-choice
 //		$(this).attr('class','dd-choice');
-//		if ($(this).attr('src')) {
-//			$('iframe').eq(0).attr('src', 'http://localhost:9090/billiard/' + $(this).attr('src') + '.jsp')
-//		}
+		if ($(this).attr('src')) {
+			//$('iframe').eq(0).attr('src', 'http://localhost:9090/billiard/' + $(this).attr('src') + '.jsp')
+			window.location.href = $(this).attr('src') + '.jsp';
+		}
 		
 	})
 	let height = window.innerHeight;

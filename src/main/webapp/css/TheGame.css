@@ -67,7 +67,7 @@
 
 
 
-/*模态框*/
+/*妯℃�佹*/
 
 .modle-div {
 	width: 100%;
@@ -193,6 +193,7 @@ input[type="checkbox"] {
 
 .modle-content-div-2{
 	width: 60%;
+	margin-top: 20px;
 	margin-bottom: 10px;
 }
 .login-but{

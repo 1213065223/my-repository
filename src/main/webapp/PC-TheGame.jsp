@@ -16,11 +16,14 @@
 <link rel="stylesheet" type="text/css" href="skin/jedate.css" />
 <link rel="stylesheet" type="text/css"
 	href="iview/dist/styles/iview.css" />
+<link rel="stylesheet" type="text/css" href="css/spop.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
 <script src="src/jedate.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div id="mvvm">
@@ -145,7 +148,7 @@
 											<span class="form-span">*</span> <span>赛事名称</span>
 										</p>
 										<div class="jeinpbox form-input-parent">
-											<p>{{matchName}}</p>
+											<p>{{Entity.matchName}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
@@ -154,8 +157,8 @@
 										</p>
 										<div class="form-input-parent" style="width: 30%">
 											<input type="text" class="ivu-input ivu-input-default"
-												id="loginName" autocomplete="off" spellcheck="false"
-												v-model="" />
+												id="surname" autocomplete="off" spellcheck="false"
+												v-model="Entity.surname" />
 										</div>
 										<div style="width: 70%" class="row-div">
 											<p class="flex-end form-p">
@@ -163,8 +166,8 @@
 											</p>
 											<div class="form-input-parent" style="width: 50%">
 												<input type="text" class="ivu-input ivu-input-default"
-													id="loginName" autocomplete="off" spellcheck="false"
-													v-model="" />
+													id="userName" autocomplete="off" spellcheck="false"
+													v-model="Entity.userName" />
 											</div>
 										</div>
 									</div>
@@ -190,7 +193,8 @@
 										<div class="jeinpbox form-input-parent">
 											<input type="text"
 												class="jeinput ivu-input ivu-input-default" id="birthday"
-												autocomplete="off" readonly="readonly">
+												autocomplete="off" readonly="readonly"
+												v-model="Entity.birthday">
 										</div>
 									</div>
 
@@ -200,7 +204,8 @@
 										</p>
 										<div class="form-input-parent">
 											<input type="text" class="ivu-input ivu-input-default"
-												id="phone" autocomplete="off" spellcheck="false" v-model="" />
+												id="phone" autocomplete="off" spellcheck="false"
+												v-model="Entity.phone" />
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
@@ -209,75 +214,81 @@
 										</p>
 										<div class="form-input-parent">
 											<input type="email" class="ivu-input ivu-input-default"
-												id="nickname" autocomplete="off" spellcheck="false"
-												v-model="" />
+												id="email" autocomplete="off" spellcheck="false"
+												v-model="Entity.email" />
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
-										style="align-items: flex-start; margin-top: 10px;margin-bottom:10px;">
+										style="align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>上传头像</span>
 										</p>
 										<div class="form-input-parent">
 											<label for="headImage" class="label-2"> <input
 												type="file" id="headImage" style="display: none;"
-												onchange="UploadImage(this.files[0],this)" />
+												onchange="UploadImage(this.files[0],this,1)" id="headImage" />
 											</label>
 										</div>
 									</div>
 
-									<div class="form-model-div flex-start" style="min-height:30px;">
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>报名费用</span>
 										</p>
 										<div class="form-input-parent">
-											<p>￥200</p>
+											<p>{{Entity.enrollCost}}</p>
 										</div>
 									</div>
-									<div class="form-model-div flex-start" style="min-height:30px;">
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>银行汇款账号</span>
 										</p>
 										<div class="form-input-parent">
-											<p>6225551823951796</p>
+											<p>{{Entity.account}}</p>
 										</div>
 									</div>
-									<div class="form-model-div flex-start" style="min-height:30px;">
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
 
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>银行名称</span>
 										</p>
 										<div class="form-input-parent">
-											<p>招商银行</p>
+											<p>{{Entity.bankName}}</p>
 										</div>
 									</div>
-									<div class="form-model-div flex-start" style="min-height:30px;">
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>开户行</span>
 										</p>
 										<div class="form-input-parent">
-											<p>大连招商银行中山支行</p>
+											<p>{{Entity.bank}}</p>
 										</div>
 									</div>
-									<div class="form-model-div flex-start" style="min-height:30px;">
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
 
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>会社名称</span>
 										</p>
 										<div class="form-input-parent">
-											<p></p>
+											<p>{{Entity.society}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
-										style="align-items: flex-start;margin-top: 10px;margin-bottom:10px;">
-										
+										style="align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
+
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>上传打款凭证</span>
 										</p>
 										<div class="form-input-parent">
 											<label for="certificateImage" class="label-2"> <input
 												type="file" id="certificateImage" style="display: none;"
-												onchange="UploadImage(this.files[0],this)" />
+												onchange="UploadImage(this.files[0],this,-1)"
+												id="certificateImage" />
 											</label>
 										</div>
 									</div>
@@ -296,6 +307,42 @@
 				</div>
 			</div>
 		</div>
+
+
+		<!-- 提示框 -->
+		<div class="v-transfer-dom" id="transfer-dom" style="display: none;">
+			<div class="ivu-modal-mask" style="z-index: 1003;"></div>
+			<div class="ivu-modal-wrap" style="z-index: 1003;">
+				<div class="ivu-modal" style="width: 416px;">
+					<div class="ivu-modal-content">
+						<div class="ivu-modal-body">
+							<div class="ivu-modal-confirm">
+								<div class="ivu-modal-confirm-head">
+									<div
+										class="ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-warning">
+										<i class="ivu-icon ivu-icon-ios-alert"></i>
+									</div>
+									<div class="ivu-modal-confirm-head-title">警告</div>
+								</div>
+								<div class="ivu-modal-confirm-body">
+									<div>
+										<p>报名成功,等待管理员审核</p>
+									</div>
+								</div>
+								<div class="ivu-modal-confirm-footer">
+									<!-- <button type="button" class="ivu-btn ivu-btn-small"
+										style="margin-right: 5px;" onclick="transfer_cancel()">取消</button> -->
+									<button type="button"
+										class="ivu-btn ivu-btn-primary ivu-btn-large"
+										onclick="transfer_ok()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 
 
@@ -318,7 +365,7 @@
 					</div>
 					<div class="flex-between modle-content-div-2">
 						<p>
-							没有账号？立即<a href="">注册</a>
+							报名后生成账号？立即<a onclick="apply_login()">注册</a>
 						</p>
 						<a href="" class="a-href">忘记密码</a>
 					</div>
@@ -380,22 +427,28 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
-			login_name : '请登陆',
+			login_name : '请登录',
 			Entity : {
 				matchId : '',
 				surname : '',
 				userName : '',
-				sex: '',
-				birthday : '',
-				phone : '',
-				email : '',
-				headImage : '',
-				certificateImage : ''
+				sex : '', // 性别
+				birthday : '', // 生日
+				phone : '', // 手机
+				email : '', // 邮箱
+				headImage : '', // 头像照片
+				certificateImage : '',// 支付凭证
+				matchName : '', // 赛事名称
+				account : '', // 银行汇款账号
+				society : '', // 会社名称
+				bankName : '', //银行名称
+				bank : '',// 开户行
+				enrollCost : '' // 报名费用
 			}
 		}
 	});
 	function href_url_login() {
-		if (vm.login_name === '请登陆') {
+		if (vm.login_name === '请登录') {
 			window.location.href = "PC-login.jsp";
 		}
 	}
@@ -409,16 +462,87 @@
 	if ("${user}") {
 		vm.login_name = "${user.loginName}"
 	} else {
-		vm.login_name = "请登陆"
+		vm.login_name = "请登录"
 	}
 	jeDate("#birthday", {
-		format : "YYYY-MM-DD"
+		format : "YYYY-MM-DD",
+		donefun : function(obj) {
+			RegExpEntity.birthday.Event.onceEvent();
+			vm.Entity.birthday = obj.val;
+		}
 	});
-	function Modal_show() {
-
-	};
+	let RegExpEntity = {
+		phone : {
+			RegExptype : 'phone',
+			message : '请输入手机号',
+			trigger : 'blur',
+			id : 'phone'
+		},
+		email : {
+			RegExptype : 'email',
+			message : '请输入邮箱',
+			trigger : 'blur',
+			id : 'email'
+		},
+		surname : {
+			RegExptype : 'string',
+			message : '请输入姓氏',
+			trigger : 'blur',
+			id : 'surname'
+		},
+		userName : {
+			RegExptype : 'string',
+			message : '请输名字',
+			trigger : 'blur',
+			id : 'userName'
+		},
+		birthday : {
+			RegExptype : 'string',
+			message : '请输选择生日',
+			trigger : 'blur',
+			id : 'birthday'
+		},
+		headImage : {
+			RegExptype : 'string',
+			message : '请上传头像',
+			trigger : 'change',
+			id : 'headImage'
+		},
+		certificateImage : {
+			RegExptype : 'string',
+			message : '请上传支付凭证',
+			trigger : 'change',
+			id : 'certificateImage'
+		}
+	}
+	for ( let i in RegExpEntity) {
+		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
+	}
 	function Modal_ok() {
-
+		vm.Entity.sex = $('input[name="radio-name"]:checked').val()
+		let event = {
+			"matchId" : vm.Entity.matchId,
+			"surname" : vm.Entity.surname,
+			"userName" : vm.Entity.userName,
+			"sex" : vm.Entity.sex,
+			"birthday" : vm.Entity.birthday,
+			"phone" : vm.Entity.phone,
+			"email" : vm.Entity.email,
+			"headImage" : vm.Entity.headImage,
+			"certificateImage" : vm.Entity.certificateImage
+		}
+		let boo = true;
+		for ( let i in event) {
+			if (!event[i]) {
+				let entity = document.getElementById(i);
+				RegExpEntity[i].Event.label_error(entity)
+				boo = false;
+			}
+		}
+		if (boo) {
+			submit(event)
+		}
+		console.log(event)
 	};
 	function Modal_cancel() {
 		$("#Modal-Add").toggle(300);
@@ -427,12 +551,18 @@
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
-	function add_click () {
-		vm.login_name = "${user.loginName}"
+	function apply_login () {
+		$("#Modal-dl").hide();
+		$("#Modal-Add").show();
+	};
+	function add_click() {
+		
 		if ("${user}") {
-			$("#Modal-Add").toggle(300);
+			vm.login_name = "${user.loginName}"
+			$("#Modal-Add").show();
 		} else {
-			$("#Modal-dl").toggle(300);
+			vm.login_name = '请登录'
+			$("#Modal-dl").show();
 		}
 	}
 	request();
@@ -444,7 +574,8 @@
 			success : function(data) {
 				if (data.code === 200) {
 					console.log(data)
-					let entity = data.result;
+					let entity = data.result.match;
+					let entity2 = data.result.config;
 					let arr = entity.createTime.split(' ');
 					$("#createTime").text('发布时间：' + arr[0]);
 					$("#details").text(entity.details);
@@ -458,6 +589,11 @@
 					$("#schedule").text(entity.schedule);
 					vm.Entity.matchName = entity.matchName;
 					vm.Entity.matchId = entity.id;
+					vm.Entity.account = entity2.account;
+					vm.Entity.society = entity2.society;
+					vm.Entity.bankName = entity2.bankName;
+					vm.Entity.bank = entity2.bank;
+					vm.Entity.enrollCost = '￥' + entity.enrollCost;
 				} else {
 					spop({
 						template : data.message,
@@ -525,74 +661,49 @@
 			}
 		});
 	}
-
-	function submit() {
-		let event = {
-			"matchId" : $("#apply-key").val(),
-			"surname" : $("#surname").val(),
-			"userName" : $("#userName").val(),
-			"sex" : $("input[name='radio-name']:checked").val(),
-			"birthday" : $("#birthday").val(),
-			"phone" : $("#phone").val(),
-			"email" : $("#email").val(),
-			"headImage" : $("#headImage").attr('image'),
-			"certificateImage" : $("#certificateImage").attr('image')
-		}
-		console.log(event);
-		return;
-		$
-				.ajax({
-					type : "POST",
-					async : true,
-					url : "${pageContext.request.contextPath}/admin/match",
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					data : JSON.stringify({
-						"matchId" : $("#matchId").val(),
-						"surname" : $("#surname").val(),
-						"userName" : $("#userName").val(),
-						"sex" : $("#sex").val(),
-						"birthday" : $("#birthday").val(),
-						"phone" : $("#phone").val(),
-						"email" : $("#email").val(),
-						"headImage" : $("#headImage").val(),
-						"certificateImage" : $("#certificateImage").val()
-					}),
-					success : function(data) {
-						if (data.code === 200) {
-							spop({
-								template : '成功',
-								group : 'submit-satus',
-								style : 'success',
-								autoclose : 5000
-							});
-							parent
-									.$(window.parent.document)
-									.find('.iframe')
-									.attr('src',
-											'http://localhost:9090/billiard/System_CompetitionList.jsp');
-						} else {
-							spop({
-								template : data.message,
-								group : 'submit-satus',
-								style : 'warning',
-								autoclose : 5000
-							});
-						}
-					},
-					error : function(jqXHR) {
-						console.log("Error: " + jqXHR.status);
-						spop({
-							template : '禁用或启用接口访问失败,请与系统管理员联系',
-							group : 'submit-satus',
-							style : 'error',
-							autoclose : 5000
-						});
-					}
+	function transfer_ok() {
+		$("#transfer-dom").hide();
+	}
+	function submit(event) {
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : "${pageContext.request.contextPath}/match/enroll",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify(event),
+			success : function(data) {
+				if (data.code === 200) {
+					spop({
+						template : '成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});					
+					$("#Modal-Add").hide();
+					$("#transfer-dom").show();
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
 				});
+			}
+		});
 
 	}
-	function UploadImage(file, event) {
+	function UploadImage(file, event, index) {
 		let formdata = new FormData();
 		formdata.append("file", file)
 		$.ajax({
@@ -608,6 +719,17 @@
 					$(event).parent().css('background-image',
 							'url(' + data.result + ')');
 					$(event).parent().css('background-size', '100% 100%');
+					if (index !== -1) {
+						vm.Entity.headImage = data.result // 头像照片
+					} else {
+						vm.Entity.certificateImage = data.result// 支付凭证
+					}
+					spop({
+						template : '图片上传成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});
 				} else {
 					spop({
 						template : data.message,

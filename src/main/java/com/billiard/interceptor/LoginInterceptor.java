@@ -43,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		             return true;
 		          }
 		         log.info("管理员登录超时！");
-		         response.sendRedirect(request.getContextPath()+"/index.jsp");  
+		         response.sendRedirect(request.getContextPath()+"/System_login.jsp");  
 		return false;
 	}
 
