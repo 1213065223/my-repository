@@ -19,4 +19,6 @@ public interface UserService {
 
 	Integer forbiddenUser(User user);
 
+	JobResponse verifyUserEamil(User user);
+
 }
