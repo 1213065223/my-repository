@@ -303,7 +303,7 @@
 				});
 	}
 	function details (index) {
-		window.location.href = 'PC-MyCompetitionDetails.jsp?id=' + vm.table[index].id;
+		window.location.href = 'PC-MyCompetitionDetails.jsp?id=' + vm.table[index].match_id;
 	}
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';

@@ -219,7 +219,7 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
-			id: null
+			id : null
 		}
 	});
 	let url = window.location.search;
@@ -235,6 +235,37 @@
 	if (vm.id) {
 		request();
 	}
+	function request() {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/user/match/info/"+vm.id,
+			dataType : "json",
+			success : function(data) {
+				if (data.code === 200) {
+					console.log(data)
+				} else if (data.code === 0) {
+					window.location.href = "PC-login.jsp";
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '查询接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+	}
+
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
@@ -244,20 +275,5 @@
 	})
 	$("#menuBar > dl > dd:nth-child(2)").css('background', '#2974B6').css(
 			'color', 'white');
-	/* $(function() {
-		$("#menuBar > dl > dd").click(
-				function() {
-					$("#menuBar > dl > dd").css('background', '#F8F8F8').css(
-							'color', '#464c5b');
-					$(this).css('background', '#2974B6').css('color', 'white');
-					if ($(this).attr('src')) {
-						window.location.href = $(this).attr('src') + '.html';
-					}
-				})
-		$('#menuBar').css('height', $(".content-div-1").css('height'));
-		window.addEventListener('resize', function() {
-			$('#menuBar').css('height', $(".content-div-1").css('height'));
-		});
-	}) */
 </script>
 </html>
