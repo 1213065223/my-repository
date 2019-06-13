@@ -13,11 +13,13 @@
 <link rel="stylesheet" type="text/css" href="css/login.css" />
 <link rel="stylesheet" type="text/css" href="css/MemberCenter.css" />
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
+<link rel="stylesheet" type="text/css" href="css/spop.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div>
@@ -105,28 +107,32 @@
 						style="justify-content: space-between;">
 						<div class="flex-start">
 							<div class="my-tab-h">
-								<p class="p-hover">全部</p>
+								<p class="p-hover" state="">全部</p>
 								<p></p>
 							</div>
 							<div class="my-tab-h">
-								<p class="p-hover">备战中</p>
+								<p class="p-hover" state="1">未付款</p>
 								<p></p>
 							</div>
 							<div class="my-tab-h">
-								<p class="p-hover">已结束</p>
+								<p class="p-hover" state="3">备战中</p>
 								<p></p>
 							</div>
 							<div class="my-tab-h">
-								<p class="p-hover">已取消</p>
+								<p class="p-hover" state="-1">已结束</p>
+								<p></p>
+							</div>
+							<div class="my-tab-h">
+								<p class="p-hover" state="5">已取消</p>
 								<p></p>
 							</div>
 						</div>
 						<div></div>
 					</div>
-					<div class="MyCompetition-list column-div">
+					<div class="MyCompetition-list column-div" id="order-div">
 						<div class="MyCompetition-list-div flex-between">
 							<img src="img/TheGame.png" />
-							<div>
+							<div class="MyCompetition-list-div-div">
 								<div class="MyCompetition-list-div-p">
 									<p>比赛通告比赛赛事名字填写位置</p>
 									<p>赛事时间：2019-06-01</p>
@@ -139,7 +145,7 @@
 						</div>
 						<div class="MyCompetition-list-div flex-between">
 							<img src="img/TheGame.png" />
-							<div>
+							<div class="MyCompetition-list-div-div">
 								<div class="MyCompetition-list-div-p">
 									<p>比赛通告比赛赛事名字填写位置</p>
 									<p>赛事时间：2019-06-01</p>
@@ -152,7 +158,7 @@
 						</div>
 						<div class="MyCompetition-list-div flex-between">
 							<img src="img/TheGame.png" />
-							<div>
+							<div class="MyCompetition-list-div-div">
 								<div class="MyCompetition-list-div-p">
 									<p>比赛通告比赛赛事名字填写位置</p>
 									<p>赛事时间：2019-06-01</p>
@@ -212,31 +218,104 @@
 	</div>
 </body>
 <script type="text/javascript">
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			state : '',
+			table: []
+		}
+	});
+	request()
+
+	function request() {
+		$
+				.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/user/enroll?size=100000&page=1&type="
+							+ vm.state,
+					dataType : "json",
+					success : function(data) {
+						if (data.code === 200) {
+							console.log(data)
+							let html = ''
+							vm.table = data.result.list;
+							data.result.list
+									.forEach(function(item, index) {
+										let but = ''
+										if (item.is_end) {
+											but = '<button type="button" class="ivu-btn ivu-btn-over">已结束</button>'
+										} else {
+											// <!-- 1未付  2待审核  3备战中 4审核失败 5已取消 -1已结束 -->
+											if (item.enroll_type === 1) {
+												but = '<button type="button" class="ivu-btn ivu-btn-warning">未付款</button>'
+											} else if (item.enroll_type === 2) {
+												but = '<button type="button" class="ivu-btn ivu-btn-warning">待审核</button>'
+											} else if (item.enroll_type === 3) {
+												but = '<button type="button" class="ivu-btn ivu-btn-primary">备战中</button>'
+											} else if (item.enroll_type === 4) {
+												but = '<button type="button" class="ivu-btn ivu-btn-error">审核失败</button>'
+											} else if (item.enroll_type === 5) {
+												but = '<button type="button" class="ivu-btn ivu-btn-error">已取消</button>'
+											}
+										}
+										let inte = item.inte ? '<p class="typeface p-hover">获得积分 '
+												+ item.inte + '积分</p>'
+												: '';
+
+										html += '<div class="MyCompetition-list-div flex-between">'
+												+ '<img src="'+item.match_image+'"/>'
+												+ '<div class="MyCompetition-list-div-div">'
+												+ '<div class="MyCompetition-list-div-p">'
+												+ '<p>'
+												+ item.match_name
+												+ '</p>'
+												+ '<p>赛事时间：'
+												+ item.match_time
+												+ '</p>'
+												+ but
+												+ '</div>'
+												+ inte
+												+ '<p class="typeface p-hover"'
+												+ 'onclick="details('+index+')">>>查看详情</p>'
+												+ '</div></div>'
+									});
+							$("#order-div").html(html);
+						} else if (data.code === 0) {
+							window.location.href = "PC-login.jsp";
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '查询接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
+				});
+	}
+	function details (index) {
+		window.location.href = 'PC-MyCompetitionDetails.jsp?id=' + vm.table[index].id;
+	}
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
 	$("#menuBar > dl > dd:nth-child(2)").css('background', '#2974B6').css(
 			'color', 'white');
 	$('.my-tab-h>p').click(function() {
-		$('.my-tab-h>p:nth-child(2)').css('display', 'none')
+		$('.my-tab-h>p:nth-child(2)').css('display', 'none');
+		// <!-- 1未付  2待审核  3备战中 4审核失败 5已取消 -1已结束 -->
+		vm.state = $(this).attr('state');
 		$(this).next().css('display', 'block');
+		request()
 	})
-	/* $("#menuBar > dl > dd:nth-child(2)").css('background', '#2974B6').css(
-			'color', 'white');
-	$(function() {
-		$("#menuBar > dl > dd").click(
-				function() {
-					$("#menuBar > dl > dd").css('background', '#F8F8F8').css(
-							'color', '#464c5b');
-					$(this).css('background', '#2974B6').css('color', 'white');
-					if ($(this).attr('src')) {
-						window.location.href = $(this).attr('src') + '.html';
-					}
-				})
-		$('#menuBar').css('height', $(".content-div-1").css('height'));
-		window.addEventListener('resize', function() {
-			$('#menuBar').css('height', $(".content-div-1").css('height'));
-		});
-	}) */
 </script>
 </html>

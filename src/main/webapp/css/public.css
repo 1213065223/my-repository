@@ -242,6 +242,12 @@ p {
     border-color: #ed4014;
 }
 
+.ivu-btn-over {
+    color: #fff;
+    background-color: #c5c8ce;
+    border-color: #c5c8ce;
+}
+
 
 
 

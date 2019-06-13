@@ -219,7 +219,8 @@ input[type="radio"], input[type="checkbox"] {
 	height: 170px;
 }
 
-.MyCompetition-list-div>div {
+.MyCompetition-list-div-div {
+	width: 220px;
 	height: 170px;
 	display: flex;
 	flex-direction: column;
