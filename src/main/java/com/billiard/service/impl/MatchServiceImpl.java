@@ -52,6 +52,7 @@ public class MatchServiceImpl  implements MatchService{
 		
 		MatchExample example = new MatchExample();
 		Criteria createCriteria = example.createCriteria();
+		createCriteria.andMatchDelNotEqualTo(1);
 		if(StringUtils.isNotBlank(match_name)) {
 			createCriteria.andMatchNameLike(match_name);
 		}
@@ -79,7 +80,7 @@ public class MatchServiceImpl  implements MatchService{
 			return JobResponse.errorResponse(100014, "请填写正确的邮箱格式！");
 		}
 		
-		enroll.setEnrollType(1);//1 待付款 2 待审核 3 审核通过 4 审核拒绝
+		enroll.setEnrollType(1);//1 待付款 2 待审核 3 审核通过 4 审核拒绝 5 用户取消
 		MatchWithBLOBs matchWithBLOBs = matchMapper.selectByPrimaryKey(enroll.getMatchId());
 		if(matchWithBLOBs==null||matchWithBLOBs.getMatchDel()==1) {
 			return JobResponse.errorResponse(100015, "比赛信息不存在！");

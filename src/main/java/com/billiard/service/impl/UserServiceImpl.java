@@ -32,8 +32,10 @@ public class UserServiceImpl implements UserService {
 		if(!selectByExample.isEmpty()) {
 			return JobResponse.errorResponse(100001, "用户邮箱已经被注册！");
 		}
+		if(StringUtils.isNotBlank(user.getPassword())) {
 		user.setSalt(MD5Util.getID());
 		user.setPassword(MD5Util.formPassToDBPass(user.getPassword(), user.getSalt()));
+		}
 		user.setId(MD5Util.getID());
 		
 			return JobResponse.successResponse(userMapper.insertSelective(user));
@@ -76,5 +78,22 @@ public class UserServiceImpl implements UserService {
 		dest.setId(user.getId());
 		dest.setIsstop(user.getIsstop());
 		return userMapper.updateByPrimaryKeySelective(dest);
+	}
+
+	@Override
+	public JobResponse verifyUserEamil(User user) {
+		
+		User selectByPrimaryKey = userMapper.selectByPrimaryKey(user.getId());
+		
+		if(selectByPrimaryKey==null) {
+			return JobResponse.errorResponse(100029, "用户不存在！");
+		}
+		if(selectByPrimaryKey.getIsstop()!=null&&selectByPrimaryKey.getIsstop()==1) {
+			return JobResponse.errorResponse(100029, "用户已经被禁用！");
+		}
+		selectByPrimaryKey.setIsstop(user.getIsstop());
+		selectByPrimaryKey.setPassword(user.getPassword());
+		selectByPrimaryKey.setSalt(user.getSalt());
+		return JobResponse.successResponse(userMapper.updateByPrimaryKeySelective(selectByPrimaryKey));
 	}
 }

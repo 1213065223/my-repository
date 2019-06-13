@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,16 +27,21 @@ import com.billiard.entity.Integral;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
 import com.billiard.entity.User;
+import com.billiard.redis.RedisCache;
 import com.billiard.service.EnrollService;
 import com.billiard.service.IntegralService;
 import com.billiard.service.MatchService;
 import com.billiard.service.UserService;
+import com.billiard.util.MD5Util;
+import com.billiard.util.PropertyUtil;
 
 @Controller
 @RequestMapping("user")
 public class UserController {
 	
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
+	
+	private static final String key ="BILLIARDS_";
 	
 	@Autowired
 	private UserService userService;
@@ -47,6 +54,12 @@ public class UserController {
 	
 	@Autowired
 	private EnrollService enrollService;
+	
+	@Autowired
+	private RedisCache redisCache;
+
+	@Autowired
+	private PropertyUtil propertyUtil;
 	
 	//修改用户信息
 	@ResponseBody
@@ -76,14 +89,19 @@ public class UserController {
 		log.info("我的报名->"+u.getNickname());
 		Enroll enroll = new Enroll();
 		enroll.setUserId(u.getId());
+		if(type!=null&&type==-1) {//已结束的比赛
+			enroll.setUserType(1);
+		}
+		else {
 		enroll.setEnrollType(type);
+		}
 		return JobResponse.successResponse(matchService.myEnrollList(enroll,page,size));
 	}
 	
 	
 	//取消报名
 	@ResponseBody
-	@RequestMapping(value="enroll/cancel",method=RequestMethod.GET)
+	@RequestMapping(value="enroll/cancel/{mid}",method=RequestMethod.GET)
 	public JobResponse cancel(@PathVariable("mid")String mId ,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Object logUser = session.getAttribute("user");
@@ -97,6 +115,26 @@ public class UserController {
 		
 		return JobResponse.successResponse(enrollService.cancelEnroll(mId,u.getId()));
 	}
+	
+	
+	
+		//提交凭证
+		@ResponseBody
+		@RequestMapping(value="enroll/certificate",method=RequestMethod.POST)
+		public JobResponse cancel(@RequestBody Enroll enroll ,HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			Object logUser = session.getAttribute("user");
+			
+			if(logUser==null) {
+				return JobResponse.errorResponse(000000, "请您登录！");
+			}
+			User u = (User) logUser;
+			log.info("取消赛事报名->"+u.getNickname());
+			enroll.setUserId(u.getId());
+			
+			return enrollService.certificateSubmit(enroll);
+		}
+	
 	
 	
 	
@@ -166,5 +204,43 @@ public class UserController {
 		
 		return JobResponse.successResponse(res);
 	}
+	
+		//忘记密码
+		@ResponseBody
+		@RequestMapping(value="forget/password",method=RequestMethod.POST)
+		public JobResponse forget(@RequestBody Map<String,String> param,HttpServletRequest request) {
+			log.info("忘记密码->"+param.get("email"));
+			
+			if(StringUtils.isBlank(param.get("email"))||StringUtils.isBlank(param.get("surname"))||StringUtils.isBlank(param.get("nickname"))) {
+				return JobResponse.errorResponse(100030, "请输入必填参数！");
+			}
+			
+			
+			User user = new User();
+			user.setLoginName(param.get("email"));
+			User user2 = userService.getUser(user);
+			if(user2==null||!param.get("surname").equals(user2.getSurname())||!param.get("nickname").equals(user2.getNickname())) {
+				return JobResponse.errorResponse(100031, "用户信息不存在！");
+			}
+			
+			final String email = param.get("email");
+			final String uuid = MD5Util.getID();
+			redisCache.put(key+uuid, user2.getId());
+			ExecutorService thread = Executors.newSingleThreadExecutor();
+			thread.submit(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					log.info("begin send email to "+uuid);
+					RegistController.sendEmail(email, uuid, propertyUtil);
+					log.info(" send email success! "+uuid);
+				}
+			});
+			thread.shutdown();
+			
+			return JobResponse.successResponse();
+		}
+	
 	
 }

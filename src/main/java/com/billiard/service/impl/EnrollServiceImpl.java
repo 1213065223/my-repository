@@ -46,4 +46,20 @@ public class EnrollServiceImpl implements EnrollService {
 		return  JobResponse.errorResponse(100024, "改报名已不能取消！");
 	}
 
+
+	@Override
+	public JobResponse certificateSubmit(Enroll enroll) {
+		EnrollExample example= new EnrollExample();
+		example.createCriteria().andMatchIdEqualTo(enroll.getMatchId()).andUserIdEqualTo(enroll.getUserId());
+		List<Enroll> selectByExample = enrollMapper.selectByExample(example);
+		if(selectByExample.isEmpty()) {
+			return JobResponse.errorResponse(100023, "您还没有报名！");
+		}
+		Enroll enrollSelect = selectByExample.get(0);
+		
+		enrollSelect.setEnrollType(2);
+		enrollSelect.setCertificateImage(enroll.getCertificateImage());
+		return JobResponse.successResponse(enrollMapper.updateByPrimaryKeySelective(enrollSelect));
+	}
+
 }
