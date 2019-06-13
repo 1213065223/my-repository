@@ -484,7 +484,7 @@ surname != null">
 		SELECT
 		t_enroll.*, t_match.enroll_cost cost,
 		t_match.match_del,t_match.match_name,
-		t_match.is_end,t_match.match_time,
+		t_match.is_end,t_match.match_time,t_match.result match_image,
 		CASE t_match.is_end
 		WHEN 1 THEN
 		'已结束'
