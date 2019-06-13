@@ -470,6 +470,76 @@ surname != null">
 		</where>
 	</select>
 
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="selectMyEnrollInfo" parameterType="com.billiard.entity.Enroll"
+		resultType="HashMap">
+SELECT
+		t_enroll.*, t_match.enroll_cost cost,
+		t_match.match_del,t_match.match_name,
+		t_match.is_end,t_match.match_time,
+		CASE t_match.is_end
+		WHEN 1 THEN
+		'已结束'
+		ELSE
+		CASE t_enroll.enroll_type
+		WHEN 1 THEN
+		'待付款'
+		WHEN 2 THEN
+		'待审核'
+		WHEN 3 THEN
+		'审核通过'
+		WHEN 4 THEN
+		'审核拒绝'
+		WHEN 5 THEN
+		'已取消'
+		ELSE
+		'待付款'
+		END
+		END user_status  , CASE  WHEN t_integral.winning =1 THEN IFNULL(t_integral.integral,0) ELSE NULL END inte
+		FROM
+		t_enroll
+		JOIN t_match ON t_match.id = t_enroll.match_id   AND t_enroll.user_id=#{userId} LEFT JOIN t_integral ON t_integral.match_id=t_enroll.match_id AND t_integral.user_id =t_enroll.user_id
+		
+		<where>
+			<trim prefixOverrides="and" suffixOverrides=",">
+				<if test="userId != null and userId != ''">
+					and t_enroll.user_id = #{userId}
+				</if>
+				<if test="matchId != null and matchId != ''">
+					and t_enroll.match_id = #{matchId}
+				</if>
+				<if test="userType != null">
+					and t_match.is_end = #{userType}
+				</if>
+				<if test="enrollType != null">
+					and t_enroll.enroll_type = #{enrollType}
+				</if>
+				<if test="phone != null and phone != ''">
+					and t_enroll.phone LIKE concat(concat('%',#{phone}),'%')
+				</if>
+				<if test="email != null and email != ''">
+					and t_enroll.email LIKE concat(concat('%',#{email}),'%')
+				</if>
+				<if test="certificateImage != null and certificateImage != ''"> 
+					and t_match.match_name LIKE concat(concat('%',#{certificateImage}),'%')
+				</if>
+				
+			</trim>
+		</where>
+	</select>
+	
+	
+	
+	
+	
+	
 
 </mapper>

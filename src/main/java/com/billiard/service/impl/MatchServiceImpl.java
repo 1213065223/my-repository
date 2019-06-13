@@ -137,6 +137,7 @@ public class MatchServiceImpl  implements MatchService{
 			userInsert.setIsstop(2);
 			userInsert.setLoginName(enroll.getEmail());
 			userInsert.setNickname(enroll.getUserName());
+			userInsert.setSurname(enroll.getSurname());
 			userInsert.setPhone(enroll.getPhone());
 			userInsert.setSex(enroll.getSex());
 			enroll.setUserId(userInsert.getId());
@@ -176,7 +177,7 @@ public class MatchServiceImpl  implements MatchService{
 		
 		PageHelper.startPage(page, size, "create_time desc");
 		
-		List<Map<String, Object>> selectEnrollInfo = enrollMapper.selectEnrollInfo(enroll);
+		List<Map<String, Object>> selectEnrollInfo = enrollMapper.selectMyEnrollInfo(enroll);
 		
 		PageInfo<Map<String, Object>> res =  new PageInfo<>(selectEnrollInfo);
 		return res;
