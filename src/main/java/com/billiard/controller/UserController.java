@@ -204,9 +204,13 @@ public class UserController {
 		
 		Match matchDetail = matchService.matchDetail(matchId);
 		
+		Enroll e =  enrollService.getEnroll(matchId, u.getId());
+		
 		res.put("integral", integral);
 		
 		res.put("match", matchDetail);
+		
+		res.put("enroll", e);
 		
 		return JobResponse.successResponse(res);
 	}
