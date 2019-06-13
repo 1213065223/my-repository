@@ -1,0 +1,312 @@
+.content-div {
+	width: 100%;
+
+}
+input[type="radio"], input[type="checkbox"] {
+    margin: 0px 4px 0;
+    margin-top: 1px \9;
+    line-height: normal;
+}
+.content-div-1 {
+	width: 60%;
+	margin-bottom: 30px;
+}
+
+.content-div-title {
+	width: 60%;
+	height: 50px;
+	background: linear-gradient(0deg, rgba(37, 92, 160, 1), rgba(42, 125, 189, 1));
+	margin-bottom: 20px;
+	font-size: 18px;
+	font-family: SourceHanSansSC-Regular;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 1);
+}
+
+.content-div-title>p>span {
+	font-size: 12px;
+}
+
+.content-div-title>div {
+	width: 3px;
+	height: 45%;
+	background: #76BDFFFF;
+	margin: 0 10px 0px 10px;
+}
+
+.menuBar {
+	width: 200px;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background: #EBEBEB;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.menuBar>dl {
+	width: 100%;
+}
+
+.menuBar>dl>dt {
+	width: 100%;
+	height: 50px;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color: hsla(0, 0%, 100%, .7);
+	font-size: 14px;
+	font-weight: normal;
+	letter-spacing: 1px;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "寰蒋闆呴粦", Arial, sans-serif;
+}
+
+
+.menuBar>dl>dd {
+	width: 100%;
+	height: 50px;
+	background: #F8F8F8;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color: #464c5b;
+	font-size: 14px;
+	font-weight: normal;
+	letter-spacing: 1px;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "寰蒋闆呴粦", Arial, sans-serif;
+}
+
+.menuBar>dl>dd:hover {
+	cursor: pointer;
+}
+
+.menuBar>dl>dt:hover {
+	cursor: pointer;
+}
+
+
+.menuBar-content {
+	width: 80%;
+	border: 1px solid #dcdee2;
+}
+
+.user-1 {
+	width: 90%;
+	padding: 10px 0;
+	font-size: 16px;
+	font-family: MicrosoftYaHei;
+	font-weight: 400;
+	color: rgba(68, 68, 68, 1);
+	border-bottom: 1px solid #dcdee2;
+	margin-bottom: 20px;
+}
+
+.typeface {
+	font-size: 14px;
+	font-family: MicrosoftYaHei;
+	font-weight: 400;
+	color: rgba(38, 163, 235, 1);
+}
+
+.user-2 {
+	width: 90%;
+	margin-bottom: 20px;
+}
+
+.user-2>div {
+	width: 85%;
+}
+
+.user-2>div>div {
+	margin-bottom: 10px;
+}
+
+.user-2>div>div>p {
+	margin-right: 10px;
+}
+
+.user-2>div>div>p>span {
+	margin-left: 10px;
+}
+
+.uploading-hei {
+	align-items: flex-start;
+}
+
+.uploading-hei>p {
+	font-size: 14px;
+	font-family: MicrosoftYaHei;
+	font-weight: 400;
+	color: rgba(153, 153, 153, 1);
+}
+
+.user-update {
+	width: 90%;
+	align-items: flex-start;
+}
+
+.user-update>div {
+	width: 50%;
+	margin-bottom: 15px;
+}
+
+.user-update>div>p {
+	width: 90px;
+	text-align: -moz-left;
+}
+
+.ivu-btn-1 {
+	width: 156px;
+	height: 37px;
+	background: #2974B6FF;
+	color: white;
+}
+
+.my-tab {
+	width: 90%;
+	height: 30px;
+	margin-top: 10px;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.my-tab>div:first-child {
+	width: 100%;
+}
+
+.my-tab-h {
+	position: relative;
+	margin-right: 10px;
+}
+
+.my-tab-h>p:nth-child(2) {
+	width: 100%;
+	height: 1px;
+	background: #2974B6FF;
+	position: absolute;
+	bottom: -10px;
+	display: none;
+}
+
+.my-tab-h:first-child>p:nth-child(2) {
+	display: block;
+}
+
+.my-tab>div:last-child {
+	width: 100%;
+	height: 1px;
+	background: #dcdee2;
+}
+
+.MyCompetition-list {
+	width: 95%;
+	height: 340px;
+	justify-content: flex-start;
+	overflow: auto;
+}
+
+.MyCompetition-list-div {
+	width: 100%;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+.MyCompetition-list-div>img {
+	width: 70%;
+	height: 170px;
+}
+
+.MyCompetition-list-div>div {
+	height: 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-right: 5px;
+}
+
+.MyCompetition-list-div-p>p {
+	font-size: 16px;
+	font-family: SourceHanSansSC-Regular;
+	font-weight: 400;
+	color: rgba(51, 51, 51, 1);
+	margin: 10px 0px;
+}
+.MyCompetition-list-div-p>p:nth-child(2){
+	font-size: 12px;
+}
+
+.info-btn{
+	color: white;
+	background:rgba(41,116,182,1);
+}
+
+.grey-btn{
+	color: white;
+	background:rgba(172,172,172,1);
+}
+.error-but{
+	color: white;
+	background:rgba(230,0,18,1);
+}
+.MyCompetition-table{
+	width: 90%;
+}
+.table-MyCompetition{
+	width: 100%;
+	border: 1px solid #dcdee2;
+	border-bottom: none;
+	border-right: none;
+}
+.table-MyCompetition>tbody>tr{
+	border-bottom:1px solid #dcdee2;
+}
+.table-MyCompetition>tbody>tr>td{
+	padding: 5px 10px;
+	border-right:1px solid #dcdee2;
+}
+.table-MyCompetition>tbody>tr>td>div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 40px;
+}
+.table-MyCompetition>tbody>tr>td:first-child{
+	background:rgba(238,238,238,1);
+}
+.table-MyCompetition>tbody>tr>td:nth-child(3){
+	background:rgba(238,238,238,1);
+}
+
+.table-MyIntegral{
+	width: 100%;
+	border: 1px solid #dcdee2;
+	border-bottom: none;
+	border-right: none;
+}
+.table-MyIntegral>tbody>tr{
+	border-bottom:1px solid #dcdee2;
+}
+.table-MyIntegral>tbody>tr>td{
+	padding: 5px 10px;
+	border-right:1px solid #dcdee2;
+}
+.table-MyIntegral>tbody>tr>td>div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 40px;
+}
+.table-MyIntegral>tbody>tr:first-child{
+	background:rgba(238,238,238,1);
+}
+.headPortrait{
+	width: 80px;
+	height: 80px;
+	border-radius: 80px;
+}

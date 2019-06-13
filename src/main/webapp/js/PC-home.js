@@ -5,4 +5,19 @@ $(function() {
 			window.location.href = 'PC-login.jsp'
 		}
 	})
+	$("#menuBar > dl > dd:first-child").css('background', '#2974B6').css(
+			'color', 'white');
+	$("#menuBar > dl > dd").click(
+			function() {
+				$("#menuBar > dl > dd").css('background', '#F8F8F8').css(
+						'color', '#464c5b');
+				$(this).css('background', '#2974B6').css('color', 'white');
+				if ($(this).attr('src')) {
+					window.location.href = $(this).attr('src') + '.html';
+				}
+			})
+	$('#menuBar').css('height', $(".content-div-1").css('height'));
+	window.addEventListener('resize', function() {
+		$('#menuBar').css('height', $(".content-div-1").css('height'));
+	});
 })

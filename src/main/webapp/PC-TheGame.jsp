@@ -604,6 +604,7 @@
 		data : {
 			login_name : '请登录',
 			paymentID : null,
+			matchId: null,
 			Entity : {
 				matchId : '',
 				surname : '',
@@ -845,7 +846,7 @@
 			}
 		});
 	}
-	$("#succeed-dom").show();
+
 	function Modal_payment_show() {
 		$("#Modal-payment").show();
 		$(document.body).css({
@@ -880,6 +881,7 @@
 	}
 	function transfer_ok() {
 		$("#transfer-dom").hide();
+		Modal_payment_show();
 		$(document.body).css({
 			"overflow-x" : "auto",
 			"overflow-y" : "auto"
@@ -895,7 +897,7 @@
 			dataType : "json",
 			data : JSON.stringify({
 				userId : vm.paymentID,
-				matchId : vm.Entity.matchId,
+				matchId : vm.matchId,
 				certificateImage : vm.Entity.certificateImage
 			}),
 			success : function(data) {
@@ -906,6 +908,7 @@
 						style : 'success',
 						autoclose : 5000
 					});
+					$("#Modal-payment").hide();
 					$("#succeed-dom").show();
 				} else {
 					spop({
@@ -936,7 +939,8 @@
 			dataType : "json",
 			data : JSON.stringify(event),
 			success : function(data) {
-				vm.paymentID = data.result
+				vm.paymentID = data.result.userId;
+				vm.matchId = data.result.matchId
 				if (data.code === 200) {
 					spop({
 						template : '成功',
