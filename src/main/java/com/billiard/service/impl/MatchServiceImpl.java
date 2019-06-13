@@ -212,4 +212,14 @@ public class MatchServiceImpl  implements MatchService{
 		
 		return enrollMapper.selectByExample(example);
 	}
+
+	@Override
+	public PageInfo<Map<String, Object>> allEnrollList(Enroll enroll, Integer page, Integer size) {
+		PageHelper.startPage(page, size, "create_time desc");
+		
+		List<Map<String, Object>> selectEnrollInfo = enrollMapper.selectEnrollInfo(enroll);
+		
+		PageInfo<Map<String, Object>> res =  new PageInfo<>(selectEnrollInfo);
+		return res;
+	}
 }

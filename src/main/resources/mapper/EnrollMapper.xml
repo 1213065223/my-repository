@@ -481,7 +481,7 @@ surname != null">
 	
 	<select id="selectMyEnrollInfo" parameterType="com.billiard.entity.Enroll"
 		resultType="HashMap">
-SELECT
+		SELECT
 		t_enroll.*, t_match.enroll_cost cost,
 		t_match.match_del,t_match.match_name,
 		t_match.is_end,t_match.match_time,
