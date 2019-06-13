@@ -63,8 +63,12 @@
 	font-weight: bold;
 	color: rgba(51, 51, 51, 1);
 }
-
-
+.details-img>p{
+	margin-bottom: 10px;
+}
+.details-img>p:first-child>img{
+	width:100%;
+}
 
 
 /*妯℃�佹*/
@@ -193,8 +197,8 @@ input[type="checkbox"] {
 
 .modle-content-div-2{
 	width: 60%;
-	margin-top: 20px;
-	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-bottom: 20px;
 }
 .login-but{
 	width: 100%;

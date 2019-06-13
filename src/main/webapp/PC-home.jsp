@@ -15,6 +15,7 @@
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <script type="text/javascript">
 	
@@ -269,24 +270,24 @@
 				<div class="home-div-4-2 column-div" id="news-B">
 					<div class="flex-between flex-wrap">
 						<div class="column-div">
-							<img src="img/home/home-2-2.png" />
+							<img src="img/home/home-2-2.png" style="width:221px;height:147px"/>
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
 						<div class="column-div">
-							<img src="img/home/home-2-3.png" />
+							<img src="img/home/home-2-3.png" style="width:221px;height:147px"/>
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
 					</div>
 					<div class="flex-between flex-wrap">
 						<div class="column-div">
-							<img src="img/home/home-2-4.png" />
+							<img src="img/home/home-2-4.png" style="width:221px;height:147px"/>
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
 						<div class="column-div">
-							<img src="img/home/home-2-5.png" />
+							<img src="img/home/home-2-5.png" style="width:221px;height:147px"/>
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
@@ -438,8 +439,8 @@
 					Entity.sponsor.forEach(function(item, index) {
 						sponsor += '<div class="swiper-slide column-div">'
 								+ '<div class="swiper-4-div">'
-								+ '<img src="img/home/home-swiper-3-1.png">'
-								+ '</div>' + '</div>'
+								+ '<img src="'+item.imageUrl+'" style="width:175px;height:62px;">'
+								+ '</div></div>'
 					})
 					$('#sponsor').html(sponsor);
 					AddSwiper('sponsor');
@@ -671,7 +672,7 @@
 						let arrStr = '';
 						arr.forEach(function(item) {
 							arrStr += '<div class="column-div">'
-									+ '<img src="'+item.titleImage+'"/>'
+									+ '<img src="'+item.titleImage+'" style="width:221px;height:147px"/>'
 									+ '<p class="home-div-4-2-tatle">'
 									+ item.title + '</p>'
 									+ '<p class="home-div-4-2-location">'

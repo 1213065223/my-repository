@@ -5,145 +5,208 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>赛事回顾</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
-<link rel="stylesheet" type="text/css" href="css/System_EventReview.css" />
-<link rel="stylesheet" type="text/css" href="css/dialog.css" />
+<link rel="stylesheet" type="text/css" href="css/System_home.css" />
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/home.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.dialog.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 </head>
+<script type="text/javascript">
+	$.cookie('active-name', 'CompetitionList');
+	$.cookie('active-src', 'System_EventReview');
+</script>
 <body>
 	<div>
-		<div class="flex-start form-div">
-			<div>
-				<button type="button" class="ivu-btn ivu-btn-warning" id="insert"
-					onclick="add_click()">添加回顾</button>
+
+		<div class="menuBar" id="menuBar">
+			<iframe src="menuBar.jsp"
+				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+		</div>
+		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
+			id="mvvm">
+			<div class="layout-header"></div>
+			<!-- style="padding: 0px 16px 16px;" -->
+			<div class="layout-content" style="padding: 0px 16px 16px;">
+				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
+					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">赛事管理</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">赛事回顾</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span>
+				</div>
 			</div>
-			<div class="row-div form-data">
-				<p style="width: 80px;">赛事名称</p>
-				<input type="text" class="gd-input" id="match_name" />
+
+			<div class="ivu-card ivu-card-body" id="ivu-card-div">
+				<form autocomplete="off"
+					class="ivu-form ivu-form-label-right ivu-form-inline">
+					<div class="ivu-form-item ivu-form-item-required">
+						<div class="ivu-form-item-content">
+							<button type="button" class="ivu-btn ivu-btn-warning"
+								onclick="add_click()">
+								<span>添加赛事回顾</span>
+							</button>
+						</div>
+					</div>
+					<div class="ivu-form-item ">
+						<div class="ivu-form-item-content row-div" style="width: 260px">
+							<p style="width: 100px;" class="ivu-form-item-label">赛事名称</p>
+							<input type="text" spellcheck="false" autocomplete="off"
+								class="ivu-input ivu-input-default" v-model="match_name" />
+						</div>
+					</div>
+					<div class="ivu-form-item ivu-form-item-required">
+						<div class="ivu-form-item-content" style="width: 200px">
+							<button type="button" class="ivu-btn ivu-btn-primary"
+								onclick="request()">
+								<span>查询</span>
+							</button>
+						</div>
+					</div>
+				</form>
+				<div class="ivu-table-body">
+					<table cellspacing="0" cellpadding="0" border="0"
+						style="width: 100%" class="ivu-table ivu-table-border">
+						<tbody class="ivu-table-tbody" id="tbody">
+							<tr class="ivu-table-row">
+								<!-- 赛事名称  对战  比赛地点  比赛时间  创建时间 操作 -->
+								<th class="ivu-table-column-center">
+									<div class="ivu-table-cell">赛事名称</div>
+								</th>
+								<th class="ivu-table-column-center">
+									<div class="ivu-table-cell">对战</div>
+								</th>
+								<th class="ivu-table-column-center">
+									<div class="ivu-table-cell">比赛地点</div>
+								</th>
+								<th class="ivu-table-column-center">
+									<div class="ivu-table-cell">比赛时间</div>
+								</th>
+								<th class="ivu-table-column-center">
+									<div class="ivu-table-cell">创建时间</div>
+								</th>
+								<th class="ivu-table-column-center">
+									<div class="ivu-table-cell">操作</div>
+								</th>
+							</tr>
+							<tr class="ivu-table-row">
+								<td class="ivu-table-column-center" colspan="6">
+									<div class="ivu-table-cell">没有数据</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="zxf_pagediv"></div>
+
+
 			</div>
-			<!-- <div class="row-div form-data">
-				<p style="width: 80px;">手机号</p>
-				<input type="text" class="gd-input" id="phone" />
-			</div> -->
-			<div>
-				<button type="button" class="ivu-btn ivu-btn-primary"
-					onclick="request()">查询</button>
+
+			<!-- 提示框 -->
+			<div class="v-transfer-dom" id="transfer-dom" style="display: none;">
+				<div class="ivu-modal-mask" style="z-index: 1003;"></div>
+				<div class="ivu-modal-wrap" style="z-index: 1003;">
+					<div class="ivu-modal" style="width: 416px;">
+						<div class="ivu-modal-content">
+							<div class="ivu-modal-body">
+								<div class="ivu-modal-confirm">
+									<div class="ivu-modal-confirm-head">
+										<div
+											class="ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-warning">
+											<i class="ivu-icon ivu-icon-ios-alert"></i>
+										</div>
+										<div class="ivu-modal-confirm-head-title">警告</div>
+									</div>
+									<div class="ivu-modal-confirm-body">
+										<div>
+											<p>确定要删除吗?</p>
+										</div>
+									</div>
+									<div class="ivu-modal-confirm-footer">
+										<button type="button" class="ivu-btn ivu-btn-small"
+											style="margin-right: 5px;" onclick="transfer_cancel()">取消</button>
+										<button type="button"
+											class="ivu-btn ivu-btn-primary ivu-btn-large"
+											onclick="transfer_ok()">确定</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="gd-table-div">
-			<table border="0" cellspacing="0" cellpadding="0" class="gd-table"
-				id="table">
-				<tr>
-					<th>
-						<div class="row-div">赛事名称</div>
-					</th>
-					<th>
-						<div class="row-div">对战</div>
-					</th>
-					<th>
-						<div class="row-div">比赛地点</div>
-					</th>
-					<th>
-						<div class="row-div">比赛时间</div>
-					</th>
-					<th>
-						<div class="row-div">创建时间</div>
-					</th>
-					<th>
-						<div class="row-div">操作</div>
-					</th>
-				</tr>
-				<tr>
-					<td colspan="6">
-						<div class="row-div">没有数据</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class="zxf_pagediv"></div>
 
 	</div>
 </body>
 <script type="text/javascript">
-	var entity = {
-		pageNum : 1,
-		size : 10
-	};
-	var dataList = {
-		table : []
-	};
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			size : 10,
+			pageNum : 1,
+			match_name : '',
+			table : [],
+			state : null,
+			delete_id : null
+		}
+	});
 	$(".zxf_pagediv").createPage({
 		backfun : function(e) {
-			entity.pageNum = e.current;
+			vm.pageNum = e.current;
 			request();
 		}
 	});
-	function add_click () {
-		parent
-		.$(window.parent.document)
-		.find('.iframe')
-		.attr('src',
-				'http://localhost:9090/billiard/System_Add_EventReview.jsp');
+	function add_click() {
+		window.location.href = 'System_Add_EventReview.jsp';
 	}
 	request();
-	function request() {
+	function compile_click(id) {
+		window.location.href = 'System_Add_EventReview.jsp?id=' + id;
+	}
+	function delete_click(id) {
+		vm.delete_id = id
+		$("#transfer-dom").toggle(300);
+
+	};
+	function transfer_ok() {
+		deleteRequest();
+	};
+	function transfer_cancel() {
+		$("#transfer-dom").toggle(300);
+	};
+	function deleteRequest() {
 		$
 				.ajax({
-					type : "GET",
-					url : "${pageContext.request.contextPath}/match/review?size="
-							+ entity.size + "&page=" + entity.pageNum + "&title=" + $("#match_name").val(),
+					type : "POST",
+					async : true,
+					url : "${pageContext.request.contextPath}/admin/match/review/delete",
+					contentType : "application/json; charset=utf-8",
 					dataType : "json",
+					data : JSON.stringify({
+						"id" : vm.delete_id
+					}),
 					success : function(data) {
 						if (data.code === 200) {
-							entity.pageNum = data.result.pages;
-							dataList.table = data.result.list;
-							let arr = data.result.list;
-							let innhtml = '<tr><th><div class="row-div">赛事名称</div></th>'
-									+ '<th><div class="row-div">对战</div></th>'
-									+ '<th><div class="row-div">比赛地点</div></th>'
-									+ '<th><div class="row-div">比赛时间</div></th>'
-									+ '<th><div class="row-div">创建时间</div></th>'
-									+ '<th><div class="row-div">操作</div></th></tr>';
-							arr
-									.forEach(function(item, index) {
-										innhtml += '<tr>'
-												+ '<td><div class="row-div">'
-												+ item.title
-												+ '</div></td>'
-												+ '<td><div class="row-div">'
-												+ item.teamOneName
-												+ 'vs'
-												+ item.teamTwoName
-												+ '</div></td>'
-												+ '<td><div class="row-div">'
-												+ item.coursePlace
-												+ '</div></td>'
-												+ '<td><div class="row-div">'
-												+ item.courseTime
-												+ '</div></td>'
-												+ '<td><div class="row-div">'
-												+ item.createTime
-												+ '</div></td>'
-												+ '<td style="width: 200px;"><div class="row-div">'
-												+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('+item.id+')">编辑</button>'
-												+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="delete_click('+item.id+')">删除</button>'
-												+ '</div></td></tr>';
-									})
-
-							$("#table>tbody").html(innhtml);
-							$(".zxf_pagediv").createPage({
-								pageNum : data.result.pages,
-								current : data.result.pageNum,
-								total : data.result.total
+							spop({
+								template : '成功',
+								group : 'submit-satus',
+								style : 'success',
+								autoclose : 5000
 							});
+							request();
+							$("#transfer-dom").toggle(300);
+						} else if (data.code === 100005) {
+							window.location.href = "System_login.jsp";
 						} else {
 							spop({
 								template : data.message,
@@ -156,7 +219,7 @@
 					error : function(jqXHR) {
 						console.log("Error: " + jqXHR.status);
 						spop({
-							template : '查询接口访问失败,请与系统管理员联系',
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
 							group : 'submit-satus',
 							style : 'error',
 							autoclose : 5000
@@ -164,32 +227,24 @@
 					}
 				});
 	}
-	function compile_click (id) {
-		parent.$(window.parent.document).find('.iframe').attr('src','http://localhost:9090/billiard/System_Add_EventReview.jsp?id='+id);
-	}
-	function delete_click (id) {
-		$.dialog.confirm({content:"你确定要删除吗",callback:"deleteRequest("+id+");"});
-	};
-	function deleteRequest (id) {
-		$
-		.ajax({
-			type : "POST",
-			async : true,
-			url : "${pageContext.request.contextPath}/admin/match/review/delete",
-			contentType : "application/json; charset=utf-8",
+	function request() {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/match/review?size="
+					+ vm.size + "&page=" + vm.pageNum + "&title="
+					+ vm.match_name,
 			dataType : "json",
-			data : JSON.stringify({
-				"id" : id
-			}),
 			success : function(data) {
 				if (data.code === 200) {
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
+					vm.table = data.result.list;
+					addTable(data.result.list);
+					$(".zxf_pagediv").createPage({
+						pageNum : data.result.pages,
+						current : data.result.pageNum,
+						total : data.result.total
 					});
-					request();
+				} else if (data.code === 100005) {
+					window.location.href = "System_login.jsp";
 				} else {
 					spop({
 						template : data.message,
@@ -202,13 +257,65 @@
 			error : function(jqXHR) {
 				console.log("Error: " + jqXHR.status);
 				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					template : '查询接口访问失败,请与系统管理员联系',
 					group : 'submit-satus',
 					style : 'error',
 					autoclose : 5000
 				});
 			}
 		});
+	}
+	function addTable(arr) {
+		// 赛事名称  对战  比赛地点  比赛时间  创建时间 操作
+		let html = '<tr class="ivu-table-row">'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">赛事名称</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">对战</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">比赛地点</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">比赛时间</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">创建时间</div></th>'
+				+ '<th class="ivu-table-column-center">'
+				+ '<div class="ivu-table-cell">操作</div></th>' + '</tr>';
+		arr
+				.forEach(function(item, index) {
+					// title teamOneName 'vs' teamTwoName coursePlace courseTime createTime
+					html += '<tr class="ivu-table-row">'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.title
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.teamOneName
+							+ '  VS  '
+							+ item.teamTwoName
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.coursePlace
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.courseTime
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ item.createTime
+							+ '</div></td>'
+							+ '<td class="ivu-table-column-center">'
+							+ '<div class="ivu-table-cell">'
+							+ '<button type="button" class="ivu-btn ivu-btn-info operation-but"data-modal="modal-1" onclick="compile_click('
+							+ item.id
+							+ ')" style="margin-right: 5px;">编辑</button>'
+							+ '<button type="button" class="ivu-btn ivu-btn-error" onclick="delete_click('
+							+ item.id + ')">删除</button></div></td></tr>';
+
+				})
+		$("#tbody").html(html);
 	}
 </script>
 </html>

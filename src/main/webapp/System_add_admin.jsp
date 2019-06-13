@@ -100,7 +100,7 @@
 		</div> -->
 		<div class="menuBar" id="menuBar">
 			<iframe
-				src="http://localhost:9090/billiard/menuBar.jsp"
+				src="menuBar.jsp"
 				class="iframe" scrolling="yes" frameborder="0"></iframe>
 		</div>
 
@@ -388,6 +388,8 @@
 						current : vm.pageNum,
 						total : res.result.total
 					});
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				}
 			},
 			error : function(e) {

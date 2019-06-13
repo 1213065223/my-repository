@@ -25,7 +25,7 @@
 <body>
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="http://localhost:9090/billiard/menuBar.jsp"
+			<iframe src="menuBar.jsp"
 				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
@@ -431,6 +431,8 @@
 						style : 'success',
 						autoclose : 5000
 					});
+				}else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				} else {
 					spop({
 						template : data.message,
@@ -470,6 +472,8 @@
 						style : 'warning',
 						autoclose : 5000
 					});
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				}
 			},
 			error : function(jqXHR) {

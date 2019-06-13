@@ -5,8 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>添加赛事</title>
+<link rel="stylesheet" type="text/css"
+	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="skin/jedate.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
+<link rel="stylesheet" type="text/css" href="css/System_home.css" />
 <link rel="stylesheet" type="text/css"
 	href="css/System_Add_CompetitionList.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
@@ -14,13 +17,19 @@
 
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="src/jedate.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/home.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript"
 	src="js/kindeditor-min.js" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript" src="lang/zh_CN.js"
 	charset="utf-8"></script>
+<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <script>
+	$.cookie('active-name', 'CompetitionList');
+	$.cookie('active-src', 'System_CompetitionList');
 	KindEditor.plugin('image', function(K) {
 		var self = this, name = 'image';
 		self.clickToolbar(name, function() {
@@ -38,103 +47,216 @@
 	});
 </script>
 <body>
-	<div class="Add_CompetitionList column-div">
-		<div class="column-start Add_CompetitionList-div-1">
-			<div class="flex-start">
-				<p>比赛名称</p>
-				<input type="text" class="gd-input" style="width: 40%;"
-					id="matchName" />
-			</div>
-			<div class="flex-start">
-				<p>组织机构</p>
-				<input type="text" class="gd-input" style="width: 40%;"
-					id="organization" />
-			</div>
-			<div class="flex-start">
-				<p>比赛积分</p>
-				<input type="number" class="gd-input" style="width: 40%;"
-					id="enrollCost" />
-			</div>
-			<div class="flex-start">
-				<p>比赛地点</p>
-				<input type="text" class="gd-input" style="width: 40%;"
-					id="matchPlace" />
-			</div>
-			<div class="flex-start" style="align-items: flex-start;">
-				<p>比赛项目内容</p>
-				<textarea rows="3" cols="20" style="width: 40%;" class="gd-textarea"
-					id="matchContent"></textarea>
-			</div>
-			<div class="flex-start" style="align-items: flex-start;">
-				<p>规则</p>
-				<textarea rows="3" cols="20" style="width: 40%;" class="gd-textarea"
-					id="planning"></textarea>
-			</div>
-			<div class="flex-start" style="align-items: flex-start;">
-				<p>日程安排</p>
-				<textarea rows="3" cols="20" style="width: 40%;" class="gd-textarea"
-					id="schedule"></textarea>
-			</div>
-			<div class="flex-start">
-				<p>比赛日期</p>
-				<div class="jeinpbox">
-					<input type="text" class="jeinput" id="timeQuantum"
-						placeholder="请选择比赛日期范围" style="width: 300px;" autocomplete="off">
+	<div>
+		<div class="menuBar" id="menuBar">
+			<iframe src="menuBar.jsp"
+				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+		</div>
+		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
+			id="mvvm">
+			<div class="layout-header"></div>
+			<!-- style="padding: 0px 16px 16px;" -->
+			<div class="layout-content" style="padding: 0px 16px 16px;">
+				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
+					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">赛事管理</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">添加赛事</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span>
 				</div>
-			</div>
-			<div class="flex-start">
-				<p>比赛时间</p>
-				<div class="jeinpbox">
-					<input type="text" class="jeinput" id="matchTime"
-						placeholder="请选择比赛时间" autocomplete="off">
-				</div>
+				<div class="ivu-card ivu-card-body" id="ivu-card-div">
+					<div style="width: 100%;" class="column-div">
+						<form class="form-model column-start" label-width="100"
+							id="form-model" style="width: 35%;">
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛名称</span>
+								</p>
+								<div class="form-input-parent">
+									<input type="text" class="ivu-input ivu-input-default"
+										id="matchName" autocomplete="off" spellcheck="false"
+										v-model="matchName" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>组织机构</span>
+								</p>
+								<div class="form-input-parent">
+									<input type="text" class="ivu-input ivu-input-default"
+										id="organization" autocomplete="off" spellcheck="false"
+										v-model="organization" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛积分</span>
+								</p>
+								<div class="form-input-parent">
+									<input type="number" class="ivu-input ivu-input-default"
+										id="enrollCost" autocomplete="off" spellcheck="false"
+										v-model="enrollCost" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛地点</span>
+								</p>
+								<div class="form-input-parent">
+									<input type="text" class="ivu-input ivu-input-default"
+										id="matchPlace" autocomplete="off" spellcheck="false"
+										v-model="matchPlace" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛项目内容</span>
+								</p>
+								<div class="form-input-parent">
+									<input type="text" class="ivu-input ivu-input-default"
+										id="matchContent" autocomplete="off" spellcheck="false"
+										v-model="matchContent" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛规则</span>
+								</p>
+								<div class="form-input-parent">
+									<input type="text" class="ivu-input ivu-input-default"
+										id="planning" autocomplete="off" spellcheck="false"
+										v-model="planning" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>日程安排</span>
+								</p>
+								<div class="form-input-parent jeinpbox">
+									<input type="text" class="ivu-input ivu-input-default"
+										id="schedule" autocomplete="off" spellcheck="false"
+										v-model="schedule" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛日期</span>
+								</p>
+								<div class="form-input-parent jeinpbox">
+									<input type="text" readonly
+										class="ivu-input ivu-input-default jeinput" id="timeQuantum"
+										autocomplete="off" spellcheck="false" v-model="timeQuantum" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>比赛时间</span>
+								</p>
+								<div class="form-input-parent jeinpbox">
+									<input type="text" readonly
+										class="ivu-input ivu-input-default jeinput" id="matchTime"
+										autocomplete="off" spellcheck="false" v-model="matchTime" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>开放报名时间</span>
+								</p>
+								<div class="form-input-parent jeinpbox">
+									<input type="text" readonly
+										class="ivu-input ivu-input-default jeinput" id="enrollTime"
+										autocomplete="off" spellcheck="false" v-model="enrollTime" />
+								</div>
+							</div>
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>报名截止时间</span>
+								</p>
+								<div class="form-input-parent jeinpbox">
+									<input type="text" readonly
+										class="ivu-input ivu-input-default jeinput" id="enrollTimeEnd"
+										autocomplete="off" spellcheck="false" v-model="enrollTimeEnd" />
+								</div>
+							</div>
 
-			</div>
-			<div class="flex-start">
-				<p>开放报名时间</p>
-				<div class="jeinpbox">
-					<input type="text" class="jeinput" id="enrollTime"
-						placeholder="请选择开放报名时间" autocomplete="off">
-				</div>
-			</div>
-			<div class="flex-start">
-				<p>报名截止时间</p>
-				<div class="jeinpbox">
-					<input type="text" class="jeinput" id="enrollTimeEnd"
-						placeholder="请选择报名截止时间" autocomplete="off">
-				</div>
-			</div>
-			<div class="flex-start" style="align-items: flex-start;">
-				<p>文本详情</p>
-				<textarea class="content"
-					style="width: 40%; height: 200px; visibility: hidden;"></textarea>
-			</div>
-			<div class="flex-start" style="width: 50%;">
-				<div class="row-div" style="width: 100%;">
-					<button class="ivu-btn" style="margin-right: 20px;"
-						onclick="cancel()">取消</button>
-					<button class="ivu-btn ivu-btn-primary" onclick="ok_click()">确定</button>
+							<div class="form-model-div flex-start"
+								style="height: auto; margin-top: 20px; margin-bottom: 20px; align-items: flex-start;">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>文本详情</span>
+								</p>
+								<div class="form-input-parent">
+									<div>
+										<textarea class="content"
+											style="width: 100%; height: 200px; visibility: hidden;"></textarea>
+									</div>
+									<span class="form-message" id="details"></span>
+								</div>
+							</div>
+							<div class="form-model-div">
+								<div class="row-div">
+									<button type="button" class="ivu-btn"
+										style="margin-right: 20px;" onclick="cancel()">取消</button>
+									<button type="button" class="ivu-btn ivu-btn-primary"
+										onclick="modle_click()">确定</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 		<input type="file" id="file" style="display: none;"
-		onchange="UploadImage(this.files[0])" />
-	</div>
+			onchange="UploadImage(this.files[0])" />
 </body>
 <script type="text/javascript">
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			matchName : '',
+			organization : '',
+			matchContent : '',
+			matchTime : '',
+			matchPlace : '',
+			planning : '',
+			schedule : '',
+			enrollTime : '',
+			enrollTimeEnd : '',
+			timeQuantum : '',
+			enrollCost : '',
+			details : ''
+		}
+	});
 	jeDate("#timeQuantum", {
 		format : "YYYY年MM月DD日",
 		multiPane : false,
-		range : " - "
+		range : " - ",
+		donefun : function(obj) {
+			RegExpEntity.timeQuantum.Event.onceEvent();
+			vm.timeQuantum = obj.val;
+		}
 	});
 	jeDate("#matchTime", {
-		format : "YYYY-MM-DD hh:mm:ss"
+		format : "YYYY-MM-DD hh:mm:ss",
+		donefun : function(obj) {
+			RegExpEntity.matchTime.Event.onceEvent();
+			vm.matchTime = obj.val;
+		}
 	});
 	jeDate("#enrollTime", {
-		format : "YYYY-MM-DD hh:mm:ss"
+		format : "YYYY-MM-DD hh:mm:ss",
+		donefun : function(obj) {
+			RegExpEntity.enrollTime.Event.onceEvent();
+			vm.enrollTime = obj.val;
+		}
 	});
 	jeDate("#enrollTimeEnd", {
-		format : "YYYY-MM-DD hh:mm:ss"
+		format : "YYYY-MM-DD hh:mm:ss",
+		donefun : function(obj) {
+			RegExpEntity.enrollTimeEnd.Event.onceEvent();
+			vm.enrollTimeEnd = obj.val;
+		}
 	});
 	let url = window.location.search;
 	let id = null;
@@ -151,7 +273,10 @@
 	}
 	function cancel() {
 		editor.html('');
-		$("#matchName").val('');
+		for (let i in vm._data) {
+			vm._data[i] = ''
+		}
+		/* $("#matchName").val('');
 		$("#organization").val('');
 		$("#matchContent").val('');
 		$("#matchTime").val('');
@@ -161,12 +286,104 @@
 		$("#enrollTime").val('');
 		$("#enrollTimeEnd").val('');
 		$("#timeQuantum").val('');
-		$("#enrollCost").val('');
+		$("#enrollCost").val(''); */
 	};
-	function ok_click() {
-		if (id) {
-			updateRequest();
+
+	let RegExpEntity = {
+		matchName : {
+			RegExptype : 'string',
+			message : '请输入比赛名次',
+			trigger : 'blur',
+			id : 'matchName'
+		},
+		organization : {
+			RegExptype : 'string',
+			message : '请选择比赛时间',
+			trigger : 'blur',
+			id : 'organization'
+		},
+		matchContent : {
+			RegExptype : 'string',
+			message : '请输入比赛积分',
+			trigger : 'blur',
+			id : 'matchContent'
+		},
+		matchTime : {
+			RegExptype : 'string',
+			message : '请选择比赛',
+			trigger : 'blur',
+			id : 'matchTime'
+		},
+		matchPlace : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'matchPlace'
+		},
+		planning : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'planning'
+		},
+		schedule : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'schedule'
+		},
+		enrollTime : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'enrollTime'
+		},
+		enrollTimeEnd : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'enrollTimeEnd'
+		},
+		timeQuantum : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'timeQuantum'
+		},
+		enrollCost : {
+			RegExptype : 'string',
+			message : '请选择用户',
+			trigger : 'blur',
+			id : 'enrollCost'
+		}
+	}
+	for ( let i in RegExpEntity) {
+		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
+	}
+	function modle_click() {
+		vm.details = editor.html();
+		let entity = vm._data;
+		let boo = true;
+		for ( let i in entity) {
+			if (!entity[i] && i!=='details') {
+				try {
+					RegExpEntity[i].Event.label_error(document
+							.getElementById(i));
+				} catch (err) {
+					console.log(i)
+				}
+				boo = false;
+			}
+		}
+		if (!vm.details) {
+			$("#details").html('请输入富文本内容');
+			boo = false;
 		} else {
+			$("#details").html('');
+		}
+		if (id && boo) {
+			updateRequest();
+		} else if (boo)  {
 			insertRequest();
 		}
 	}
@@ -178,20 +395,7 @@
 					url : "${pageContext.request.contextPath}/admin/match",
 					contentType : "application/json; charset=utf-8",
 					dataType : "json",
-					data : JSON.stringify({
-						"matchName" : $("#matchName").val(),
-						"organization" : $("#organization").val(),
-						"matchContent" : $("#matchContent").val(),
-						"matchTime" : $("#matchTime").val(),
-						"matchPlace" : $("#matchPlace").val(),
-						"planning" : $("#planning").val(),
-						"schedule" : $("#schedule").val(),
-						"enrollTime" : $("#enrollTime").val(),
-						"enrollTimeEnd" : $("#enrollTimeEnd").val(),
-						"timeQuantum" : $("#timeQuantum").val(),
-						"enrollCost" : $("#enrollCost").val(),
-						"details" : editor.html()
-					}),
+					data : JSON.stringify(vm._data),
 					success : function(data) {
 						if (data.code === 200) {
 							spop({
@@ -200,11 +404,9 @@
 								style : 'success',
 								autoclose : 5000
 							});
-							parent
-									.$(window.parent.document)
-									.find('.iframe')
-									.attr('src',
-											'http://localhost:9090/billiard/System_CompetitionList.jsp');
+							window.location.href = 'System_CompetitionList.jsp'
+						} else if (res.code === 100005) {
+							window.location.href = "System_login.jsp";
 						} else {
 							spop({
 								template : data.message,
@@ -225,8 +427,11 @@
 					}
 				});
 	}
-	
+
 	function updateRequest() {
+		let entity = vm._data
+		entity.id=id
+		entity.details = editor.html()
 		$
 				.ajax({
 					type : "POST",
@@ -234,21 +439,7 @@
 					url : "${pageContext.request.contextPath}/admin/match/update",
 					contentType : "application/json; charset=utf-8",
 					dataType : "json",
-					data : JSON.stringify({
-						"id": id,
-						"matchName" : $("#matchName").val(),
-						"organization" : $("#organization").val(),
-						"matchContent" : $("#matchContent").val(),
-						"matchTime" : $("#matchTime").val(),
-						"matchPlace" : $("#matchPlace").val(),
-						"planning" : $("#planning").val(),
-						"schedule" : $("#schedule").val(),
-						"enrollTime" : $("#enrollTime").val(),
-						"enrollTimeEnd" : $("#enrollTimeEnd").val(),
-						"timeQuantum" : $("#timeQuantum").val(),
-						"enrollCost" : $("#enrollCost").val(),
-						"details" : editor.html()
-					}),
+					data : JSON.stringify(entity),
 					success : function(data) {
 						if (data.code === 200) {
 							spop({
@@ -257,11 +448,9 @@
 								style : 'success',
 								autoclose : 5000
 							});
-							parent
-									.$(window.parent.document)
-									.find('.iframe')
-									.attr('src',
-											'http://localhost:9090/billiard/System_CompetitionList.jsp');
+							window.location.href = 'System_CompetitionList.jsp'
+						} else if (res.code === 100005) {
+							window.location.href = "System_login.jsp";
 						} else {
 							spop({
 								template : data.message,
@@ -282,19 +471,21 @@
 					}
 				});
 	}
-	
-	function request () {
-		$
-		.ajax({
+
+	function request() {
+		$.ajax({
 			type : "get",
 			async : true,
-			url : "${pageContext.request.contextPath}/match/detail?mid="+id,
+			url : "${pageContext.request.contextPath}/match/detail?mid=" + id,
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function(res) {
 				if (res.code === 200) {
 					editor.insertHtml(res.result.details);
-					$("#matchName").val(res.result.matchName);
+					for (let i in vm._data) {
+						vm._data[i] = res.result[i]
+					}
+					/* $("#matchName").val(res.result.matchName);
 					$("#organization").val(res.result.organization);
 					$("#matchContent").val(res.result.matchContent);
 					$("#matchTime").val(res.result.matchTime);
@@ -304,7 +495,9 @@
 					$("#enrollTime").val(res.result.enrollTime);
 					$("#enrollTimeEnd").val(res.result.enrollTimeEnd);
 					$("#timeQuantum").val(res.result.timeQuantum);
-					$("#enrollCost").val(res.result.enrollCost);
+					$("#enrollCost").val(res.result.enrollCost); */
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				} else {
 					spop({
 						template : data.message,
@@ -339,6 +532,8 @@
 			success : function(data) {
 				if (data.code === 200) {
 					editor.appendHtml('<img src="'+data.result+'" />');
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				} else {
 					spop({
 						template : data.message,
@@ -359,6 +554,12 @@
 			}
 		});
 		return entity;
+	}
+	let label_width = document.getElementById('form-model').getAttribute(
+			'label-width');
+	let arr = document.getElementsByClassName('form-p')
+	for (let i = 0; i < arr.length; i++) {
+		arr[i].style.width = label_width + 'px';
 	}
 </script>
 </html>

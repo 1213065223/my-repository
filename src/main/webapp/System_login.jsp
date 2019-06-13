@@ -173,7 +173,7 @@
 					success : function(data) {
 						if (data.code === 200) {
 							console.log("${admin_user}");
-							window.location.href = "http://localhost:9090/billiard/System_add_admin.jsp";
+							window.location.href = "${pageContext.request.contextPath}/System_add_admin.jsp";
 						} else {
 							spop({
 								template : data.message,

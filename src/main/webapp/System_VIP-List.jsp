@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 <link rel="stylesheet" href="jeui/css/jeui.css">
 <link rel="stylesheet" type="text/css" href="skin/jedate.css" />
+
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/home.js" type="text/javascript" charset="utf-8"></script>
@@ -36,7 +37,7 @@
 <body>
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="http://localhost:9090/billiard/menuBar.jsp"
+			<iframe src="menuBar.jsp"
 				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
@@ -402,7 +403,9 @@
 						style : 'success',
 						autoclose : 5000
 					});
-				} else {
+				} else if (data.code === 100005) {
+					window.location.href = "System_login.jsp";
+				}  else {
 					spop({
 						template : data.message,
 						group : 'submit-satus',

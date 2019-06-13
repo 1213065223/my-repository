@@ -21,6 +21,7 @@
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div id="mvvm">
@@ -110,7 +111,7 @@
 					</div>
 				</div>
 				<div class="column-div jeinpbox login-div-2--div-1">
-					<input type="text" placeholder="生日" id="birthday"
+					<input type="text" readonly placeholder="生日" id="birthday"
 						autocomplete="off" spellcheck="false" v-model="birthday"
 						class="jeinput" />
 				</div>
@@ -321,9 +322,6 @@
 			data : JSON.stringify(event),
 			success : function(data) {
 				if (data.code === 200) {
-					//console.log("${admin_user}");
-					//console.log("${user}");
-					// window.location.href = "PC-home.jsp";
 					$("#transfer-dom").show();
 				} else {
 					spop({

@@ -38,9 +38,9 @@ public class RegistController {
 	
 	@RequestMapping(value="mail",method=RequestMethod.GET)
 	@ResponseBody
-	public String sendEmail() {
+	public String sendEmail(String sendEmail,String uuid) {
 		
-		String url = "http://192.168.9.148:8080/billiard/regist/mail/confirm?mail=18740029390@163.com&code="+System.currentTimeMillis();
+		String url = propertyUtil.getRegistMailUrl()+"?code="+uuid;
 		
 		
 	

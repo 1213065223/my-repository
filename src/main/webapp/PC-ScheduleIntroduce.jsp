@@ -16,6 +16,7 @@
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div>

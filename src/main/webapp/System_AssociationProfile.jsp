@@ -3,21 +3,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="themes/default/default.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>协会简介</title>
+<link rel="stylesheet" type="text/css"
+	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
+<link rel="stylesheet" type="text/css" href="css/System_home.css" />
+<link rel="stylesheet" type="text/css" href="css/spop.css" />
+<link rel="stylesheet" type="text/css" href="themes/default/default.css" />
 <link rel="stylesheet" type="text/css"
 	href="css/System_AssociationProfile.css" />
-<link rel="stylesheet" type="text/css" href="css/spop.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/home.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript"
 	src="js/kindeditor-min.js" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript" src="lang/zh_CN.js"
 	charset="utf-8"></script>
-<script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
-<title>协会简介</title>
-<script>
+<script type="text/javascript">
+	$.cookie('active-name', 'AssociationProfile');
+	$.cookie('active-src', 'System_AssociationProfile');
 	KindEditor.plugin('image', function(K) {
 		var self = this, name = 'image';
 		self.clickToolbar(name, function() {
@@ -37,42 +44,110 @@
 </head>
 <body>
 	<div>
-		<h4 class="text-title">协会简介</h4>
-		<div class="row-div content-div">
-			<form class="content-form">
-				<textarea name="content"
-					style="width: 100%; height: 400px; visibility: hidden;"></textarea>
-			</form>
+		<div class="menuBar" id="menuBar">
+			<iframe src="menuBar.jsp"
+				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
 		</div>
-		<div class="flex-between content-div-2">
-			<button type="button" class="ivu-btn" onclick="cancel()">取消</button>
-			<button type="button" class="ivu-btn ivu-btn-primary"
-				onclick="insert()">提交</button>
+		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
+			id="mvvm">
+			<div class="layout-header"></div>
+			<!-- style="padding: 0px 16px 16px;" -->
+			<div class="layout-content" style="padding: 0px 16px 16px;">
+				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
+					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">协会管理</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">协会简介</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
+					</span>
+				</div>
+
+				<div class="ivu-card ivu-card-body" id="ivu-card-div">
+					<h1 class="text-title">协会简介</h1>
+					<div style="width: 100%;" class="column-center">
+						<form class="form-model column-start" label-width="120"
+							id="form-model" style="width: 80%;">
+							<div class="row-div content-div">
+								<form class="content-form">
+									<textarea name="content"
+										style="width: 100%; height: 400px; visibility: hidden;"></textarea>
+								</form>
+							</div>
+
+							<div class="form-model-div row-div" style="width: 30%;margin: auto;">
+								<button type="button"
+									class="ivu-btn ivu-btn-primary ivu-btn-small"
+									style="width: 80%;" onclick="insert()">保存</button>
+							</div>
+						</form>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 提示框 -->
+	<div class="v-transfer-dom" id="transfer-dom" style="display: none;">
+		<div class="ivu-modal-mask" style="z-index: 1003;"></div>
+		<div class="ivu-modal-wrap" style="z-index: 1003;">
+			<div class="ivu-modal" style="width: 416px;">
+				<div class="ivu-modal-content">
+					<div class="ivu-modal-body">
+						<div class="ivu-modal-confirm">
+							<div class="ivu-modal-confirm-head">
+								<div
+									class="ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-warning">
+									<i class="ivu-icon ivu-icon-ios-alert"></i>
+								</div>
+								<div class="ivu-modal-confirm-head-title">警告</div>
+							</div>
+							<div class="ivu-modal-confirm-body">
+								<div>
+									<p>确定要保存信息吗?</p>
+								</div>
+							</div>
+							<div class="ivu-modal-confirm-footer">
+								<button type="button" class="ivu-btn ivu-btn-small"
+									style="margin-right: 5px;" onclick="transfer_cancel()">取消</button>
+								<button type="button"
+									class="ivu-btn ivu-btn-primary ivu-btn-large"
+									onclick="transfer_ok()">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<input type="file" id="file" style="display: none;"
 		onchange="UploadImage(this.files[0])" />
 </body>
-<script>
-	request();
-	function cancel() {
-		editor.html('');
+<script type="text/javascript">
+	function transfer_ok() {
+
 	};
-	function UploadImage(file) {
-		let entity = null;
-		let formdata = new FormData();
-		formdata.append("file", file)
+	function transfer_cancel() {
+		$("#transfer-dom").toggle(300);
+	};
+	request();
+	function request() {
+		/* 	let html = editor.html() */
 		$.ajax({
-			type : "POST",
-			url : "${pageContext.request.contextPath}/file/upload",
-			data : formdata,
-			contentType : false,
-			processData : false,
-			async : false,
+			type : "get",
+			async : true,
+			url : "${pageContext.request.contextPath}/index/association",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
 			success : function(data) {
 				if (data.code === 200) {
-					editor.appendHtml('<img src="'+data.result+'" />');
-				} else {
+					editor.html('')
+					editor.insertHtml(data.result.introduction);
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				}else {
 					spop({
 						template : data.message,
 						group : 'submit-satus',
@@ -91,7 +166,6 @@
 				});
 			}
 		});
-		return entity;
 	}
 	function insert() {
 		let html = editor.html()
@@ -116,7 +190,15 @@
 			success : function(data) {
 				if (data.code === 200) {
 					request();
-				} else {
+					spop({
+						template : '成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				}else {
 					spop({
 						template : data.message,
 						group : 'submit-satus',
@@ -136,19 +218,22 @@
 			}
 		});
 	}
-
-	function request() {
-		/* 	let html = editor.html() */
+	function UploadImage(file) {
+		let entity = null;
+		let formdata = new FormData();
+		formdata.append("file", file)
 		$.ajax({
-			type : "get",
-			async : true,
-			url : "${pageContext.request.contextPath}/index/association",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
 			success : function(data) {
 				if (data.code === 200) {
-					editor.html('')
-					editor.insertHtml("<p>"+data.result.introduction+"</p>");
+					editor.appendHtml('<img src="'+data.result+'" />');
+				}else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				} else {
 					spop({
 						template : data.message,
@@ -168,6 +253,7 @@
 				});
 			}
 		});
+		return entity;
 	}
 </script>
 </html>

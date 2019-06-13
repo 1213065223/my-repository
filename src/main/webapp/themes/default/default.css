@@ -512,6 +512,7 @@
 	overflow: hidden;
 	text-align: center;
 	cursor: s-resize;
+	display: none;
 }
 .ke-statusbar-center-icon {
 	background-position: -0px -754px;

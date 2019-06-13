@@ -24,6 +24,7 @@
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div id="mvvm">
@@ -100,7 +101,8 @@
 				<div
 					style="width: 100%; height: 3px; background: rgba(226, 226, 226, 1); margin-bottom: 15px;"></div>
 
-				<div id="details" style="margin-bottom: 10px; width: 100%;">
+				<div id="details" class="details-img"
+					style="margin-bottom: 10px; width: 100%;">
 					<img src="img/TheGame.png" width="100%"
 						style="margin-bottom: 10px;" />
 				</div>
@@ -349,29 +351,34 @@
 		<div class="modle-div" id="Modal-dl" style="display: none;">
 			<div class="modle-body" style="width: 500px;">
 				<div class="row-div modle-head" style="border-bottom: none;">
-					<p>账户登录</p>
+					<p>ログイン</p>
 					<!-- <p class="p-cancel modle-cancel">x</p> -->
 				</div>
 				<div class="column-div modle-content">
+					
 					<div class="column-div modle-content-div">
-						<input type="text" id="email" class="gd-input" placeholder="输入邮箱" />
+					<p style="width:100%;text-align:left;margin-right: auto;">メ－ルアドレス入力：</p>
+						<input type="text" id="email" class="gd-input" placeholder="メールアドレスが会員IDとなります" />
 					</div>
+					
 					<div class="column-div modle-content-div-2">
+					<p style="width:100%">パスワ－ド：</p>
 						<input type="password" id="password" class="gd-input"
-							placeholder="输入密码" />
+							placeholder="6文字～32文字の半角英数字" />
 					</div>
 					<div class="column-div modle-content-div-2">
-						<button type="button" class="login-but" onclick="login()">登录</button>
+						<button type="button" class="login-but" onclick="login()">ログイン</button>
 					</div>
 					<div class="flex-between modle-content-div-2">
 						<p>
-							报名后生成账号？立即<a onclick="apply_login()">注册</a>
+							<!-- 报名后生成账号？立即<a onclick="apply_login()">注册</a> -->
+							<a href="" class="a-href">パスワ－ドをお忘れの方</a>
 						</p>
-						<a href="" class="a-href">忘记密码</a>
+						<a onclick="apply_login()" class="a-href">非会員の方はこちら ></a>
 					</div>
 				</div>
 
-				<div class="row-div modle-bottom" style="border-top: none;">
+				<div class="row-div modle-bottom" style="border-top: none;     height: 20px;">
 					<!-- <button type="button" class="cancel-but modle-cancel">取消</button>
 						<button type="button" class="ok-but" onclick="Ok_click()">确定</button> -->
 				</div>
@@ -546,17 +553,21 @@
 	};
 	function Modal_cancel() {
 		$("#Modal-Add").toggle(300);
+		$(document.body).css({
+			"overflow-x" : "auto",
+			"overflow-y" : "auto"
+		});
 	};
 
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
-	function apply_login () {
+	function apply_login() {
 		$("#Modal-dl").hide();
 		$("#Modal-Add").show();
 	};
 	function add_click() {
-		
+
 		if ("${user}") {
 			vm.login_name = "${user.loginName}"
 			$("#Modal-Add").show();
@@ -564,6 +575,10 @@
 			vm.login_name = '请登录'
 			$("#Modal-dl").show();
 		}
+		$(document.body).css({
+			"overflow-x" : "hidden",
+			"overflow-y" : "hidden"
+		});
 	}
 	request();
 	function request() {
@@ -578,7 +593,7 @@
 					let entity2 = data.result.config;
 					let arr = entity.createTime.split(' ');
 					$("#createTime").text('发布时间：' + arr[0]);
-					$("#details").text(entity.details);
+					$("#details").html(entity.details);
 					$("#enrollTime").text(entity.enrollTime);
 					$("#enrollTimeEnd").text(entity.enrollTimeEnd);
 					$("#matchContent").text(entity.matchContent);
@@ -663,6 +678,7 @@
 	}
 	function transfer_ok() {
 		$("#transfer-dom").hide();
+		
 	}
 	function submit(event) {
 		$.ajax({
@@ -679,7 +695,7 @@
 						group : 'submit-satus',
 						style : 'success',
 						autoclose : 5000
-					});					
+					});
 					$("#Modal-Add").hide();
 					$("#transfer-dom").show();
 				} else {

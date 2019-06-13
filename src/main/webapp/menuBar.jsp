@@ -12,6 +12,11 @@
 <link rel="stylesheet" type="text/css" href="css/System_home.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	if (!"${admin_user.nickname}") {
+		parent.window.location.href = 'System_login.jsp';
+	}
+</script>
 </head>
 <body>
 	<div>
@@ -31,7 +36,7 @@
 				<dd src='System_AdvertisingSet'>
 					<span>广告设置</span>
 				</dd>
-				<dt>
+				<dt active-name="AssociationProfile">
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>协会管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
@@ -44,7 +49,7 @@
 				<dd src='System_Add_associationAffiche'>
 					<span>添加协会公告</span>
 				</dd>
-				<dt>
+				<dt active-name="CompetitionList">
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>赛事管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
@@ -74,14 +79,14 @@
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>会员管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
-				<dd src='System_VIP-List'> 
+				<dd src='System_VIP-List'>
 					<span>会员列表</span>
 				</dd>
 				<dt active-name="SiteSettings">
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>系统管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
-				<dd  src='System_SiteSettings'>
+				<dd src='System_SiteSettings'>
 					<span>网站设置</span>
 				</dd>
 			</dl>
@@ -92,9 +97,10 @@
 </body>
 <script type="text/javascript">
 	$(function() {
+
 		let active_name = $.cookie('active-name');
 		let active_src = $.cookie('active-src');
-	 // style="color: white; background: #2b85e4;"
+		// style="color: white; background: #2b85e4;"
 		$("#menuBar > dl > dd").hide();
 		if (active_name && active_src) {
 			let dl = $("#menuBar> dl > dt[active-name=" + active_name + "]");
