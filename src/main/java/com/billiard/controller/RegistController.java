@@ -58,7 +58,8 @@ public class RegistController {
 				public void run() {
 					// TODO Auto-generated method stub
 					logger.info("begin send email to "+uuid);
-					sendEmail(email, uuid, propertyUtil);
+					String url = propertyUtil.getRegistMailUrl()+"?code="+uuid;
+					sendEmail(email, propertyUtil,url);
 					logger.info(" send email success! "+uuid);
 				}
 			});
@@ -70,15 +71,15 @@ public class RegistController {
 	
 	@RequestMapping(value="mail",method=RequestMethod.GET)
 	@ResponseBody
-	public static String sendEmail(String sendEmail,String uuid, PropertyUtil propertyUtil) {
+	public static String sendEmail(String sendEmail, PropertyUtil propertyUtil,String content) {
 		
-		String url = propertyUtil.getRegistMailUrl()+"?code="+uuid;
+		
 		
 		
 	
 		
 		try {
-			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "注册验证", 	url);
+			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "注册验证", 	content);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

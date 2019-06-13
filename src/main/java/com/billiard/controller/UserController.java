@@ -122,15 +122,15 @@ public class UserController {
 		@ResponseBody
 		@RequestMapping(value="enroll/certificate",method=RequestMethod.POST)
 		public JobResponse cancel(@RequestBody Enroll enroll ,HttpServletRequest request) {
-			HttpSession session = request.getSession();
+		/*	HttpSession session = request.getSession();
 			Object logUser = session.getAttribute("user");
 			
 			if(logUser==null) {
 				return JobResponse.errorResponse(000000, "请您登录！");
 			}
 			User u = (User) logUser;
-			log.info("取消赛事报名->"+u.getNickname());
-			enroll.setUserId(u.getId());
+			enroll.setUserId(u.getId());*/
+			log.info("提交凭证->"+enroll.getCertificateImage());
 			
 			return enrollService.certificateSubmit(enroll);
 		}
@@ -233,7 +233,8 @@ public class UserController {
 				public void run() {
 					// TODO Auto-generated method stub
 					log.info("begin send email to "+uuid);
-					RegistController.sendEmail(email, uuid, propertyUtil);
+					String url = propertyUtil.getRegistMailUrl()+"?code="+uuid;
+					RegistController.sendEmail(email,  propertyUtil,url);
 					log.info(" send email success! "+uuid);
 				}
 			});

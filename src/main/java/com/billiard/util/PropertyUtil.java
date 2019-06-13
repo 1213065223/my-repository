@@ -27,6 +27,9 @@ public class PropertyUtil {
 	@Value("${regist.mail.url}")
 	private String registMailUrl;
 	
+	@Value("${init.password}")
+	private String initPassword;
+	
 	public String getFilePrefix() {
 		return filePrefix;
 	}
@@ -37,6 +40,14 @@ public class PropertyUtil {
 
 	
 	
+	public String getInitPassword() {
+		return initPassword;
+	}
+
+	public void setInitPassword(String initPassword) {
+		this.initPassword = initPassword;
+	}
+
 	public String getRegistMailUrl() {
 		return registMailUrl;
 	}
