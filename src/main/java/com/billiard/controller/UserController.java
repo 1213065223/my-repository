@@ -72,6 +72,11 @@ public class UserController {
 		if(logUser==null) {
 			return JobResponse.errorResponse(000000, "请您登录！");
 		}
+		User u = (User) logUser;
+		user.setId(u.getId());
+		user.setLoginName(null);
+		user.setPassword(null);
+		user.setSalt(null);
 		return userService.updateUser(user);
 	}
 	
@@ -149,7 +154,8 @@ public class UserController {
 			return JobResponse.errorResponse(000000, "请您登录！");
 		}
 		User u = (User) logUser;
-		log.info("我的个人信息->"+u.getNickname());
+		log.info("我的个人信息->"+u.getNickname());  
+		u=userService.getUser(u);
 		Map<String,Object> inte = integralService.getUserIntegral(u.getId());
 		if(inte==null) {
 			u.setIntegral(0);

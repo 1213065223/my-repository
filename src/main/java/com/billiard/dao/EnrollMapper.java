@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 public interface EnrollMapper {
 	
 	List<Map<String,Object>> selectEnrollInfo (Enroll record);
-	
+	List<Map<String,Object>> selectMyEnrollInfo(Enroll record);
 	
     long countByExample(EnrollExample example);
 
