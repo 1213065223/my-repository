@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.billiard.controller.RegistController;
 import com.billiard.dao.EnrollMapper;
 import com.billiard.dao.MatchMapper;
 import com.billiard.dao.UserMapper;
@@ -81,7 +82,7 @@ public class MatchServiceImpl  implements MatchService{
 		}
 		
 		enroll.setEnrollType(1);//1 待付款 2 待审核 3 审核通过 4 审核拒绝 5 用户取消
-		MatchWithBLOBs matchWithBLOBs = matchMapper.selectByPrimaryKey(enroll.getMatchId());
+		final MatchWithBLOBs matchWithBLOBs = matchMapper.selectByPrimaryKey(enroll.getMatchId());
 		if(matchWithBLOBs==null||matchWithBLOBs.getMatchDel()==1) {
 			return JobResponse.errorResponse(100015, "比赛信息不存在！");
 		}
@@ -107,7 +108,8 @@ public class MatchServiceImpl  implements MatchService{
 			if(user.getIsstop()==1) {
 				return JobResponse.errorResponse(100017, "该用户已被封禁！");
 			}else if(user.getIsstop()==2) {
-				sendMail(user.getId());
+				//sendMail(user.getId());
+				user.setIsstop(0);
 			}
 			user.setBirthday(enroll.getBirthday());
 			user.setHeadImage(enroll.getHeadImage());
@@ -115,6 +117,8 @@ public class MatchServiceImpl  implements MatchService{
 			user.setPhone(enroll.getPhone());
 			user.setSex(enroll.getSex());
 			user.setSurname(enroll.getSurname());
+			user.setSalt(MD5Util.getID());
+			user.setPassword(MD5Util.formPassToDBPass(propertyUtil.getInitPassword(), user.getSalt()));
 			EnrollExample enrollExample = new EnrollExample();
 			com.billiard.entity.EnrollExample.Criteria createCriteria2 = enrollExample.createCriteria();
 			createCriteria2.andMatchIdEqualTo(enroll.getMatchId());
@@ -136,35 +140,31 @@ public class MatchServiceImpl  implements MatchService{
 			userInsert.setPhone(enroll.getPhone());
 			userInsert.setSex(enroll.getSex());
 			enroll.setUserId(userInsert.getId());
+			userInsert.setSalt(MD5Util.getID());
+			userInsert.setPassword(MD5Util.formPassToDBPass(propertyUtil.getInitPassword(), userInsert.getSalt()));
 			userMapper.insertSelective(userInsert);
-			sendMail(userInsert.getId());
+			//sendMail(userInsert.getId());
 		}
 	
-		
-		return JobResponse.successResponse(	enrollMapper.insertSelective(enroll));
-	}
-
-	private void sendMail(final String userId) {
-		
-		ExecutorService executorService = Executors.newSingleThreadExecutor();
-		
-		executorService.submit(new Runnable() {
+		enrollMapper.insertSelective(enroll);
+		final String email = enroll.getEmail();
+		ExecutorService thread = Executors.newSingleThreadExecutor();
+		thread.submit(new Runnable() {
 			
 			@Override
 			public void run() {
-				String url = "http://192.168.9.148:8080/billiard/regist/mail/confirm?mail="+userId;
-				try {
-					MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(), "1213065223@qq.com", "台球协会", "注册验证", url);
-				} catch (Exception e) {
-					log.error("邮件发送失败！", e);
-					e.printStackTrace();
-				}
-				
+				// TODO Auto-generated method stub
+				log.info("begin send email to 开始报名！");
+				StringBuilder sb = new StringBuilder();
+				sb.append("恭喜您，报名").append(matchWithBLOBs.getMatchName()).append("成功！    地点为：").append(matchWithBLOBs.getMatchPlace()).append("请您及时付款！");
+				RegistController.sendEmail(email, propertyUtil,sb.toString());
+				log.info(" send email success! ");
 			}
 		});
-		
-		
+		thread.shutdown();
+		return JobResponse.successResponse(enroll);
 	}
+
 
 	@Override
 	public List<Map<String, Object>> myEnrollList(Enroll enroll) {
