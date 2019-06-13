@@ -10,8 +10,6 @@
 <link rel="stylesheet" type="text/css" href="skin/jedate.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
 <link rel="stylesheet" type="text/css" href="css/System_home.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/System_Add_CompetitionList.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 <link rel="stylesheet" type="text/css" href="themes/default/default.css" />
 
@@ -69,7 +67,7 @@
 				<div class="ivu-card ivu-card-body" id="ivu-card-div">
 					<div style="width: 100%;" class="column-div">
 						<form class="form-model column-start" label-width="100"
-							id="form-model" style="width: 35%;">
+							id="form-model" style="width: 100%;">
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>比赛名称</span>
@@ -186,7 +184,7 @@
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>文本详情</span>
 								</p>
-								<div class="form-input-parent">
+								<div class="form-input-parent" style="width:60%">
 									<div>
 										<textarea class="content"
 											style="width: 100%; height: 200px; visibility: hidden;"></textarea>
@@ -195,7 +193,7 @@
 								</div>
 							</div>
 							<div class="form-model-div">
-								<div class="row-div">
+								<div class="row-div" style="width:40%">
 									<button type="button" class="ivu-btn"
 										style="margin-right: 20px;" onclick="cancel()">取消</button>
 									<button type="button" class="ivu-btn ivu-btn-primary"

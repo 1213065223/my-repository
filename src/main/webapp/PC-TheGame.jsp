@@ -134,7 +134,7 @@
 		<div class="v-transfer-dom" id="Modal-Add" style="display: none;">
 			<div class="ivu-modal-mask" style="z-index: 1002;"></div>
 			<div class="ivu-modal-wrap" style="z-index: 1002;">
-				<div class="ivu-modal" style="width: 520px;">
+				<div class="ivu-modal" style="width: 600px;">
 					<div class="ivu-modal-content">
 						<a class="ivu-modal-close" onclick="Modal_cancel()"><i
 							class="ivu-icon ivu-icon-ios-close"></i></a>
@@ -143,41 +143,42 @@
 						</div>
 						<div class="ivu-modal-body">
 							<div style="width: 100%;" class="column-center">
-								<form class="form-model column-start" label-width="110"
-									id="form-model">
+								<form class="form-model column-start" label-width="170"
+									id="form-model" style="width: 100%;">
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>赛事名称</span>
+											<span class="form-span">*</span> <span>大会名：</span>
 										</p>
-										<div class="jeinpbox form-input-parent">
+										<div class="jeinpbox form-input-parent" style="width: 50%">
 											<p>{{Entity.matchName}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>用户姓</span>
+											<span class="form-span">*</span> <span>会員の氏名：</span>
 										</p>
-										<div class="form-input-parent" style="width: 30%">
+										<div class="form-input-parent" style="width: 130px">
 											<input type="text" class="ivu-input ivu-input-default"
 												id="surname" autocomplete="off" spellcheck="false"
-												v-model="Entity.surname" />
+												placeholder="例）ヤマダ" v-model="Entity.surname" />
 										</div>
-										<div style="width: 70%" class="row-div">
-											<p class="flex-end form-p">
-												<span class="form-span">*</span> <span>名</span>
-											</p>
-											<div class="form-input-parent" style="width: 50%">
+										<div class="row-div" style="width: 130px; margin-left: 10px;">
+											<!-- <p class="flex-end form-p">
+												<span class="form-span">*</span> <span>名</span> 
+											</p>-->
+											<div class="form-input-parent">
 												<input type="text" class="ivu-input ivu-input-default"
 													id="userName" autocomplete="off" spellcheck="false"
-													v-model="Entity.userName" />
+													placeholder="例）タロウ" v-model="Entity.userName" />
 											</div>
 										</div>
+										<!-- <div style="width: 70%"></div> -->
 									</div>
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>性别</span>
+											<span class="form-span">*</span> <span>性 别：</span>
 										</p>
-										<div class="form-input-parent flex-around">
+										<div class="form-input-parent flex-around" style="width: 50%">
 											<label for="radio-1" class="row-div"> <input
 												type="radio" name="radio-name" id="radio-1" value="1"
 												checked="checked" />
@@ -190,42 +191,44 @@
 									</div>
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>生日</span>
+											<span class="form-span">*</span> <span>生年月日：</span>
 										</p>
-										<div class="jeinpbox form-input-parent">
+										<div class="jeinpbox form-input-parent" style="width: 50%">
 											<input type="text"
 												class="jeinput ivu-input ivu-input-default" id="birthday"
-												autocomplete="off" readonly="readonly"
+												autocomplete="off" readonly="readonly" placeholder="生年月日"
 												v-model="Entity.birthday">
 										</div>
 									</div>
 
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>联系电话</span>
+											<span class="form-span">*</span> <span>電話番号：</span>
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent" style="width: 50%">
 											<input type="text" class="ivu-input ivu-input-default"
 												id="phone" autocomplete="off" spellcheck="false"
-												v-model="Entity.phone" />
+												placeholder="電話番号" v-model="Entity.phone" />
+
 										</div>
+
 									</div>
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>邮箱</span>
+											<span class="form-span">*</span> <span>メールアドレス：</span>
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent" style="width: 50%">
 											<input type="email" class="ivu-input ivu-input-default"
 												id="email" autocomplete="off" spellcheck="false"
-												v-model="Entity.email" />
+												placeholder="メールアドレス" v-model="Entity.email" />
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
 										style="align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>上传头像</span>
+											<span class="form-span">*</span> <span>プロフィール画像：</span>
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent" style="width: 50%">
 											<label for="headImage" class="label-2"> <input
 												type="file" id="headImage" style="display: none;"
 												onchange="UploadImage(this.files[0],this,1)" id="headImage" />
@@ -236,51 +239,68 @@
 									<div class="form-model-div flex-start"
 										style="min-height: 30px;">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>报名费用</span>
+											<!-- <span class="form-span">*</span> <span>报名费用</span> -->
 										</p>
-										<div class="form-input-parent">
-											<p>{{Entity.enrollCost}}</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>参加費：</span>
+											<p style="color: #E60012FF; font-size: 18px;">{{Entity.enrollCost}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
 										style="min-height: 30px;">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>银行汇款账号</span>
+											<!-- <span class="form-span">*</span> <span>银行汇款账号</span> -->
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>口座番号：</span>
 											<p>{{Entity.account}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
 										style="min-height: 30px;">
-
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>银行名称</span>
+											<!-- <span class="form-span">*</span> <span>银行名称</span> -->
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>銀行名：</span>
 											<p>{{Entity.bankName}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
 										style="min-height: 30px;">
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>开户行</span>
+											<!-- <span class="form-span">*</span> <span>开户行</span> -->
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>支店名：</span>
 											<p>{{Entity.bank}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
 										style="min-height: 30px;">
-
 										<p class="flex-end form-p">
-											<span class="form-span">*</span> <span>会社名称</span>
+											<!-- <span class="form-span">*</span> <span>会社名称</span> -->
 										</p>
-										<div class="form-input-parent">
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>会社名：</span>
 											<p>{{Entity.society}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>会社名称</span> -->
+										</p>
+										<div class="form-input-parent flex-start" style="width: 60%">
+											<p style="color: red; font-size: 12px;">ご注意:お振込の際は必ず、ご登録のメールアドレスをご明記ください</p>
+										</div>
+									</div>
+									<!-- <div class="form-model-div flex-start"
 										style="align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
 
 										<p class="flex-end form-p">
@@ -293,22 +313,134 @@
 												id="certificateImage" />
 											</label>
 										</div>
-									</div>
+									</div> -->
 								</form>
 							</div>
 						</div>
-						<div class="ivu-modal-footer">
-							<button type="button" class="ivu-btn ivu-btn-text ivu-btn-large"
-								onclick="Modal_cancel()">取消</button>
+						<div class="ivu-modal-footer row-div">
+							<!-- <button type="button" class="ivu-btn ivu-btn-text ivu-btn-large"
+								onclick="Modal_cancel()">取消</button> -->
 							<button type="button"
 								class="ivu-btn ivu-btn-primary ivu-btn-large"
-								onclick="Modal_ok()">确定</button>
+								onclick="Modal_ok()">次へ（払込受領書をアップロード）</button>
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>
+
+
+		<div class="v-transfer-dom" id="Modal-payment" style="display: none;">
+			<div class="ivu-modal-mask" style="z-index: 1002;"></div>
+			<div class="ivu-modal-wrap" style="z-index: 1002;">
+				<div class="ivu-modal" style="width: 600px;">
+					<div class="ivu-modal-content">
+						<a class="ivu-modal-close" onclick="Modal_payment_cancel()"><i
+							class="ivu-icon ivu-icon-ios-close"></i></a>
+						<div class="ivu-modal-header">
+							<div class="ivu-modal-header-inner">銀行振込を確認</div>
+						</div>
+						<div class="ivu-modal-body">
+							<div style="width: 100%;" class="column-center">
+								<form class="form-model column-start" label-width="170"
+									id="form-model" style="width: 100%;">
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>报名费用</span> -->
+										</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>参加費：</span>
+											<p style="color: #E60012FF; font-size: 18px;">{{Entity.enrollCost}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>银行汇款账号</span> -->
+										</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>口座番号：</span>
+											<p>{{Entity.account}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>银行名称</span> -->
+										</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>銀行名：</span>
+											<p>{{Entity.bankName}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>开户行</span> -->
+										</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>支店名：</span>
+											<p>{{Entity.bank}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>会社名称</span> -->
+										</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 50%">
+											<span>会社名：</span>
+											<p>{{Entity.society}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="min-height: 30px;">
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>会社名称</span> -->
+										</p>
+										<div class="form-input-parent flex-start" style="width: 60%">
+											<p style="color: red; font-size: 12px;">ご注意:お振込の際は必ず、ご登録のメールアドレスをご明記ください</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
+
+										<p class="flex-end form-p">
+											<!-- <span class="form-span">*</span> <span>上传打款凭证</span> -->
+										</p>
+										<div class="form-input-parent flex-start span-titou"
+											style="width: 60%; align-items: flex-start;">
+											<span style="margin-right: 10px;">振込受領書をアップロード</span> <label
+												for="certificateImage" class="label-2" style="width: 130px;">
+												<input type="file" id="certificateImage"
+												style="display: none;"
+												onchange="UploadImage(this.files[0],this,-1)"
+												id="certificateImage" />
+											</label>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="ivu-modal-footer row-div">
+							<button type="button"
+								class="ivu-btn ivu-btn-primary ivu-btn-large"
+								onclick="Modal_payment_ok()">申し込む</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
 
 
 		<!-- 提示框 -->
@@ -345,7 +477,41 @@
 			</div>
 		</div>
 
-
+		<!-- 提示框 -->
+		<div class="v-transfer-dom" id="succeed-dom" style="display: none;">
+			<div class="ivu-modal-mask" style="z-index: 1003;"></div>
+			<div class="ivu-modal-wrap" style="z-index: 1003;">
+				<div class="ivu-modal" style="width: 416px;">
+					<div class="ivu-modal-content">
+						<div class="ivu-modal-body">
+							<div class="ivu-modal-confirm">
+								<!-- <div class="ivu-modal-confirm-head">
+									<div
+										class="ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-warning">
+										<i class="ivu-icon ivu-icon-ios-alert"></i>
+									</div>
+									<div class="ivu-modal-confirm-head-title">警告</div>
+								</div> -->
+								<div class="ivu-modal-confirm-body" style="padding-left: 0px;">
+									<div class="column-div">
+										<img src="img/succeed.png" style="margin-bottom: 10px;">
+										<p>お申し込みを受け付けました、</p>
+										<p>当社からの審査をお待ちください</p>
+									</div>
+								</div>
+								<div class="ivu-modal-confirm-footer">
+									<!-- <button type="button" class="ivu-btn ivu-btn-small"
+										style="margin-right: 5px;" onclick="transfer_cancel()">取消</button> -->
+									<button type="button"
+										class="ivu-btn ivu-btn-primary ivu-btn-large"
+										onclick="succeed_ok()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<div class="modle-div" id="Modal-dl" style="display: none;">
@@ -355,14 +521,15 @@
 					<!-- <p class="p-cancel modle-cancel">x</p> -->
 				</div>
 				<div class="column-div modle-content">
-					
+
 					<div class="column-div modle-content-div">
-					<p style="width:100%;text-align:left;margin-right: auto;">メ－ルアドレス入力：</p>
-						<input type="text" id="email" class="gd-input" placeholder="メールアドレスが会員IDとなります" />
+						<p style="width: 100%; text-align: left; margin-right: auto;">メ－ルアドレス入力：</p>
+						<input type="text" id="email" class="gd-input"
+							placeholder="メールアドレスが会員IDとなります" />
 					</div>
-					
+
 					<div class="column-div modle-content-div-2">
-					<p style="width:100%">パスワ－ド：</p>
+						<p style="width: 100%">パスワ－ド：</p>
 						<input type="password" id="password" class="gd-input"
 							placeholder="6文字～32文字の半角英数字" />
 					</div>
@@ -378,7 +545,8 @@
 					</div>
 				</div>
 
-				<div class="row-div modle-bottom" style="border-top: none;     height: 20px;">
+				<div class="row-div modle-bottom"
+					style="border-top: none; height: 20px;">
 					<!-- <button type="button" class="cancel-but modle-cancel">取消</button>
 						<button type="button" class="ok-but" onclick="Ok_click()">确定</button> -->
 				</div>
@@ -435,6 +603,7 @@
 		el : '#mvvm',
 		data : {
 			login_name : '请登录',
+			paymentID : null,
 			Entity : {
 				matchId : '',
 				surname : '',
@@ -481,7 +650,7 @@
 	let RegExpEntity = {
 		phone : {
 			RegExptype : 'phone',
-			message : '请输入手机号',
+			message : '携帯電話・ご職場など、緊急時に連絡が取れる電話番号をご入力ください',
 			trigger : 'blur',
 			id : 'phone'
 		},
@@ -493,19 +662,19 @@
 		},
 		surname : {
 			RegExptype : 'string',
-			message : '请输入姓氏',
+			message : 'カタカナ（セイ）',
 			trigger : 'blur',
 			id : 'surname'
 		},
 		userName : {
 			RegExptype : 'string',
-			message : '请输名字',
+			message : 'カタカナ（メイ）',
 			trigger : 'blur',
 			id : 'userName'
 		},
 		birthday : {
 			RegExptype : 'string',
-			message : '请输选择生日',
+			message : '生年月日',
 			trigger : 'blur',
 			id : 'birthday'
 		},
@@ -536,7 +705,7 @@
 			"phone" : vm.Entity.phone,
 			"email" : vm.Entity.email,
 			"headImage" : vm.Entity.headImage,
-			"certificateImage" : vm.Entity.certificateImage
+		// "certificateImage" : vm.Entity.certificateImage RegExpEntity[i].Event.label_error(entity)
 		}
 		let boo = true;
 		for ( let i in event) {
@@ -549,7 +718,7 @@
 		if (boo) {
 			submit(event)
 		}
-		console.log(event)
+		// console.log(event)
 	};
 	function Modal_cancel() {
 		$("#Modal-Add").toggle(300);
@@ -676,10 +845,88 @@
 			}
 		});
 	}
+	$("#succeed-dom").show();
+	function Modal_payment_show() {
+		$("#Modal-payment").show();
+		$(document.body).css({
+			"overflow-x" : "hidden",
+			"overflow-y" : "hidden"
+		});
+	}
+	function Modal_payment_ok() {
+		let boo = true;
+		if (!vm.Entity.certificateImage) {
+			boo = false;
+			RegExpEntity.certificateImage.Event.label_error(document
+					.getElementById("certificateImage"));
+		}
+		if (boo) {
+			AddModal_payment();
+		}
+	}
+	function Modal_payment_cancel() {
+		$("#Modal-payment").hide();
+		$(document.body).css({
+			"overflow-x" : "auto",
+			"overflow-y" : "auto"
+		});
+	}
+	function succeed_ok () {
+		$("#succeed-dom").hide();
+		$(document.body).css({
+			"overflow-x" : "auto",
+			"overflow-y" : "auto"
+		});
+	}
 	function transfer_ok() {
 		$("#transfer-dom").hide();
-		
+		$(document.body).css({
+			"overflow-x" : "auto",
+			"overflow-y" : "auto"
+		});
+
 	}
+	function AddModal_payment() {
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : "${pageContext.request.contextPath}/user/enroll/certificate",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify({
+				userId : vm.paymentID,
+				matchId : vm.Entity.matchId,
+				certificateImage : vm.Entity.certificateImage
+			}),
+			success : function(data) {
+				if (data.code === 200) {
+					spop({
+						template : '成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});
+					$("#succeed-dom").show();
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+	};
 	function submit(event) {
 		$.ajax({
 			type : "POST",
@@ -689,6 +936,7 @@
 			dataType : "json",
 			data : JSON.stringify(event),
 			success : function(data) {
+				vm.paymentID = data.result
 				if (data.code === 200) {
 					spop({
 						template : '成功',
