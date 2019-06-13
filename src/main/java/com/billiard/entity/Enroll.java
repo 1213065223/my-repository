@@ -34,6 +34,8 @@ public class Enroll {
     private Boolean isHidden;
 
     private Date createTime;
+    
+    private Date paymentTime;
 
     public Integer getId() {
         return id;
@@ -88,7 +90,17 @@ surname.trim();
         this.birthday = birthday == null ? null : birthday.trim();
     }
 
-    public String getPhone() {
+    
+    
+    public Date getPaymentTime() {
+		return paymentTime;
+	}
+
+	public void setPaymentTime(Date paymentTime) {
+		this.paymentTime = paymentTime;
+	}
+
+	public String getPhone() {
         return phone;
     }
 

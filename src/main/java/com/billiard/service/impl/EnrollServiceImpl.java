@@ -1,5 +1,6 @@
 package com.billiard.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -97,6 +98,7 @@ public class EnrollServiceImpl implements EnrollService {
 		
 		enrollSelect.setEnrollType(2);
 		enrollSelect.setCertificateImage(enroll.getCertificateImage());
+		enrollSelect.setPaymentTime(new Date());
 		return JobResponse.successResponse(enrollMapper.updateByPrimaryKeySelective(enrollSelect));
 	}
 
