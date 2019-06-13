@@ -9,4 +9,6 @@ public interface EnrollService {
 
 	JobResponse cancelEnroll(String mid, String uid);
 
+	JobResponse certificateSubmit(Enroll enroll);
+
 }

@@ -49,6 +49,7 @@ public class RegistController {
 		if(insertUser.getCode()==200) {
 			
 			final String uuid = MD5Util.getID();
+			final String email = user.getLoginName();
 			redisCache.put(key+uuid, user.getId());
 			ExecutorService thread = Executors.newSingleThreadExecutor();
 			thread.submit(new Runnable() {
@@ -57,7 +58,7 @@ public class RegistController {
 				public void run() {
 					// TODO Auto-generated method stub
 					logger.info("begin send email to "+uuid);
-					sendEmail("", uuid, propertyUtil);
+					sendEmail(email, uuid, propertyUtil);
 					logger.info(" send email success! "+uuid);
 				}
 			});
@@ -77,7 +78,7 @@ public class RegistController {
 	
 		
 		try {
-			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(), "1213065223@qq.com", "台球协会", "注册验证", 	url);
+			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "注册验证", 	url);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

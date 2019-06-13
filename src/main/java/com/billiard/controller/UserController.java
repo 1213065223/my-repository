@@ -101,7 +101,7 @@ public class UserController {
 	
 	//取消报名
 	@ResponseBody
-	@RequestMapping(value="enroll/cancel",method=RequestMethod.GET)
+	@RequestMapping(value="enroll/cancel/{mid}",method=RequestMethod.GET)
 	public JobResponse cancel(@PathVariable("mid")String mId ,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Object logUser = session.getAttribute("user");
@@ -115,6 +115,26 @@ public class UserController {
 		
 		return JobResponse.successResponse(enrollService.cancelEnroll(mId,u.getId()));
 	}
+	
+	
+	
+		//提交凭证
+		@ResponseBody
+		@RequestMapping(value="enroll/certificate",method=RequestMethod.POST)
+		public JobResponse cancel(@RequestBody Enroll enroll ,HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			Object logUser = session.getAttribute("user");
+			
+			if(logUser==null) {
+				return JobResponse.errorResponse(000000, "请您登录！");
+			}
+			User u = (User) logUser;
+			log.info("取消赛事报名->"+u.getNickname());
+			enroll.setUserId(u.getId());
+			
+			return enrollService.certificateSubmit(enroll);
+		}
+	
 	
 	
 	
@@ -203,7 +223,7 @@ public class UserController {
 				return JobResponse.errorResponse(100031, "用户信息不存在！");
 			}
 			
-			
+			final String email = param.get("email");
 			final String uuid = MD5Util.getID();
 			redisCache.put(key+uuid, user2.getId());
 			ExecutorService thread = Executors.newSingleThreadExecutor();
@@ -213,7 +233,7 @@ public class UserController {
 				public void run() {
 					// TODO Auto-generated method stub
 					log.info("begin send email to "+uuid);
-					RegistController.sendEmail("", uuid, propertyUtil);
+					RegistController.sendEmail(email, uuid, propertyUtil);
 					log.info(" send email success! "+uuid);
 				}
 			});
