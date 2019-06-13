@@ -172,7 +172,7 @@ public class AdminMatchController {
 		enroll.setPhone(phone);
 		enroll.setMatchId(match_id);
 		enroll.setCertificateImage(match_name);//用图片字段暂存 比赛名
-		return JobResponse.successResponse(matchService.myEnrollList(enroll,page,size));
+		return JobResponse.successResponse(matchService.allEnrollList(enroll,page,size));
 	}
 	
 	@RequestMapping(value="enroll/verify",method=RequestMethod.POST)
