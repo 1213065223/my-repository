@@ -28,4 +28,6 @@ public interface MatchService {
 
 	List<Enroll> selectMembers(String matchId);
 
+	PageInfo<Map<String, Object>> allEnrollList(Enroll enroll, Integer page, Integer size);
+
 }
