@@ -20,6 +20,7 @@ surname" />
 		<result column="match_id" jdbcType="VARCHAR" property="matchId" />
 		<result column="is_hidden" jdbcType="BIT" property="isHidden" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -387,6 +388,9 @@ surname != null">
 			</if>
 			<if test="createTime != null">
 				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paymentTime != null">
+				payment_time = #{paymentTime,jdbcType=TIMESTAMP},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
