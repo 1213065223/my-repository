@@ -20,6 +20,7 @@
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body id="mvvm">
 	<div>
@@ -108,11 +109,13 @@
 						<p class="typeface p-hover" onclick="href_url('MemberCenter')">返回</p>
 					</div>
 					<div class="flex-between user-2">
-						<img src="img/head-user.png" />
+						<img src="img/head-user.png" class="headPortrait"
+							id="headPortrait" />
 						<div class="column-div uploading-hei">
 							<label for="filehei">
 								<p class="ivu-btn" style="background: #2974B6FF; color: white;">上传头像</p>
-								<input type="file" id="filehei" style="display: none;" />
+								<input type="file" id="filehei" style="display: none;"
+								onchange="UploadImage(this.files[0])" />
 							</label>
 							<p>建议长宽1:1，不小于100px，JPG、PNG、GIF格式，小于300K。</p>
 						</div>
@@ -122,38 +125,50 @@
 							<p>邮箱：</p>
 							<p style="width: 100%;">{{loginName}}</p>
 						</div>
-						<div class="row-div">
+						<div class="row-div form-model-div">
 							<p>电话：</p>
-							<input type="email" class="gd-input" v-model="phone"/>
+							<div class="form-input-parent">
+								<input type="text" class="gd-input" v-model="phone" id="phone" />
+							</div>
 						</div>
-						<div class="row-div">
+						<div class="form-model-div flex-start">
 							<p>姓名：</p>
-							<input type="email" class="gd-input" v-model="name"/>
+							<div class="form-input-parent"
+								style="width: 50%; margin-right: 10px;">
+								<input type="text" class="gd-input" v-model="surname"
+									id="surname" />
+							</div>
+							<div class="form-input-parent" style="width: 50%">
+								<input type="text" class="gd-input" v-model="nickname"
+									id="nickname" />
+							</div>
+
 						</div>
-						<div class="row-div">
+						<div class="row-div ">
 							<p>性别：</p>
-							<div class="flex-around" style="width: 100%;">
+							<div class="flex-around " style="width: 100%;">
 								<label for="radio-1" class="row-div"> <input
 									type="radio" name="radio-name" id="radio-1" value="1"
 									checked="checked" />
 									<p class="sex">男</p>
 								</label> <label for="radio-2" class="row-div"> <input
-									type="radio" name="radio-name" id="radio-2" value="2" />
+									type="radio" name="radio-name" id="radio-2" value="0" />
 									<p class="sex">女</p>
 								</label>
 							</div>
 						</div>
-						<div class="row-div">
+						<div class="row-div form-model-div">
 							<p>生日：</p>
-							<div class="jeinpbox" style="width: 100%;">
-								<input type="text" readonly class="jeinput gd-input" id="matchTime"
-									autocomplete="off" v-model="birthday">
+							<div class="form-input-parent jeinpbox">
+								<input type="text" readonly class="jeinput gd-input"
+									id="birthday" autocomplete="off" v-model="birthday">
 							</div>
 						</div>
 						<div class="row-div">
 							<p></p>
 							<div class="column-start" style="width: 100%;">
-								<button type="button" class="ivu-btn ivu-btn-1">提交</button>
+								<button type="button" class="ivu-btn ivu-btn-1"
+									onclick="but_click()">提交</button>
 							</div>
 						</div>
 					</div>
@@ -205,7 +220,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-	jeDate("#matchTime", {
+	jeDate("#birthday", {
 		format : "YYYY年MM月DD号",
 		donefun : function(obj) {
 			// RegExpEntity.timeQuantum.Event.onceEvent();
@@ -215,21 +230,74 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
-			name: "", // 姓名
+			name : "", // 姓名
 			birthday : "", // 生日
 			headImage : "", // 头像
 			id : "", // id
 			loginName : "", // 邮箱
-			surname : "", //姓氏
+			surname : "", //姓氏 
 			nickname : "", // 名
 			phone : "", // 手机号
-			integral: 0,//积分
-			sex : 1 // 性别
-			
+			integral : 0,//积分
+			sex : 1
+		// 性别
+
 		}
 	});
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
+	}
+	let RegExpEntity = {
+		birthday : {
+			RegExptype : 'string',
+			message : '请选择生日',
+			trigger : 'blur',
+			id : 'birthday'
+		},
+		surname : {
+			RegExptype : 'string',
+			message : '请输姓',
+			trigger : 'blur',
+			id : 'surname'
+		},
+		nickname : {
+			RegExptype : 'string',
+			message : '请输名',
+			trigger : 'blur',
+			id : 'nickname'
+		},
+		phone : {
+			RegExptype : 'phone',
+			message : '请输入电话号码',
+			trigger : 'blur',
+			id : 'phone'
+		}
+	}
+	for ( let i in RegExpEntity) {
+		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
+	}
+	function but_click() {
+		// UpdateRequest()
+		let boo = true;
+		let entity = {
+			birthday : vm.birthday,
+			nickname : vm.nickname,
+			surname : vm.surname,
+			phone : vm.phone
+		}
+		for ( let i in entity) {
+			if (!entity[i]) {
+				boo = false;
+				RegExpEntity[i].Event.label_error(document.getElementById(i));
+			}
+		}
+		RegExpEntity.phone.Event.RegExp(vm.phone,document.getElementById('phone'))
+		if (!RegExpEntity.phone.Event.result) {
+			boo = false;
+		}
+		if (boo) {
+			UpdateRequest();
+		}
 	}
 	request()
 	function request() {
@@ -249,14 +317,15 @@
 					vm.phone = data.result.phone;
 					vm.integral = data.result.integral;
 					vm.sex = data.result.sex;
+
 					if (data.result.headImage) {
 						$("#headPortrait").attr('src', data.result.headImage)
-					} 
+					}
 					$("input[name=radio-name]").removeAttr("checked");
 					if (data.result.sex === 1) {
-						$('#radio-1').attr("checked","checked")
+						$('#radio-1').attr("checked", "checked")
 					} else {
-						$('#radio-2').attr("checked","checked")
+						$('#radio-2').attr("checked", "checked")
 					}
 				} else if (data.code === 0) {
 					window.location.href = "PC-login.jsp";
@@ -279,6 +348,83 @@
 				});
 			}
 		});
+	}
+
+	function UpdateRequest() {
+		$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/user/update",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify({
+				"surname" : vm.surname,
+				"nickname" : vm.nickname,
+				"phone" : vm.phone,
+				"birthday" : vm.birthday,
+				"sex" : $("input[name=radio-name]:checked").val(),
+				"headImage" : vm.headImage
+			}),
+			success : function(data) {
+				if (data.code === 200) {
+					window.location.href = "PC-MemberCenter.jsp";
+				} else if (data.code === 0) {
+					window.location.href = "PC-login.jsp";
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '查询接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+	}
+	function UploadImage(file) {
+		let entity = null;
+		let formdata = new FormData();
+		formdata.append("file", file)
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
+			success : function(data) {
+				if (data.code === 200) {
+					$("#headPortrait").attr('src', data.result)
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+		return entity;
 	}
 </script>
 </html>

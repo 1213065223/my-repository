@@ -294,6 +294,8 @@ input[type="radio"], input[type="checkbox"] {
 .table-MyIntegral>tbody>tr>td{
 	padding: 5px 10px;
 	border-right:1px solid #dcdee2;
+	text-align: center;
+	text-overflow: ellipsis;
 }
 .table-MyIntegral>tbody>tr>td>div{
 	display: flex;
@@ -301,6 +303,12 @@ input[type="radio"], input[type="checkbox"] {
 	justify-content: center;
 	align-items: center;
 	min-height: 40px;
+	padding-left: 18px;
+    padding-right: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
 }
 .table-MyIntegral>tbody>tr:first-child{
 	background:rgba(238,238,238,1);

@@ -32,6 +32,7 @@ class formRegExp {
 			this.RegExp(Entiry.value, Entiry)
 		} else {
 			this.label_error(Entiry);
+			this.result = true;
 		}
 	}
 	RegExp(value, vm) {

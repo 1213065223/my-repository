@@ -6,22 +6,19 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<title>会员中心</title>
+<title>我的积分</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="css/public.css" />
 <link rel="stylesheet" type="text/css" href="css/login.css" />
 <link rel="stylesheet" type="text/css" href="css/MemberCenter.css" />
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
-<link rel="stylesheet" type="text/css" href="css/spop.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<body id="mvvm">
+<body>
 	<div>
 		<div class="login-div-1 column-div">
 			<div class="login-div-1-2 flex-between flex-wrap">
@@ -82,7 +79,7 @@
 			<div class="content-div-title row justify-start align-center">
 				<div></div>
 				<p>
-					会员中心><span>我的信息</span>
+					会员中心><span>我的积分</span>
 				</p>
 			</div>
 
@@ -102,51 +99,36 @@
 					</dl>
 				</div>
 				<div class="menuBar-content column-div"
-					style="justify-content: flex-start; height: 412px;">
+					style="justify-content: flex-start; height: 412px; overflow: auto;">
 					<div class="flex-between user-1">
-						<p>账户信息</p>
-						<p class="typeface p-hover"
-							onclick="href_url('MemberCenter-Update')">修改信息</p>
+						<p>
+							我的积分 <span style="color: red;" id="Myintegral">200积分</span>
+						</p>
 					</div>
-					<div class="flex-between user-2">
-						<img src="img/head-user.png" id="headPortrait" class="headPortrait"/>
-						<div class="column-start">
-							<div class="row-div">
-								<p>
-									用户<span>{{name}}</span>
-								</p>
-								<img src="img/man.png" id="sex">
-							</div>
-							<div class="row-div">
-								<p>
-									联系电话：<span>{{phone}}</span>
-								</p>
-							</div>
-							<div class="row-div">
-								<p>
-									邮箱：<span>{{loginName}}</span>
-								</p>
-							</div>
-							<div class="row-div">
-								<p>
-									生日：<span>{{birthday}}</span>
-								</p>
-							</div>
-							<div
-								style="width: 100%; height: 3px; background: rgba(226, 226, 226, 1); margin-bottom: 15px;"></div>
-							<div class="row-div">
-								<p>
-									我的积分：<span style="color: red;">{{integral}}</span>
-								</p>
-								<p class="typeface p-hover">查看</p>
-							</div>
-						</div>
+					<div class="column-div MyCompetition-table">
+						<table class="table-MyIntegral" border="0" id="table">
+							<tr>
+								<td>
+									<div>比赛名称</div>
+								</td>
+								<td>
+									<div>比赛地点</div>
+								</td>
+								<td>
+									<div>名次</div>
+								</td>
+								<td>
+									<div>获得积分</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="10">没有数据...</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
 
 		<div class="home-bottom-div column-div">
 			<img src="img/home/home-6.png" class="position-fixed">
@@ -192,50 +174,33 @@
 	</div>
 </body>
 <script type="text/javascript">
-	var vm = new MVVM({
-		el : '#mvvm',
-		data : {
-			name: "", // 姓名
-			birthday : "", // 生日
-			headImage : "", // 头像
-			id : "", // id
-			loginName : "", // 邮箱
-			surname : "", //姓氏
-			nickname : "天师", // 名
-			phone : "", // 手机号
-			integral: 0,//积分
-			sex : 1 // 性别
-			
-		}
-	});
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
-	$("#menuBar > dl > dd:nth-child(1)").css('background', '#2974B6').css(
-			'color', 'white');
 	request()
-	
 	function request() {
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/user/info",
+			url : "${pageContext.request.contextPath}/user/integral/info",
 			dataType : "json",
 			success : function(data) {
 				if (data.code === 200) {
-					vm.name = data.result.surname + data.result.nickname;
-					vm.birthday = data.result.birthday;
-					vm.headImage = data.result.headImage;
-					vm.id = data.result.id;
-					vm.loginName = data.result.loginName;
-					vm.surname = data.result.surname;
-					vm.nickname = data.result.nickname;
-					vm.phone = data.result.phone;
-					vm.integral = data.result.integral;
-					vm.sex = data.result.sex;
-					if (data.result.headImage) {
-						$("#headPortrait").attr('src', data.result.headImage)
-					}
-					data.result.sex === 1 ? $("#sex").attr('src','img/man.png') : $("#sex").attr('src','img/she.png');
+					let cuont = 0
+					let html = '<tr><td><div>比赛名称</div></td>'
+							+ '<td><div>比赛地点</div></td><td>'
+							+ '<div>名次</div></td><td>'
+							+ '<div>获得积分</div></td></tr>';
+					data.result.forEach(function(item, index) {
+						html+= '<tr><td><div>'+item.match_name+'</div></td>'
+						+'<td><div>'+item.match_place+'</div></td>'
+						+'<td><div>'+item.ranking+'</div></td>'
+						+'<td><div>'+item.integral+'</div></td>'
+						+'</tr>';
+						cuont += item.integral;
+					});
+					$("#Myintegral").html(cuont+"积分");
+					
+					$("#table>tbody").html(html);
 				} else if (data.code === 0) {
 					window.location.href = "PC-login.jsp";
 				} else {
@@ -258,5 +223,7 @@
 			}
 		});
 	}
+	$("#menuBar > dl > dd:nth-child(3)").css('background', '#2974B6').css(
+			'color', 'white');
 </script>
 </html>
