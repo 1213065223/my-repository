@@ -524,7 +524,7 @@ surname != null">
 					and t_match.is_end = #{userType}
 				</if>
 				<if test="enrollType != null">
-					and t_enroll.enroll_type = #{enrollType}
+					and t_enroll.enroll_type = #{enrollType} and t_match.is_end !=1
 				</if>
 				<if test="phone != null and phone != ''">
 					and t_enroll.phone LIKE concat(concat('%',#{phone}),'%')

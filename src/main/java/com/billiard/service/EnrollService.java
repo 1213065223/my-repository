@@ -11,4 +11,6 @@ public interface EnrollService {
 
 	JobResponse certificateSubmit(Enroll enroll);
 
+	Enroll getEnroll(String matchId, String id);
+
 }

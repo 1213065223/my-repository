@@ -102,4 +102,16 @@ public class EnrollServiceImpl implements EnrollService {
 		return JobResponse.successResponse(enrollMapper.updateByPrimaryKeySelective(enrollSelect));
 	}
 
+
+	@Override
+	public Enroll getEnroll(String matchId, String id) {
+		EnrollExample example= new EnrollExample();
+		example.createCriteria().andMatchIdEqualTo(matchId).andUserIdEqualTo(id);
+		List<Enroll> selectByExample = enrollMapper.selectByExample(example);
+		if(!selectByExample.isEmpty()) {
+			return selectByExample.get(0);
+		}
+		return null;
+	}
+
 }
