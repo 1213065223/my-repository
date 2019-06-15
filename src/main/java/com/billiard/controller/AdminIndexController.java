@@ -35,7 +35,7 @@ private static final Logger log = LoggerFactory.getLogger(AdminIndexController.c
 	private IndexService indexService;
 	
 	
-	
+	//添加首页信息 banner 理事  赞助商 等
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse addIndex(@RequestBody Index index ,HttpServletRequest request) {
@@ -52,6 +52,8 @@ private static final Logger log = LoggerFactory.getLogger(AdminIndexController.c
 		return adminService.addIndex(index);
 	}
 	
+	
+	//更新首页信息
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse updateIndex(@RequestBody Index index ,HttpServletRequest request) {
@@ -68,7 +70,7 @@ private static final Logger log = LoggerFactory.getLogger(AdminIndexController.c
 		return adminService.updateIndex(index);
 	}
 	
-	
+	//删除首页信息
 	@RequestMapping(value="delete/{id}",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse updateIndex(@PathVariable("id")String id,HttpServletRequest request) {
@@ -87,6 +89,7 @@ private static final Logger log = LoggerFactory.getLogger(AdminIndexController.c
 		return JobResponse.successResponse(adminService.deleteIndex(intid));
 	}
 	
+	//首页信息列表
 	@RequestMapping("list")
 	@ResponseBody
 	public JobResponse list(@RequestParam(value="type",required=false) Integer type,@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,HttpServletRequest request) {

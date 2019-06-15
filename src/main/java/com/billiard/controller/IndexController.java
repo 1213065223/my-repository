@@ -22,6 +22,7 @@ public class IndexController {
 	@Autowired
 	private IndexService indexService;
 
+	//首页banner 理事 等信息
 	@RequestMapping("list")
 	@ResponseBody
 	public JobResponse list(HttpServletRequest request) {
@@ -29,7 +30,7 @@ public class IndexController {
 		return JobResponse.successResponse(indexService.list());
 	}
 	
-	
+	//协会简介展示
 	@RequestMapping("association")
 	@ResponseBody
 	public JobResponse association(HttpServletRequest request) {
@@ -37,20 +38,21 @@ public class IndexController {
 		return JobResponse.successResponse(indexService.association());
 	}
 	
+	//中8介绍展示
 	@RequestMapping("organization")
 	@ResponseBody
 	public JobResponse organization(HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at organization!");
 		return JobResponse.successResponse(indexService.organization());
 	}
-	
+	//协会公告列表
 	@RequestMapping("announcement")
 	@ResponseBody
 	public JobResponse organization(@RequestParam(value="page",defaultValue="1") int page  ,@RequestParam(value="size",defaultValue="20") int size  ,HttpServletRequest request) {
 		log.info(request.getRemoteAddr() + "   is at announcement!");
 		return JobResponse.successResponse(indexService.organizationList(page,size));
 	}
-	
+	//协会公告详情
 	@RequestMapping("announcement/detail")
 	@ResponseBody
 	public JobResponse organization(@RequestParam(value="aid") int aid  ) {

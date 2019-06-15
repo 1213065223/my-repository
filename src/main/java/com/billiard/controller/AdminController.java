@@ -30,6 +30,9 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	
+	
+	//添加系统管理员
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse addAdmin(@RequestBody Admin admin ,HttpServletRequest request ) {
@@ -47,6 +50,8 @@ public class AdminController {
 		return adminService.addAdmin(admin);
 	}
 	
+	
+	//系统管理员登录
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse adminLogin(@RequestBody Admin admin ,HttpServletRequest request ) {
@@ -66,7 +71,7 @@ public class AdminController {
 		return JobResponse.successResponse(adminFind);
 	}
 	
-	
+	//管理员列表
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse adminList(@RequestParam(value="page",defaultValue="1")Integer page ,@RequestParam(value="size",defaultValue="10")Integer size ,@RequestParam(value="nick_name",required=false) String nick_name ,@RequestParam(value="phone",required=false)String phone ,HttpServletRequest request ) {
@@ -80,7 +85,7 @@ public class AdminController {
 		return adminService.getAdminList(page,size,nick_name,phone);
 	}
 	
-	
+	//修改管理员信息
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse updateAdmin(@RequestBody Admin admin ,HttpServletRequest request ) {

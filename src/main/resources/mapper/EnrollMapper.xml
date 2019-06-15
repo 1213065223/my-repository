@@ -89,7 +89,7 @@ surname" />
 		id,
 		surname, user_name, user_id, sex, birthday, phone, head_image, email,
 		enroll_cost,
-		certificate_image, enroll_type, user_type, match_id, is_hidden, create_time
+		certificate_image, enroll_type, user_type, match_id, is_hidden, create_time ,payment_time
 	</sql>
 	<select id="selectByExample" parameterType="com.billiard.entity.EnrollExample"
 		resultMap="BaseResultMap">

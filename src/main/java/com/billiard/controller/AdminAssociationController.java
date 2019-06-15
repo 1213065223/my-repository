@@ -34,6 +34,9 @@ public class AdminAssociationController {
 	@Autowired
 	private AdminService adminService;
 	
+	
+	
+	//添加协会简介
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse associationUpdate(@RequestBody Association association ,HttpServletRequest request ) {
@@ -56,6 +59,7 @@ public class AdminAssociationController {
 		return JobResponse.successResponse();
 	}
 	
+	//添加中8介绍
 	@RequestMapping(value="organization",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse organizationUpdate(@RequestBody Organization organization ,HttpServletRequest request ) {
@@ -78,7 +82,7 @@ public class AdminAssociationController {
 		return JobResponse.successResponse();
 	}
 	
-	
+	//添加协会公告
 	@RequestMapping(value="announcement",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse announcementUpdateOrAdd(@RequestBody Announcement announcement ,HttpServletRequest request ) {
@@ -97,7 +101,7 @@ public class AdminAssociationController {
 		return JobResponse.successResponse(adminService.announcementUpdateOrAdd(announcement,a));
 	}
 	
-	
+	//删除协会公告
 	@RequestMapping(value="announcement/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse announcementDelete(@RequestBody Announcement announcement ,HttpServletRequest request ) {

@@ -42,6 +42,7 @@ public class RegistController {
 	@Autowired
 	private RedisCache redisCache;
 	
+	//注册并发送验证邮件（邮箱未验证）
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse toRegist(@RequestBody User user) {
@@ -69,7 +70,7 @@ public class RegistController {
 		return insertUser;
 	}
 	
-	@RequestMapping(value="mail",method=RequestMethod.GET)
+	//@RequestMapping(value="mail",method=RequestMethod.GET)
 	@ResponseBody
 	public static String sendEmail(String sendEmail, PropertyUtil propertyUtil,String content) {
 		
@@ -79,7 +80,7 @@ public class RegistController {
 	
 		
 		try {
-			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "注册验证", 	content);
+			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "邮箱通知", 	content);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,7 +92,7 @@ public class RegistController {
 		return propertyUtil.getMailFrom();
 	}
 	
-	
+	//邮件确认密码
 	@RequestMapping(value="mail/confirm",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse sendEmailConfirm(@RequestParam(required=false)String code ,@RequestParam(required=false)String password) {
@@ -125,14 +126,6 @@ public class RegistController {
 	
 	
 	
-	@RequestMapping(value="test",method=RequestMethod.GET)
-	@ResponseBody
-	public JobResponse test() {
-			
-		redisCache.put("123", "哈哈哈哈哈");
-		
-		System.out.println(redisCache.get("123"));
-		return JobResponse.successResponse();
-	}
+	
 	
 }

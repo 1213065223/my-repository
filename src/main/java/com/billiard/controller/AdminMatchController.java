@@ -69,7 +69,7 @@ public class AdminMatchController {
 	        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true)); // true:允许输入空值，false:不能为空值
 	        
 	    }*/
-	
+	//添加比赛信息
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse addMatch(@RequestBody MatchWithBLOBs match ,HttpServletRequest request ) {
@@ -87,6 +87,7 @@ public class AdminMatchController {
 		return adminService.addMatch(match);
 	}
 	
+	//设置比赛为本场比赛
 	@RequestMapping(value="current",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse cancelAndSetCurrent(@RequestBody MatchWithBLOBs match ,HttpServletRequest request ) {
@@ -104,7 +105,7 @@ public class AdminMatchController {
 	}
 	
 	
-	
+	//修改比赛信息
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse update(@RequestBody MatchWithBLOBs match  ,HttpServletRequest request ) {
@@ -117,6 +118,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(adminService.updateMatch(match));
 	}
 	
+	//删除比赛
 	@RequestMapping(value="delete/{id}",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse delete( @PathVariable("id") String id ,HttpServletRequest request ) {
@@ -130,7 +132,7 @@ public class AdminMatchController {
 	}
 	
 	
-	
+	//比赛列表不分页
 	@RequestMapping(value="all/match",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse allMatch(HttpServletRequest request ) {
@@ -143,6 +145,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(matchService.selectAllMatch());
 	}
 	
+	//比赛下的报名成员
 	@RequestMapping(value="/match/members/{match_id}",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse membersMatch(@PathVariable("match_id") String matchId,HttpServletRequest request ) {
@@ -155,6 +158,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(matchService.selectMembers(matchId));
 	}
 	
+	//报名管理列表
 	@ResponseBody
 	@RequestMapping(value="enroll/list",method=RequestMethod.GET)
 	public JobResponse enrollList(@RequestParam(value="page",defaultValue="1") Integer page,@RequestParam(value="size",defaultValue="10") Integer size,@RequestParam(value="type",required=false) Integer type,@RequestParam(value="match_id",required=false) String match_id,@RequestParam(value="phone",required=false) String phone,@RequestParam(value="email",required=false) String email,@RequestParam(value="match_name",required=false) String match_name,HttpServletRequest request) {
@@ -175,6 +179,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(matchService.allEnrollList(enroll,page,size));
 	}
 	
+	//报名审核
 	@RequestMapping(value="enroll/verify",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse verify( @RequestBody Enroll  enroll,HttpServletRequest request ) {
@@ -189,7 +194,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(enrollService.enrollVerify(enroll));
 	}
    
-	
+	//添加比赛回顾
 	@RequestMapping(value="review",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse review( @RequestBody MatchCourse matchCourse,HttpServletRequest request ) {
@@ -204,6 +209,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(matchCourseService.addMatchCourse(matchCourse));
 	}
 	
+	//删除比赛回顾
 	@RequestMapping(value="review/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse reviewDelete( @RequestBody MatchCourse matchCourse,HttpServletRequest request ) {
@@ -218,7 +224,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(matchCourseService.deleteMatchCourse(matchCourse));
 	}
 	
-	
+	//添加选手战绩情况
 	@RequestMapping(value="integral",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse addIntegral( @RequestBody Integral integral,HttpServletRequest request ) {
@@ -232,7 +238,7 @@ public class AdminMatchController {
 		log.info("管理员"+a.getLoginName()+"设置选手积分:  "+integral.getUserId());
 		return integralService.addIntegral(integral);
 	}
-	
+	//选手战绩删除
 	@RequestMapping(value="integral/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse deleteIntegral( @RequestBody Integral integral,HttpServletRequest request ) {
@@ -246,7 +252,7 @@ public class AdminMatchController {
 		log.info("管理员"+a.getLoginName()+"删除选手积分:  "+integral.getId());
 		return integralService.deleteIntegral(integral);
 	}
-	
+	//所有选手战绩列表
 	@RequestMapping(value="integral/list",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse listIntegral( @RequestParam(value="page",defaultValue="1")Integer page,@RequestParam(value="size",defaultValue="20")Integer size, @RequestParam(value="name",required=false)String name, @RequestParam(value="match_name",required=false)String match_name,HttpServletRequest request ) {
@@ -260,7 +266,7 @@ public class AdminMatchController {
 		return JobResponse.successResponse(integralService.listIntegral(page,size,name,match_name));
 	}
 	
-	
+	//添加赛事新闻
 	@RequestMapping(value="news",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse addNews(@RequestBody News news ,HttpServletRequest request ) {
@@ -278,6 +284,7 @@ public class AdminMatchController {
 		return newsService.addMatchNews(news);
 	}
 	
+	//删除赛事新闻
 	@RequestMapping(value="news/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse deleteNews(@RequestBody News news ,HttpServletRequest request ) {
