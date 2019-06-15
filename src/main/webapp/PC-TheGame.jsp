@@ -29,11 +29,11 @@
 <body>
 	<div id="mvvm">
 		<div class="login-div-1 column-div">
-			<div class="login-div-1-2 flex-between flex-wrap">
-				<p class="div-hover">台球协会官方网站</p>
-				<div class="row-div flex-wrap">
-					<div class="row-div">
-						<p class="div-hover">赛事报名</p>
+			<div class="login-div-1-2">
+				<p class="div-hover">全国ビリヤード協会</p>
+				<div class="row-div">
+					<div class="login-div-1-div-even">
+						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>
 						<div class="CuttingLine-white"></div>
 						<div class="row-div div-hover">
 							<img src="img/home/home-vip.png" />
@@ -46,17 +46,17 @@
 		</div>
 		<div class="login-div-1-3 column-div" style="margin-bottom: 20px;">
 			<div class="row row-around align-center">
-				<p class="p-hover" onclick="href_url('home')">首页</p>
+				<p class="p-hover" onclick="href_url('home')">ホーム</p>
 				<div class="CuttingLine-black"></div>
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-						协会介绍 <span class="caret"></span>
+						協会について<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="column-div" onclick="href_url('AssociationProfile')">协会介绍</li>
-						<li class="column-div" onclick="href_url('AssociationNotice')">协会公告</li>
+						<li class="column-div" onclick="href_url('AssociationProfile')">協会概要</li>
+						<li class="column-div" onclick="href_url('AssociationNotice')">公告</li>
 					</ul>
 				</div>
 				<div class="CuttingLine-black"></div>
@@ -64,21 +64,21 @@
 					<button class="btn btn-default btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-						赛事中心 <span class="caret"></span>
+						試合<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="column-div" onclick="href_url('TheGame')">本场比赛</li>
-						<li class="column-div" onclick="href_url('ScheduleIntroduce')">赛程介绍</li>
-						<li class="column-div" onclick="href_url('ScheduleReview')">比赛回顾</li>
-						<li class="column-div" onclick="href_url('CompetitionNews')">赛事新闻</li>
+						<li class="column-div" onclick="href_url('TheGame')">試合予定</li>
+						<li class="column-div" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+						<li class="column-div" onclick="href_url('ScheduleReview')">試合回顧</li>
+						<li class="column-div" onclick="href_url('CompetitionNews')">ニュース</li>
 					</ul>
 				</div>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('ranking')">赛手排名</p>
+				<p class="p-hover" onclick="href_url('ranking')">ランキング</p>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('introduce')">中8介绍</p>
+				<p class="p-hover" onclick="href_url('introduce')">チャイニーズ8ボール</p>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('MemberCenter')">会员中心</p>
+				<p class="p-hover" onclick="href_url('MemberCenter')">会員センター</p>
 			</div>
 		</div>
 
@@ -87,7 +87,7 @@
 			<div class="content-div-title row justify-start align-center">
 				<div></div>
 				<p>
-					赛事中心><span>本场比赛</span>
+					試合><span>試合予定>詳細を見る</span>
 				</p>
 			</div>
 
@@ -96,11 +96,12 @@
 					<p id="matchName">比赛通告比赛赛事名字填写位置</p>
 					<p id="createTime">发布时间：2019-05-20</p>
 					<button type="button" class="ivu-btn" onclick="add_click()"
-						id="apply-key">立即报名</button>
+						id="apply-key">試合申し込み</button>
 				</div>
 				<div
 					style="width: 100%; height: 3px; background: rgba(226, 226, 226, 1); margin-bottom: 15px;"></div>
 
+				<div style="width: 100%" id="result"></div>
 				<div id="details" class="details-img"
 					style="margin-bottom: 10px; width: 100%;">
 					<img src="img/TheGame.png" width="100%"
@@ -139,7 +140,7 @@
 						<a class="ivu-modal-close" onclick="Modal_cancel()"><i
 							class="ivu-icon ivu-icon-ios-close"></i></a>
 						<div class="ivu-modal-header">
-							<div class="ivu-modal-header-inner">比赛报名</div>
+							<div class="ivu-modal-header-inner">試合申し込み</div>
 						</div>
 						<div class="ivu-modal-body">
 							<div style="width: 100%;" class="column-center">
@@ -556,46 +557,46 @@
 
 
 		<div class="home-bottom-div column-div">
-			<img src="img/home/home-6.png" class="position-fixed">
-			<div class="flex-around" style="flex-wrap: wrap;">
+			<div class="flex-around" >
 				<img src="img/home/home-2-2.png" style="width: 150px;" />
 				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 					<ul class="column justify-start align-start">
-						<li>中国领先的赛事服务平台</li>
-						<li>3740个赛事活动</li>
-						<li>363693条赛事成绩</li>
-						<li>3314个组织者</li>
+						<li>一般社団法人</li>
+						<li>全国ビリヤード協会</li>
+						<li>JAPAN BILLIARD</li>
+						<li>ASSOCIATION</li>
 						<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>首页</li>
+						<li>ホーム</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>协会介绍</li>
-						<li>协会简介</li>
-						<li>组织架构</li>
-						<li>协会公告</li>
+						<li>協会について</li>
+						<li>協会概要</li>
+						<li>公告</li>
+
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>赛事中心</li>
-						<li>本场比赛</li>
-						<li>赛程介绍</li>
-						<li>比赛回顾</li>
-						<li>赛事新闻</li>
+						<li>試合</li>
+						<li>試合予定</li>
+						<li>試合日程</li>
+						<li>試合回顧</li>
+						<li>ニュース</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>赛手排名</li>
-						<li>战绩排名</li>
-						<li>积分排名</li>
+						<li>ランキング</li>
+						<li>得点ランキング</li>
+						<li>ポイントランキング</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>会员中心</li>
+						<li>会員センター</li>
 					</ul>
 				</div>
 			</div>
 		</div>
+
 		<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
-			WanPlus. All rights reserved. | 台球协会</div>
+			WanPlus. All rights reserved. | 全国ビリヤード協会</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -604,7 +605,7 @@
 		data : {
 			login_name : '请登录',
 			paymentID : null,
-			matchId: null,
+			matchId : null,
 			Entity : {
 				matchId : '',
 				surname : '',
@@ -762,7 +763,7 @@
 					let entity = data.result.match;
 					let entity2 = data.result.config;
 					let arr = entity.createTime.split(' ');
-					$("#createTime").text('发布时间：' + arr[0]);
+					$("#createTime").text('開催日時：' + arr[0]);
 					$("#details").html(entity.details);
 					$("#enrollTime").text(entity.enrollTime);
 					$("#enrollTimeEnd").text(entity.enrollTimeEnd);
@@ -779,6 +780,11 @@
 					vm.Entity.bankName = entity2.bankName;
 					vm.Entity.bank = entity2.bank;
 					vm.Entity.enrollCost = '￥' + entity.enrollCost;
+					if (entity.result) {
+						$("#result").html(
+								'<img src="' + entity.result
+										+ '" width="100%" />');
+					}
 				} else {
 					spop({
 						template : data.message,
@@ -872,7 +878,7 @@
 			"overflow-y" : "auto"
 		});
 	}
-	function succeed_ok () {
+	function succeed_ok() {
 		$("#succeed-dom").hide();
 		$(document.body).css({
 			"overflow-x" : "auto",
@@ -939,9 +945,9 @@
 			dataType : "json",
 			data : JSON.stringify(event),
 			success : function(data) {
-				vm.paymentID = data.result.userId;
-				vm.matchId = data.result.matchId
 				if (data.code === 200) {
+					vm.paymentID = data.result.userId;
+					vm.matchId = data.result.matchId
 					spop({
 						template : '成功',
 						group : 'submit-satus',

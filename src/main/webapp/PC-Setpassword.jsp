@@ -24,13 +24,13 @@
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body id="mvvm">
-	<div >
+	<div>
 		<div class="login-div-1 column-div">
-			<div class="login-div-1-2 flex-between flex-wrap">
-				<p class="div-hover">台球协会官方网站</p>
-				<div class="row-div flex-wrap">
-					<div class="row-div">
-						<p class="div-hover">赛事报名</p>
+			<div class="login-div-1-2">
+				<p class="div-hover">全国ビリヤード協会</p>
+				<div class="row-div">
+					<div class="login-div-1-div-even">
+						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>
 						<div class="CuttingLine-white"></div>
 						<div class="row-div div-hover">
 							<img src="img/home/home-vip.png" />
@@ -43,17 +43,17 @@
 		</div>
 		<div class="login-div-1-3 column-div">
 			<div class="row row-around align-center">
-				<p class="p-hover" onclick="href_url('home')">首页</p>
+				<p class="p-hover" onclick="href_url('home')">ホーム</p>
 				<div class="CuttingLine-black"></div>
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-						协会介绍 <span class="caret"></span>
+						協会について<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="column-div" onclick="href_url('AssociationProfile')">协会介绍</li>
-						<li class="column-div" onclick="href_url('AssociationNotice')">协会公告</li>
+						<li class="column-div" onclick="href_url('AssociationProfile')">協会概要</li>
+						<li class="column-div" onclick="href_url('AssociationNotice')">公告</li>
 					</ul>
 				</div>
 				<div class="CuttingLine-black"></div>
@@ -61,46 +61,52 @@
 					<button class="btn btn-default btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-						赛事中心 <span class="caret"></span>
+						試合<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="column-div" onclick="href_url('TheGame')">本场比赛</li>
-						<li class="column-div" onclick="href_url('ScheduleIntroduce')">赛程介绍</li>
-						<li class="column-div" onclick="href_url('ScheduleReview')">比赛回顾</li>
-						<li class="column-div" onclick="href_url('CompetitionNews')">赛事新闻</li>
+						<li class="column-div" onclick="href_url('TheGame')">試合予定</li>
+						<li class="column-div" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+						<li class="column-div" onclick="href_url('ScheduleReview')">試合回顧</li>
+						<li class="column-div" onclick="href_url('CompetitionNews')">ニュース</li>
 					</ul>
 				</div>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('ranking')">赛手排名</p>
+				<p class="p-hover" onclick="href_url('ranking')">ランキング</p>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('introduce')">中8介绍</p>
+				<p class="p-hover" onclick="href_url('introduce')">チャイニーズ8ボール</p>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('MemberCenter')">会员中心</p>
+				<p class="p-hover" onclick="href_url('MemberCenter')">会員センター</p>
 			</div>
 		</div>
 		<div class="login-div-2 column-div" style="height: 531px">
 			<div class="login-div-2-1" class="column-div">
 				<h3
-					style="text-align: center; margin-bottom: 10px; margin-top: 20px;">注册账户</h3>
-				<div class="column-div login-div-2--div-1" style="height:60px">
-					<input type="password" placeholder="请设置登录密码" id="password1"
-						autocomplete="off" spellcheck="false" v-model="password1" />
-
+					style="text-align: center; margin-bottom: 20px; margin-top: 20px;">{{title_name}}</h3>
+				<div class="column-div login-div-2--div-1" style="height: 60px">
+					<p style="width: 100%;">ログインパスワード：</p>
+					<input type="password" placeholder="ログインパスワードを入力して下さい"
+						id="password1" autocomplete="off" spellcheck="false"
+						v-model="password1" />
+					<p style="width: 100%;" id="password1-p">*6文字～32文字の半角英数字</p>
 				</div>
 
-				<div class="column-div login-div-2--div-1" style="height:60px">
-					<input type="password" placeholder="确认密码" id="password2"
-						autocomplete="off" spellcheck="false" v-model="password2" />
+				<div class="column-div login-div-2--div-1" style="height: 60px">
+					<p style="width: 100%;">ログインパスワード（確認用）：</p>
+					<input type="password" placeholder="確認用パスワードを入力して下さい"
+						id="password2" autocomplete="off" spellcheck="false"
+						v-model="password2" />
+					<p style="width: 100%;" id="password2-p">*6文字～32文字の半角英数字</p>
 
 				</div>
 
 
 				<div class="column-div login-div-2--div-1">
-					<button type="button" class="ivu-btn" onclick="Modal_ok()">注册</button>
+					<button type="button" class="ivu-btn" onclick="Modal_ok()">登
+						録</button>
 				</div>
-				<div class="flex-between login-div-2--div-1" >
+				<div class="flex-between login-div-2--div-1">
 					<p>
-						已有账号？立即<a href="PC-login.jsp">登录</a>
+						会員の方は<a href="PC-login.jsp">こちら</a>からログインして下さい
 					</p>
 					<p></p>
 				</div>
@@ -146,54 +152,57 @@
 
 
 		<div class="home-bottom-div column-div">
-			<div class="flex-around" style="flex-wrap: wrap;">
+			<div class="flex-around" >
 				<img src="img/home/home-2-2.png" style="width: 150px;" />
 				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 					<ul class="column justify-start align-start">
-						<li>中国领先的赛事服务平台</li>
-						<li>3740个赛事活动</li>
-						<li>363693条赛事成绩</li>
-						<li>3314个组织者</li>
+						<li>一般社団法人</li>
+						<li class="p-hover" >全国ビリヤード協会</li>
+						<li>JAPAN BILLIARD</li>
+						<li>ASSOCIATION</li>
 						<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>首页</li>
+						<li class="p-hover" onclick="href_url('home')">ホーム</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>协会介绍</li>
-						<li>协会简介</li>
-						<li>组织架构</li>
-						<li>协会公告</li>
+						<li class="p-hover" >協会について</li>
+						<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
+						<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
+
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>赛事中心</li>
-						<li>本场比赛</li>
-						<li>赛程介绍</li>
-						<li>比赛回顾</li>
-						<li>赛事新闻</li>
+						<li class="p-hover">試合</li>
+						<li class="p-hover" onclick="href_url('TheGame')">試合予定</li>
+						<li class="p-hover" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+						<li class="p-hover" onclick="href_url('ScheduleReview')">試合回顧</li>
+						<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>赛手排名</li>
-						<li>战绩排名</li>
-						<li>积分排名</li>
+						<li class="p-hover" >ランキング</li>
+						<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
+						<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
 					</ul>
 					<ul class="column justify-start align-start">
-						<li>会员中心</li>
+						<li class="p-hover" onclick="href_url('MemberCenter')">会員センター</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 
 		<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
-			WanPlus. All rights reserved. | 台球协会</div>
+			WanPlus. All rights reserved. | 全国ビリヤード協会</div>
 	</div>
 </body>
 <script type="text/javascript">
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
-			code: null,
-			transfer_name: '密码设置成功返回首页',
+			transfer_state : -1,
+			title_name : '新規会員登録',
+			state : null,
+			code : null,
+			transfer_name : '密码设置成功返回首页',
 			login_name : '请登陆',
 			loginName : "",
 			surname : "",
@@ -208,7 +217,9 @@
 		let strs = str.split("&");
 		for (let i = 0; i < strs.length; i++) {
 			let arr = strs[i].split("=");
-			vm.code = arr[1];
+			if (arr[0] == 'code') {
+				vm.code = arr[1];
+			}
 		}
 	}
 	function href_url_login() {
@@ -224,84 +235,84 @@
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
-	let RegExpEntity = {
-			password2 : {
-			RegExptype : 'string',
-			message : '请输入确认密码',
-			trigger : 'blur',
-			id : 'password2'
-		},
-		password1 : {
-			RegExptype : 'string',
-			message : '请输入登录密码',
-			trigger : 'blur',
-			id : 'password1'
-		}
-	}
-	for ( let i in RegExpEntity) {
-		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
-	}
 	function Modal_ok() {
-		vm.sex = $('input[name="radio-name"]:checked').val()
-		let event = {
-			"password1" : vm.password1,
-			"password2" : vm.password2
-		}
 		let boo = true;
-		for ( let i in event) {
-			if (!event[i]) {
-				RegExpEntity[i].Event.label_error(str)
-				boo = false;
-			}
+		if (!$("#password1").val()) {
+			spop({
+				template : '请输入密码',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			$("#password1-p").css('color', '#ed4014'); // #515a6e
+			boo = false;
+		} else if (!$("#password2").val()) {
+			spop({
+				template : '请输入确认密码',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			$("#password2-p").css('color', '#ed4014');
+			boo = false;
+		} else if ($("#password2").val() !== $("#password1").val()) {
+			boo = false;
+			spop({
+				template : '两次输入的密码不一致',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			$("#password2-p").css('color', '#ed4014');
+			$("#password1-p").css('color', '#ed4014');
 		}
+		$("#password2-p").css('color', '#515a6e');
+		$("#password1-p").css('color', '#515a6e');
 		if (boo) {
-			if (event.password1 !== event.password2) {
-				vm.transfer_name = '密码不一致,请重新输入'
-					$("#transfer-dom").show();
-				return;
-			}
 			login(event)
 		}
 	};
 	function transfer_ok() {
-		if (vm.transfer_name === '密码设置成功返回首页') {
-			console.log('密码设置成功返回首页');
-			window.location.href = 'PC-login.jsp'
+		if (vm.transfer_state === 1) {
+			window.location.href = 'PC-home.jsp'
 		} else {
 			$("#transfer-dom").hide();
 		}
 	}
 	function login(event) {
-		$.ajax({
-			type : "get",
-			async : false,
-			url : "${pageContext.request.contextPath}/regist/mail/confirm?code="+vm.code+"&password="+event.password1,
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			//data : JSON.stringify(event),
-			success : function(data) {
-				if (data.code === 200) {
-					vm.transfer_name = '密码设置成功返回首页'
-					$("#transfer-dom").show();
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
+		$
+				.ajax({
+					type : "get",
+					async : false,
+					url : "${pageContext.request.contextPath}/regist/mail/confirm/login?code="
+							+ vm.code + "&password=" + $("#password1").val(),
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					//data : JSON.stringify(event),
+					success : function(data) {
+						if (data.code === 200) {
+							vm.transfer_name = '密码设置成功返回首页'
+							vm.transfer_state = 1
+							$("#transfer-dom").show();
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			}
-		});
 	}
 </script>
 </html>

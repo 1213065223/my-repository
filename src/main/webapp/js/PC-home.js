@@ -5,6 +5,7 @@ $(function() {
 			window.location.href = 'PC-login.jsp'
 		}
 	})
+	
 	$("#menuBar > dl > dd").click(
 			function() {
 				$("#menuBar > dl > dd").css('background', '#F8F8F8').css(

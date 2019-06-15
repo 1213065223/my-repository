@@ -16,22 +16,23 @@
 <script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <script type="text/javascript">
 	
 </script>
 <body>
-	<div>
+	<div id="mvvm">
 		<div class="home-div-1 column-div">
-			<div class="home-div-1-2 flex-between flex-wrap">
-				<p class="div-hover">台球协会官方网站</p>
+			<div class="home-div-1-2 flex-between">
+				<p class="div-hover">全国ビリヤード協会</p>
 				<div class="row-div flex-wrap">
 					<div class="row-div">
-						<p class="div-hover">赛事报名</p>
+						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>
 						<div class="CuttingLine-white"></div>
 						<div class="row-div div-hover">
 							<img src="img/home/home-vip.png" />
-							<p>请登录</p>
+							<p onclick="href_url_login()">{{login_name}}</p>
 						</div>
 					</div>
 					<img src="img/home/home-2.png" />
@@ -39,17 +40,17 @@
 			</div>
 			<div class="home-div-1-3 column-div">
 				<div class="row row-around align-center">
-					<p class="p-hover" onclick="href_url('home')">首页</p>
+					<p class="p-hover" onclick="href_url('home')">ホーム</p>
 					<div class="CuttingLine-black"></div>
 					<div class="btn-group">
 						<button class="btn btn-default btn-sm dropdown-toggle"
 							type="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
-							协会介绍 <span class="caret"></span>
+							協会について<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li class="column-div" onclick="href_url('AssociationProfile')">协会介绍</li>
-							<li class="column-div" onclick="href_url('AssociationNotice')">协会公告</li>
+							<li class="column-div" onclick="href_url('AssociationProfile')">協会概要</li>
+							<li class="column-div" onclick="href_url('AssociationNotice')">公告</li>
 						</ul>
 					</div>
 					<div class="CuttingLine-black"></div>
@@ -57,21 +58,21 @@
 						<button class="btn btn-default btn-sm dropdown-toggle"
 							type="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
-							赛事中心 <span class="caret"></span>
+							試合<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li class="column-div" onclick="href_url('TheGame')">本场比赛</li>
-							<li class="column-div" onclick="href_url('ScheduleIntroduce')">赛程介绍</li>
-							<li class="column-div" onclick="href_url('ScheduleReview')">比赛回顾</li>
-							<li class="column-div" onclick="href_url('CompetitionNews')">赛事新闻</li>
+							<li class="column-div" onclick="href_url('TheGame')">試合予定</li>
+							<li class="column-div" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+							<li class="column-div" onclick="href_url('ScheduleReview')">試合回顧</li>
+							<li class="column-div" onclick="href_url('CompetitionNews')">ニュース</li>
 						</ul>
 					</div>
 					<div class="CuttingLine-black"></div>
-					<p class="p-hover" onclick="href_url('ranking')">赛手排名</p>
+					<p class="p-hover" onclick="href_url('ranking')">ランキング</p>
 					<div class="CuttingLine-black"></div>
-					<p class="p-hover" onclick="href_url('introduce')">中8介绍</p>
+					<p class="p-hover" onclick="href_url('introduce')">チャイニーズ8ボール</p>
 					<div class="CuttingLine-black"></div>
-					<p class="p-hover" onclick="href_url('MemberCenter')">会员中心</p>
+					<p class="p-hover" onclick="href_url('MemberCenter')">会員センター</p>
 				</div>
 			</div>
 			<div class="home-div-1-4">
@@ -93,8 +94,8 @@
 				<div class="lable flex-between">
 					<p class="column-div">理事</p>
 					<div class="row-div">
-						<p>更多理事</p>
-						<img src="img/home/home-5.png" />
+						<!-- <p>もっと見る</p>
+						<img src="img/home/home-5.png" /> -->
 					</div>
 				</div>
 				<div>
@@ -119,17 +120,17 @@
 			</div>
 			<div class="home-div-2-2">
 				<div class="lable flex-between">
-					<p class="column-div">积分排名</p>
-					<div class="row-div">
-						<p>完整排行</p>
+					<p class="column-div">ポイントランキング</p>
+					<div class="row-div p-hover" onclick="href_url('ranking')">
+						<p>総合ランキング</p>
 						<img src="img/home/home-5.png" />
 					</div>
 				</div>
 				<div class="home-div-2-2-1">
 					<div class="flex-around">
-						<p>排名</p>
-						<p>姓名</p>
-						<p>积分</p>
+						<p>ランキング</p>
+						<p>選手名</p>
+						<p>ポイント</p>
 					</div>
 					<ul class="column-div" id="match">
 						<li class="flex-around">
@@ -144,13 +145,13 @@
 
 		<div class="home-div-3">
 			<div class="lable-2 flex-between">
-				<p>赛情介绍</p>
-				<div class="row-div">
-					<p>更多赛情</p>
+				<p>試合</p>
+				<div class="row-div p-hover" onclick="href_url('ScheduleReview')">
+					<p>もっと見る</p>
 					<img src="img/home/home-5.png" />
 				</div>
 			</div>
-			<div>
+			<div class="div-swiper-3">
 				<div class="swiper-container swiper-3">
 					<div class="swiper-wrapper" id="review">
 						<div class="swiper-slide column-div" style="width: 225px;">
@@ -244,22 +245,23 @@
 							</div>
 						</div>
 					</div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
+
 				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 			</div>
 
 		</div>
 
 		<div class="home-div-4 column-div">
 			<div class="lable-3 flex-between">
-				<p>赛事新闻</p>
-				<div class="row-div">
-					<p>更多赛事</p>
+				<p>ニュース</p>
+				<div class="row-div p-hover" onclick="href_url('CompetitionNews')">
+					<p>もっと見る</p>
 					<img src="img/home/home-5.png" />
 				</div>
 			</div>
-			<div class="flex-between flex-wrap" style="width: 100%;">
+			<div class="home-div-4-divmedia" style="width: 100%;">
 				<div class="home-div-4-1 column-div" id="news-A">
 					<img src="img/home/home-2-1.png" />
 					<p>台球世界锦标赛正赛17日在江西玉山拉开战幕</p>
@@ -268,26 +270,30 @@
 					<p>2016/03/18 地址：江西玉山</p>
 				</div>
 				<div class="home-div-4-2 column-div" id="news-B">
-					<div class="flex-between flex-wrap">
+					<div class="flex-between ">
 						<div class="column-div">
-							<img src="img/home/home-2-2.png" style="width:221px;height:147px"/>
+							<img src="img/home/home-2-2.png"
+								style="width: 221px; height: 147px" />
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
 						<div class="column-div">
-							<img src="img/home/home-2-3.png" style="width:221px;height:147px"/>
+							<img src="img/home/home-2-3.png"
+								style="width: 221px; height: 147px" />
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
 					</div>
-					<div class="flex-between flex-wrap">
+					<div class="flex-between ">
 						<div class="column-div">
-							<img src="img/home/home-2-4.png" style="width:221px;height:147px"/>
+							<img src="img/home/home-2-4.png"
+								style="width: 221px; height: 147px" />
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
 						<div class="column-div">
-							<img src="img/home/home-2-5.png" style="width:221px;height:147px"/>
+							<img src="img/home/home-2-5.png"
+								style="width: 221px; height: 147px" />
 							<p class="home-div-4-2-tatle">斯诺克美女裁判这14年</p>
 							<p class="home-div-4-2-location">2016/03/18 地址：江西玉山</p>
 						</div>
@@ -299,9 +305,9 @@
 
 		<div class="home-div-5 column-div">
 			<div>
-				<p class="column-div">赞助商</p>
+				<p class="column-div">スポンサー</p>
 			</div>
-			<div>
+			<div class="div-swiper-4">
 				<div class="swiper-container swiper-4">
 					<div class="swiper-wrapper" id="sponsor">
 						<div class="swiper-slide column-div">
@@ -356,114 +362,144 @@
 						</div>
 					</div>
 					<div class="swiper-pagination"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
+
 				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 			</div>
 		</div>
 	</div>
 
 	<div class="home-bottom-div column-div">
-		<div class="flex-around" style="flex-wrap: wrap;">
+		<div class="flex-around">
 			<img src="img/home/home-2-2.png" style="width: 150px;" />
 			<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 				<ul class="column justify-start align-start">
-					<li>中国领先的赛事服务平台</li>
-					<li>3740个赛事活动</li>
-					<li>363693条赛事成绩</li>
-					<li>3314个组织者</li>
+					<li>一般社団法人</li>
+					<li class="p-hover">全国ビリヤード協会</li>
+					<li>JAPAN BILLIARD</li>
+					<li>ASSOCIATION</li>
 					<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
 				</ul>
 				<ul class="column justify-start align-start">
-					<li>首页</li>
+					<li class="p-hover" onclick="href_url('home')">ホーム</li>
 				</ul>
 				<ul class="column justify-start align-start">
-					<li>协会介绍</li>
-					<li>协会简介</li>
-					<li>组织架构</li>
-					<li>协会公告</li>
+					<li class="p-hover">協会について</li>
+					<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
+					<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
+
 				</ul>
 				<ul class="column justify-start align-start">
-					<li>赛事中心</li>
-					<li>本场比赛</li>
-					<li>赛程介绍</li>
-					<li>比赛回顾</li>
-					<li>赛事新闻</li>
+					<li class="p-hover">試合</li>
+					<li class="p-hover" onclick="href_url('TheGame')">試合予定</li>
+					<li class="p-hover" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+					<li class="p-hover" onclick="href_url('ScheduleReview')">試合回顧</li>
+					<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
 				</ul>
 				<ul class="column justify-start align-start">
-					<li>赛手排名</li>
-					<li>战绩排名</li>
-					<li>积分排名</li>
+					<li class="p-hover">ランキング</li>
+					<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
+					<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
 				</ul>
 				<ul class="column justify-start align-start">
-					<li>会员中心</li>
+					<li class="p-hover" onclick="href_url('MemberCenter')">会員センター</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
-		WanPlus. All rights reserved. | 台球协会</div>
+		WanPlus. All rights reserved. | 全国ビリヤード協会</div>
 </body>
 <script type="text/javascript">
-	function href_url(value) {
-		window.location.href = 'PC-'+value + '.jsp';
-	}
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			login_name : '请登录',
+			swiper3 : null,
+		}
+	});
+	window.addEventListener('resize', function() {
+		let Width = window.innerWidth;
+		//console.log(Width)
+		if (Width === 1200) {//.slidesPerView
+			/* vm.swiper3.slidesPerView
+			console.log(vm.swiper3.slidesPerView = 2) */
+		}
+	});
 
+	function href_url(value) {
+		window.location.href = 'PC-' + value + '.jsp';
+	}
+	if ("${user}") {
+		vm.login_name = "${user.loginName}"
+	} else {
+		vm.login_name = "请登录"
+	}
+	function href_url_login() {
+		if (vm.login_name === '请登录') {
+			window.location.href = "PC-login.jsp";
+		}
+	}
 	let Entity = null;
 	Request();
 	function Request() {
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/index/list",
-			dataType : "json",
-			async : false,
-			success : function(res) {
-				if (res.code === 200) {
-					Entity = res.result
-					let banner = ''
-					Entity.banner.forEach(function(item, index) {
-						banner += '<div class="swiper-slide">'
-								+ '<img src="'+item.imageUrl+'" />' + '</div>'
-					})
-					$('#banner').html(banner)
-					AddSwiper('banner');
-					let council = ''
-					Entity.council.forEach(function(item, index) {
-						council += '<div class="swiper-slide">'
-								+ '<img src="'+item.imageUrl+'" />' + '</div>'
-					})
-					$('#council').html(council);
-					AddSwiper('council');
-					let sponsor = ''
-					Entity.sponsor.forEach(function(item, index) {
-						sponsor += '<div class="swiper-slide column-div">'
-								+ '<div class="swiper-4-div">'
-								+ '<img src="'+item.imageUrl+'" style="width:175px;height:62px;">'
-								+ '</div></div>'
-					})
-					$('#sponsor').html(sponsor);
-					AddSwiper('sponsor');
+		$
+				.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/index/list",
+					dataType : "json",
+					async : false,
+					success : function(res) {
+						if (res.code === 200) {
+							Entity = res.result
+							let banner = ''
+							Entity.banner.forEach(function(item, index) {
+								banner += '<div class="swiper-slide">'
+										+ '<img src="'+item.imageUrl+'" />'
+										+ '</div>'
+							})
+							$('#banner').html(banner)
+							AddSwiper('banner');
+							let council = ''
+							Entity.council.forEach(function(item, index) {
+								council += '<div class="swiper-slide">'
+										+ '<img src="'+item.imageUrl+'" />'
+										+ '</div>'
+							})
+							$('#council').html(council);
+							AddSwiper('council');
+							let sponsor = ''
+							Entity.sponsor
+									.forEach(function(item, index) {
+										sponsor += '<div class="swiper-slide column-div">'
+												+ '<div class="swiper-4-div">'
+												+ '<img src="'+item.imageUrl+'" style="width:175px;height:62px;">'
+												+ '</div></div>'
+									})
+							$('#sponsor').html(sponsor);
+							AddSwiper('sponsor');
 
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '查询接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '查询接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			}
-		});
 	}
 	matchRequest();
 	function matchRequest() {
@@ -502,6 +538,9 @@
 			}
 		});
 	}
+	function href_SRD(val) {
+		window.location.href = "PC-ScheduleReviewDetails.jsp?id=" + val;
+	}
 	reviewhRequest();
 	function reviewhRequest() {
 		$
@@ -522,7 +561,9 @@
 												+ '<p>'
 												+ item.courseTime
 												+ '</p>'
-												+ '<button type="button">敬请期待</button>'
+												+ '<button type="button" onclick="href_SRD('
+												+ item.id
+												+ ')">試合申し込み</button>'
 												+ '</div>'
 												+ '<div class="flex-around">'
 												+ '<p>'
@@ -597,8 +638,9 @@
 			});
 		} else if (name === 'sponsor') {
 			new Swiper('.swiper-4', {
-				slidesPerView : 4,
+				slidesPerView : 5,
 				slidesPerColumn : 2,
+				slidesPerColumnFill : 'row',
 				spaceBetween : 30,
 				pagination : {
 					el : '.swiper-4-pagination',
@@ -610,8 +652,8 @@
 				},
 			});
 		} else if (name === 'review') {
-			new Swiper('.swiper-3', {
-				slidesPerView : 4,
+			vm.swiper3 = new Swiper('.swiper-3', {
+				slidesPerView : 'auto',
 				spaceBetween : 20,
 				freeMode : true,
 				pagination : {
@@ -643,65 +685,74 @@
 	}
 	newsrequest()
 	function newsrequest() {
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/match/news?size=" + 5
-					+ "&page=" + 1,
-			dataType : "json",
-			success : function(data) {
-				if (data.code === 200) {
-					let arr = data.result.list;
-					let news_A = '<img src="'+arr[0].titleImage+'" />' + '<p>'
-							+ arr[0].title + '</p>' + '<p>' + arr[0].profile
-							+ '</p>' + '<p>'
-							+ (arr[0].createTime + '    ' + arr[0].place)
-							+ '</p>';
-					$("#news-A").html(news_A);
-					let news_B = ''
-					let list = [];
-					arr.forEach(function(item, index) {
-						if (index > 0)
-							list.push(item)
-					});
-					let arrList = pageFunction(list, 2);
-					arrList.forEach(function(item) {
-						news_B += '<div class="flex-between flex-wrap">'+ArrforEach(item)+'</div>'
-					});
-					$("#news-B").html(news_B);
-					function ArrforEach(arr) {
-						let arrStr = '';
-						arr.forEach(function(item) {
-							arrStr += '<div class="column-div">'
-									+ '<img src="'+item.titleImage+'" style="width:221px;height:147px"/>'
-									+ '<p class="home-div-4-2-tatle">'
-									+ item.title + '</p>'
-									+ '<p class="home-div-4-2-location">'
-									+ (item.createTime + item.place) + '</p>'
-									+ '</div>'
+		$
+				.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/match/news?size="
+							+ 5 + "&page=" + 1,
+					dataType : "json",
+					success : function(data) {
+						if (data.code === 200) {
+							let arr = data.result.list;
+							let news_A = '<img src="'+arr[0].titleImage+'" />'
+									+ '<p>'
+									+ arr[0].title
+									+ '</p>'
+									+ '<p>'
+									+ arr[0].profile
+									+ '</p>'
+									+ '<p>'
+									+ (arr[0].createTime + '    ' + arr[0].place)
+									+ '</p>';
+							$("#news-A").html(news_A);
+							let news_B = ''
+							let list = [];
+							arr.forEach(function(item, index) {
+								if (index > 0)
+									list.push(item)
+							});
+							let arrList = pageFunction(list, 2);
+							arrList.forEach(function(item) {
+								news_B += '<div class="flex-around">'
+										+ ArrforEach(item) + '</div>'
+							});
+							$("#news-B").html(news_B);
+							function ArrforEach(arr) {
+								let arrStr = '';
+								arr
+										.forEach(function(item) {
+											arrStr += '<div class="column-div">'
+													+ '<img src="'+item.titleImage+'" style="width:221px;height:147px"/>'
+													+ '<p class="home-div-4-2-tatle">'
+													+ item.title
+													+ '</p>'
+													+ '<p class="home-div-4-2-location">'
+													+ (item.createTime + item.place)
+													+ '</p>' + '</div>'
 
-						})
-						return arrStr;
+										})
+								return arrStr;
+							}
+							;
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '查询接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
 					}
-					;
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '查询接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
 				});
-			}
-		});
 	}
 </script>
 </html>

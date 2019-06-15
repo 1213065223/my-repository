@@ -203,9 +203,9 @@ input[type="radio"], input[type="checkbox"] {
 
 .MyCompetition-list {
 	width: 95%;
-	height: 340px;
+	/* height: 340px; */
 	justify-content: flex-start;
-	overflow: auto;
+	/* overflow: auto; */
 }
 
 .MyCompetition-list-div {
@@ -269,11 +269,7 @@ input[type="radio"], input[type="checkbox"] {
 	padding: 5px 10px;
 	border-right:1px solid #dcdee2;
 }
-.table-MyCompetition>tbody>tr>td>div{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.table-td-div{
 	min-height: 40px;
 }
 .table-MyCompetition>tbody>tr>td:first-child{

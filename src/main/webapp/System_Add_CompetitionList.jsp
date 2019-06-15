@@ -47,8 +47,8 @@
 <body>
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
@@ -68,6 +68,19 @@
 					<div style="width: 100%;" class="column-div">
 						<form class="form-model column-start" label-width="100"
 							id="form-model" style="width: 100%;">
+							<div class="form-model-div flex-start">
+								<p class="flex-end form-p">
+									<span class="form-span">*</span> <span>标题图片</span>
+								</p>
+								<div class="form-input-parent flex-start">
+									<label for="result" class="row-div" style="width: 100px">
+										<p style="margin-right: 20px;" class="ivu-btn">上传图片</p> <input
+										type="file" id="result" style="display: none;"
+										onchange="TitleUploadImage(this.files[0])" />
+									</label> <span id="titleImage-name"></span>
+
+								</div>
+							</div>
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>比赛名称</span>
@@ -184,16 +197,16 @@
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>文本详情</span>
 								</p>
-								<div class="form-input-parent" style="width:60%">
+								<div class="form-input-parent" style="width: 60%">
 									<div>
 										<textarea class="content"
-											style="width: 100%; height: 200px; visibility: hidden;"></textarea>
+											style="width: 100%; height: 350px; visibility: hidden;"></textarea>
 									</div>
 									<span class="form-message" id="details"></span>
 								</div>
 							</div>
 							<div class="form-model-div">
-								<div class="row-div" style="width:40%">
+								<div class="row-div" style="width: 40%">
 									<button type="button" class="ivu-btn"
 										style="margin-right: 20px;" onclick="cancel()">取消</button>
 									<button type="button" class="ivu-btn ivu-btn-primary"
@@ -212,6 +225,7 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
+			result : null,
 			matchName : '',
 			organization : '',
 			matchContent : '',
@@ -271,7 +285,7 @@
 	}
 	function cancel() {
 		editor.html('');
-		for (let i in vm._data) {
+		for ( let i in vm._data) {
 			vm._data[i] = ''
 		}
 		/* $("#matchName").val('');
@@ -288,6 +302,12 @@
 	};
 
 	let RegExpEntity = {
+			result : {
+			RegExptype : 'string',
+			message : '请上传图片',
+			trigger : 'change',
+			id : 'result'
+		},
 		matchName : {
 			RegExptype : 'string',
 			message : '请输入比赛名次',
@@ -363,7 +383,7 @@
 		let entity = vm._data;
 		let boo = true;
 		for ( let i in entity) {
-			if (!entity[i] && i!=='details') {
+			if (!entity[i] && i !== 'details') {
 				try {
 					RegExpEntity[i].Event.label_error(document
 							.getElementById(i));
@@ -381,93 +401,91 @@
 		}
 		if (id && boo) {
 			updateRequest();
-		} else if (boo)  {
+		} else if (boo) {
 			insertRequest();
 		}
 	}
 	function insertRequest() {
-		$
-				.ajax({
-					type : "POST",
-					async : true,
-					url : "${pageContext.request.contextPath}/admin/match",
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					data : JSON.stringify(vm._data),
-					success : function(data) {
-						if (data.code === 200) {
-							spop({
-								template : '成功',
-								group : 'submit-satus',
-								style : 'success',
-								autoclose : 5000
-							});
-							window.location.href = 'System_CompetitionList.jsp'
-						} else if (res.code === 100005) {
-							window.location.href = "System_login.jsp";
-						} else {
-							spop({
-								template : data.message,
-								group : 'submit-satus',
-								style : 'warning',
-								autoclose : 5000
-							});
-						}
-					},
-					error : function(jqXHR) {
-						console.log("Error: " + jqXHR.status);
-						spop({
-							template : '禁用或启用接口访问失败,请与系统管理员联系',
-							group : 'submit-satus',
-							style : 'error',
-							autoclose : 5000
-						});
-					}
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : "${pageContext.request.contextPath}/admin/match",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify(vm._data),
+			success : function(data) {
+				if (data.code === 200) {
+					spop({
+						template : '成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});
+					window.location.href = 'System_CompetitionList.jsp'
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
 				});
+			}
+		});
 	}
 
 	function updateRequest() {
 		let entity = vm._data
-		entity.id=id
+		entity.id = id
 		entity.details = editor.html()
-		$
-				.ajax({
-					type : "POST",
-					async : true,
-					url : "${pageContext.request.contextPath}/admin/match/update",
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					data : JSON.stringify(entity),
-					success : function(data) {
-						if (data.code === 200) {
-							spop({
-								template : '成功',
-								group : 'submit-satus',
-								style : 'success',
-								autoclose : 5000
-							});
-							window.location.href = 'System_CompetitionList.jsp'
-						} else if (res.code === 100005) {
-							window.location.href = "System_login.jsp";
-						} else {
-							spop({
-								template : data.message,
-								group : 'submit-satus',
-								style : 'warning',
-								autoclose : 5000
-							});
-						}
-					},
-					error : function(jqXHR) {
-						console.log("Error: " + jqXHR.status);
-						spop({
-							template : '禁用或启用接口访问失败,请与系统管理员联系',
-							group : 'submit-satus',
-							style : 'error',
-							autoclose : 5000
-						});
-					}
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : "${pageContext.request.contextPath}/admin/match/update",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify(entity),
+			success : function(data) {
+				if (data.code === 200) {
+					spop({
+						template : '成功',
+						group : 'submit-satus',
+						style : 'success',
+						autoclose : 5000
+					});
+					window.location.href = 'System_CompetitionList.jsp'
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
 				});
+			}
+		});
 	}
 
 	function request() {
@@ -480,9 +498,11 @@
 			success : function(res) {
 				if (res.code === 200) {
 					editor.insertHtml(res.result.details);
-					for (let i in vm._data) {
+					for ( let i in vm._data) {
 						vm._data[i] = res.result[i]
 					}
+					vm.result = res.result.result
+					$("#titleImage-name").text(res.result.result)
 					/* $("#matchName").val(res.result.matchName);
 					$("#organization").val(res.result.organization);
 					$("#matchContent").val(res.result.matchContent);
@@ -552,6 +572,42 @@
 			}
 		});
 		return entity;
+	}
+	function TitleUploadImage(file) {
+		let formdata = new FormData();
+		formdata.append("file", file)
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/file/upload",
+			data : formdata,
+			contentType : false,
+			processData : false,
+			async : false,
+			success : function(data) {
+				if (data.code === 200) {
+					vm.result = data.result
+					$("#titleImage-name").text(file.name)
+				} else if (data.code === 100005) {
+					window.location.href = "System_login.jsp";
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
 	}
 	let label_width = document.getElementById('form-model').getAttribute(
 			'label-width');

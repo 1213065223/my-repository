@@ -6,17 +6,14 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<title>赛事日历</title>
+<title>中8介绍</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="css/public.css" />
 <link rel="stylesheet" type="text/css" href="css/login.css" />
-<link rel="stylesheet" type="text/css" href="css/ScheduleIntroduce.css" />
-<link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
+<link rel="stylesheet" type="text/css" href="css/AssociationProfile.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body id="mvvm">
@@ -76,69 +73,29 @@
 		</div>
 
 
-		<div class="content-div column-div">
+		<div class="content-div column-div"
+			style="min-height: 512px; justify-content: flex-start;">
 			<div class="content-div-title row justify-start align-center">
 				<div></div>
-				<p>
-					試合><span>試合日程</span>
-				</p>
+				<p>チャイニーズ8ボール</p>
 			</div>
-			<div class="content-div-1 column-div">
-				<table border="0" cellspacing="0" cellpadding="0" class="gd-table"
-					id="table">
-					<tr>
-						<th>
-							<div>開催日時</div>
-						</th>
-						<th>
-							<div>大会名</div>
-						</th>
-						<th>
-							<div>開催地</div>
-						</th>
-						<th>
-							<div>試合結果</div>
-						</th>
-					</tr>
-					<tr>
-						<td>
-							<div>5月2日-5月5日</div>
-						</td>
-						<td>
-							<div>第三十回..名称</div>
-						</td>
-						<td>
-							<div>盘锦市</div>
-						</td>
-						<td>
-							<div>
-								<a href="EventDetails.html">结果查看</a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div>5月2日-5月5日</div>
-						</td>
-						<td>
-							<div>第三十回..名称</div>
-						</td>
-						<td>
-							<div>盘锦市</div>
-						</td>
-						<td>
-							<div>
-								<a href="EventDetails.html">結果を見る</a>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<!-- <div class="content-div-1">
+				<img src="img/AssociationProfile.png" width="100%">
+			</div> -->
+			<div class="content-div-1" id="introduction">
+				<p>大连半岛天空商旅服务有限公司 此处放文字简介，目前内容是代替文字。</p>
+				<p>北京时间5月24日消息，虽然正处于斯诺克的休赛期，但是奥沙利文还是能给大家带来大新闻，昨天在接受媒体采访时，他表示自己下赛季很可能将不会参加英锦赛、大师赛和世锦赛这三项大赛。</p>
+				<p>奥沙利文是对英国《电讯报》说出这番话的，他说：“我只想打少量比赛，以此找点乐子。也许一年打三四站就够了，打那种比较低调的比赛，没有媒体在场的比赛。所以我可能将会错过大师赛、世锦赛和英锦赛。”</p>
+				<p>奥沙利文已经赢得了创纪录的19个三大赛冠军，不过他表示自己已经没有参加三大赛的欲望了，尤其是在媒体有那么苛刻要求的情况下，他说：“我不想打世锦赛，所有媒体都想让我打，但我不是因为这个才打比赛的。我已经拿过5次世锦赛冠军了，对我来说世锦赛已经不再意味着血、汗和眼泪（意即意义重大），这比赛对我来说啥也不是了。”</p>
+				<p>今年的世锦赛奥沙利文令人吃惊的在首轮就输给了首次参赛的卡希尔，现在看这有可能成为他在世锦赛上的绝唱。不过过去的这个赛季奥沙利文拿了5个冠军，还重新登上世界第一宝座，被视为他生涯的最佳赛季之一。可与此同时，他与世界台联的关系依然很紧张，赛季中他曾扬言要另起炉灶办另一个巡回赛，还严厉批评过场馆的卫生状况。</p>
+				<p>奥沙利文说：“这就像破碎的婚姻，他们不喜欢我，我也根本不喜欢他们。我们住在同一个屋檐下，尝试表现得友好并容忍对方。但如果他们越界，并让我的生活很不开心的话，那我就不干了。如果我不去打他们的比赛，他们就输了；如果我还想打比赛，我就输了。”</p>
+				<p>目前还不清楚火老师什么时候重回赛场，不过普遍认为他将会在9月去参加上海大师赛，在那里他是卫冕冠军。</p>
 			</div>
 		</div>
 
 
 		<div class="home-bottom-div column-div">
-			<div class="flex-around" >
+			<div class="flex-around">
 				<img src="img/home/home-2-2.png" style="width: 150px;" />
 				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 					<ul class="column justify-start align-start">
@@ -197,42 +154,26 @@
 			window.location.href = "PC-login.jsp";
 		}
 	}
-	$(".zxf_pagediv").createPage({
-		pageNum : 10,
-		current : 1,
-		total : 300,
-		backfun : function(e) {
-			console.log(e.current)
-		}
-	});
-
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
 	request();
 	function request() {
+		/* 	let html = editor.html() */
 		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/match?size=10&page=1",
+			type : "get",
+			async : true,
+			url : "${pageContext.request.contextPath}/index/organization",
+			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function(data) {
 				if (data.code === 200) {
 					console.log(data)
-					let arr = data.result.list;
-					let innhtml = '<tr><th><div>開催日時</div></th>'
-							+ '<th><div>大会名</div></th>'
-							+ '<th><div>開催地</div></th>'
-							+ '<th><div>試合結果</div></th></tr>'
-					arr.forEach(function(item, index) {
-						innhtml += '<tr>' + '<td>' + '<div>5月2日-5月5日</div>'
-								+ '</td>' + '<td>' + '<div>第三十回..名称</div>'
-								+ '</td>' + '<td>' + '<div>盘锦市</div>' + '</td>'
-								+ '<td>' + '<div>'
-								+ '<a href="PC-EventDetails.jsp?id=' + item.id
-								+ '">結果を見る</a>' + '</div>' + '</td>' + '</tr>'
-					})
-
-					$("#table>tbody").html(innhtml);
+					//editor.html('')
+					$("#introduction").html(data.result.introduction)
+					//editor.insertHtml(data.result.introduction);
+				} else if (res.code === 100005) {
+					window.location.href = "System_login.jsp";
 				} else {
 					spop({
 						template : data.message,
@@ -245,7 +186,7 @@
 			error : function(jqXHR) {
 				console.log("Error: " + jqXHR.status);
 				spop({
-					template : '查询接口访问失败,请与系统管理员联系',
+					template : '禁用或启用接口访问失败,请与系统管理员联系',
 					group : 'submit-satus',
 					style : 'error',
 					autoclose : 5000

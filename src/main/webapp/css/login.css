@@ -19,7 +19,19 @@ html, body {
 }
 
 .login-div-1-2 {
-	width: 60%;
+	width: 1100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.login-div-1-div-even {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-div-1-2>p:first-child {
@@ -53,7 +65,7 @@ html, body {
 }
 
 .login-div-1-3>div {
-	width: 60%;
+	width: 1100px;
 	font-size: 16px;
 	font-family: SourceHanSansSC-Regular;
 	font-weight: 400;
@@ -81,23 +93,25 @@ html, body {
 	background: white;
 }
 
-.login-div-2--div-1{
+.login-div-2--div-1 {
+	position: relative;
+	width: 70%;
+	margin: auto;
+	margin-bottom: 35px;
+}
+
+.surnameAndnickname {
 	position: relative;
 	width: 70%;
 	margin: auto;
 	margin-bottom: 20px;
 }
-.surnameAndnickname{
-	position: relative;
-	width: 70%;
-	margin: auto;
-	margin-bottom: 20px;
-	
-}
-.surnameAndnickname>div{
+
+.surnameAndnickname>div {
 	position: relative;
 	width: 100%;
 }
+
 .surnameAndnickname>div>input {
 	width: 100%;
 	height: 40px;
@@ -115,7 +129,14 @@ html, body {
 	border: 1px solid #dcdee2;
 	padding: 10px;
 }
-
+.login-div-2-1-input{
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid #dcdee2;
+	padding: 10px;
+}
 .login-div-2-1>div>button {
 	width: 100%;
 	height: 40px;
@@ -167,4 +188,31 @@ label {
 	max-width: auto;
 	margin-bottom: 0px;
 	font-weight: bold;
+}
+.home-bottom-div>div {
+	width: 1040px;
+}
+
+
+/* login-div-1-div-even flex-wrap: wrap; */
+@media screen and (max-width:1150px) {
+	.home-bottom-div>div {
+		width: 95%;
+	}
+	.login-div-1-3>div {
+		width: 95%;
+	}
+	.login-div-1-2 {
+		width: 95%;
+	}
+}
+
+@media screen and (max-width:850px) {
+	.login-div-1-2 {
+		justify-content: center;
+	}
+	.login-div-1-div-even {
+		justify-content: center;
+		flex-wrap: wrap;
+	}
 }

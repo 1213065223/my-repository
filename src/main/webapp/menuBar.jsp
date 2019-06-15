@@ -86,6 +86,9 @@
 					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>系统管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
+				<dd src='System_eight_introduce'>
+					<span>中8介绍</span>
+				</dd>
 				<dd src='System_SiteSettings'>
 					<span>网站设置</span>
 				</dd>
