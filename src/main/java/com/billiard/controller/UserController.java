@@ -243,7 +243,7 @@ public class UserController {
 				public void run() {
 					// TODO Auto-generated method stub
 					log.info("begin send email to "+uuid);
-					String url = propertyUtil.getRegistMailUrl()+"?code="+uuid;
+					String url = propertyUtil.getRegistMailUrl()+"?code1="+uuid;
 					RegistController.sendEmail(email,  propertyUtil,url);
 					log.info(" send email success! "+uuid);
 				}

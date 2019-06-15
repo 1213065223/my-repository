@@ -59,7 +59,7 @@ public class RegistController {
 				public void run() {
 					// TODO Auto-generated method stub
 					logger.info("begin send email to "+uuid);
-					String url = propertyUtil.getRegistMailUrl()+"?code="+uuid;
+					String url = propertyUtil.getRegistMailUrl()+"?code2="+uuid;
 					sendEmail(email, propertyUtil,url);
 					logger.info(" send email success! "+uuid);
 				}

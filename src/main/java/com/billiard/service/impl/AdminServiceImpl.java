@@ -55,6 +55,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AnnouncementMapper announcementMapper;
 	
+	//添加管理员
 	@Override
 	public JobResponse addAdmin(Admin admin) {
 		
@@ -67,7 +68,8 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return JobResponse.successResponse(adminMapper.insertSelective(admin));
 	}
-
+	
+	//根据账号获取管理员
 	@Override
 	public Admin getAdminByLoginName(String loginName) {
 		AdminExample example = new AdminExample();
@@ -80,7 +82,8 @@ public class AdminServiceImpl implements AdminService {
 			return selectByExample.get(0);
 		}
 	}
-
+	
+	//管理员列表
 	@Override
 	public JobResponse getAdminList(Integer page, Integer size, String nick_name, String phone) {
 	
@@ -98,6 +101,7 @@ public class AdminServiceImpl implements AdminService {
 		return JobResponse.successResponse(pageInfo);
 	}
 
+	//更新管理员信息
 	@Override
 	public JobResponse updateAdmin(Admin admin) {
 		Admin selectByPrimaryKey = adminMapper.selectByPrimaryKey(admin.getId());
@@ -114,6 +118,7 @@ public class AdminServiceImpl implements AdminService {
 		return JobResponse.successResponse(adminMapper.updateByPrimaryKeySelective(admin));
 	}
 
+	//添加首页图片信息
 	@Override
 	public JobResponse addIndex(Index index) {
 		IndexExample indexExample = new IndexExample();
@@ -128,6 +133,7 @@ public class AdminServiceImpl implements AdminService {
 		return JobResponse.successResponse(indexMapper.insertSelective(index));
 	}
 
+	//更新首页信息
 	@Override
 	public JobResponse updateIndex(Index index) {
 		Index selectByPrimaryKey = indexMapper.selectByPrimaryKey(index.getId());
@@ -139,18 +145,21 @@ public class AdminServiceImpl implements AdminService {
 		return JobResponse.successResponse(indexMapper.updateByPrimaryKeySelective(index));
 	}
 
+	//删除首页信息
 	@Override
 	public Integer deleteIndex(Integer id) {
 		
 		return indexMapper.deleteByPrimaryKey(id);
 	}
 
+	//添加比赛
 	@Override
 	public JobResponse addMatch(MatchWithBLOBs match) {
 		match.setId(MD5Util.getID());
 		return JobResponse.successResponse(matchMapper.insertSelective(match));
 	}
 
+	//更新比赛
 	@Override
 	public Integer updateMatch(MatchWithBLOBs match) {
 		match.setCreateTime(null);
@@ -158,11 +167,13 @@ public class AdminServiceImpl implements AdminService {
 		return matchMapper.updateByPrimaryKeySelective(match);
 	}
 
+	//从数据库删除比赛
 	@Override
 	public Integer deleteMatch(String id) {
 		return matchMapper.deleteByPrimaryKey(id);
 	}
-
+	
+	//获取协会简介
 	@Override
 	public List<Association> getAssociationList() {
 		AssociationExample  example= new AssociationExample();
