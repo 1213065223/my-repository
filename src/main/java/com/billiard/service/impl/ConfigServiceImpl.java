@@ -22,6 +22,8 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Autowired
 	private WeekMapper weekMapper;
+	
+	//添加系统配置
 	@Override
 	public JobResponse addConfig(Config config) {
 		
@@ -34,7 +36,7 @@ public class ConfigServiceImpl implements ConfigService {
 		}
 		return JobResponse.successResponse(configMapper.insertSelective(config));
 	}
-
+	//获取系统配置
 	@Override
 	public Config getConfig() {
 		ConfigExample example= new ConfigExample();
@@ -44,7 +46,7 @@ public class ConfigServiceImpl implements ConfigService {
 		}
 		return null;
 	}
-
+	
 	@Override
 	public JobResponse addWeek(Week week) {
 		

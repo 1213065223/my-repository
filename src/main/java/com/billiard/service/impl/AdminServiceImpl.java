@@ -179,34 +179,36 @@ public class AdminServiceImpl implements AdminService {
 		AssociationExample  example= new AssociationExample();
 		return associationMapper.selectByExampleWithBLOBs(example);
 	}
-
+	//更新协会简介
 	@Override
 	public void updateAssociation(Association association) {
 		associationMapper.updateByPrimaryKeyWithBLOBs(association);
 	}
-
+	//插入协会简介
 	@Override
 	public void addAssociation(Association association) {
 		associationMapper.insertSelective(association);
 		
 	}
-
+	
+	//获取中8介绍
 	@Override
 	public List<Organization> getOrganizationList() {
 		OrganizationExample example= new OrganizationExample();
 		return organizationMapper.selectByExample(example);
 	}
 
+	//更新中8介绍
 	@Override
 	public void updateOrganization(Organization organization) {
 		organizationMapper.updateByPrimaryKeyWithBLOBs(organization);
 	}
-
+	//添加中8介绍
 	@Override
 	public void addOrganization(Organization organization) {
 		organizationMapper.insertSelective(organization);
 	}
-
+	//协会公告 如果存在更新 不存在添加
 	@Override
 	public Integer announcementUpdateOrAdd(Announcement announcement, Admin a) {
 		
@@ -221,11 +223,13 @@ public class AdminServiceImpl implements AdminService {
 		return announcementMapper.updateByPrimaryKeySelective(announcement); 
 	}
 
+	//删除协会公告
 	@Override
 	public Integer announcementDelete(Integer id) {
 		return announcementMapper.deleteByPrimaryKey(id);
 	}
-
+	
+	//设置和取消 本场赛事
 	@Override
 	@Transactional
 	public JobResponse cancelAndSetCurrent(MatchWithBLOBs match) {
