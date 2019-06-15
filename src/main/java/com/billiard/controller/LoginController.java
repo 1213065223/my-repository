@@ -27,6 +27,7 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	
+	//登录
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse login(@RequestBody User user,HttpServletRequest request) {

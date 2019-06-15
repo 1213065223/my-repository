@@ -27,6 +27,9 @@ public class PropertyUtil {
 	@Value("${regist.mail.url}")
 	private String registMailUrl;
 	
+	@Value("${forget.mail.url}")
+	private String forgetMailUrl;
+	
 	@Value("${init.password}")
 	private String initPassword;
 	
@@ -54,6 +57,16 @@ public class PropertyUtil {
 
 	public void setRegistMailUrl(String registMailUrl) {
 		this.registMailUrl = registMailUrl;
+	}
+	
+	
+
+	public String getForgetMailUrl() {
+		return forgetMailUrl;
+	}
+
+	public void setForgetMailUrl(String forgetMailUrl) {
+		this.forgetMailUrl = forgetMailUrl;
 	}
 
 	public String getUploadPath() {

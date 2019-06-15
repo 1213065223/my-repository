@@ -31,6 +31,9 @@ public class AdminConfigController {
 	@Autowired
 	private ConfigService configService;
 	
+	
+	
+	//修改系统配置
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse updateConfig(@RequestBody Config config,HttpServletRequest request) {
@@ -46,6 +49,7 @@ public class AdminConfigController {
 		return configService.addConfig(config);
 	}
 	
+	//查询系统配置
 	@RequestMapping(value="detail",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse detailConfig(HttpServletRequest request) {
@@ -61,6 +65,7 @@ public class AdminConfigController {
 		return JobResponse.successResponse(res);
 	}
 	
+	//设置排行榜查询周数
 	@RequestMapping(value="week",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse updateWeek(@RequestBody Week week,HttpServletRequest request) {
@@ -73,7 +78,7 @@ public class AdminConfigController {
 		}
 		return configService.addWeek(week);
 	}
-	
+	//查询排行榜查询周数
 	@RequestMapping(value="week",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse detailWeek(HttpServletRequest request) {

@@ -6,6 +6,8 @@ import java.net.URLEncoder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,7 @@ public class RegistController {
 	@Autowired
 	private RedisCache redisCache;
 	
+	//注册并发送验证邮件（邮箱未验证）
 	@RequestMapping(value="",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse toRegist(@RequestBody User user) {
@@ -69,7 +72,7 @@ public class RegistController {
 		return insertUser;
 	}
 	
-	@RequestMapping(value="mail",method=RequestMethod.GET)
+	//@RequestMapping(value="mail",method=RequestMethod.GET)
 	@ResponseBody
 	public static String sendEmail(String sendEmail, PropertyUtil propertyUtil,String content) {
 		
@@ -79,7 +82,7 @@ public class RegistController {
 	
 		
 		try {
-			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "注册验证", 	content);
+			MailUtil.sendEmail(propertyUtil.getMailHost(), propertyUtil.getMailFrom(), propertyUtil.getMailPassword(),sendEmail, "台球协会", "邮箱通知", 	content);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,7 +94,7 @@ public class RegistController {
 		return propertyUtil.getMailFrom();
 	}
 	
-	
+	//邮件确认密码
 	@RequestMapping(value="mail/confirm",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse sendEmailConfirm(@RequestParam(required=false)String code ,@RequestParam(required=false)String password) {
@@ -124,15 +127,39 @@ public class RegistController {
 	
 	
 	
-	
-	@RequestMapping(value="test",method=RequestMethod.GET)
+	//注册邮件确认密码
+	@RequestMapping(value="mail/confirm/login",method=RequestMethod.GET)
 	@ResponseBody
-	public JobResponse test() {
-			
-		redisCache.put("123", "哈哈哈哈哈");
+	public JobResponse registEmailConfirm(@RequestParam(required=false)String code ,@RequestParam(required=false)String password,HttpServletRequest httpServletRequest) {
 		
-		System.out.println(redisCache.get("123"));
-		return JobResponse.successResponse();
+		
+		if(StringUtils.isBlank(code)) {
+			return JobResponse.errorResponse(100025, "参数不正确！");
+		}
+		if(StringUtils.isBlank(password)||password.length()>16) {
+			return JobResponse.errorResponse(100025, "密码参数不正确！");
+		}
+		
+		Object object = redisCache.get(key+code);
+		
+		if(object==null) {
+			return JobResponse.errorResponse(100026, "验证地址已过期！");
+		}
+		
+		
+		
+		User user = new User();
+		user.setSalt(MD5Util.getID());
+		user.setPassword(MD5Util.formPassToDBPass(password, user.getSalt()));
+		user.setId(object.toString());
+		user.setIsstop(0);
+		 JobResponse verifyUserEamil = userService.verifyUserEamil(user);
+		 if(verifyUserEamil.getCode()==200) {
+			 httpServletRequest.getSession().setAttribute("user", 		user);
+		 }
+		return verifyUserEamil;
 	}
+	
+	
 	
 }

@@ -25,7 +25,7 @@ public class AdminUserController {
 	private UserService userService;
 	
 	private static final Logger log = LoggerFactory.getLogger(AdminUserController.class);
-	
+	//用户管理列表
 	@RequestMapping(value="",method=RequestMethod.GET)
 	@ResponseBody
 	public JobResponse userList(User user,@RequestParam(defaultValue="1") Integer page,@RequestParam(defaultValue="10") Integer size, HttpServletRequest request ) {
@@ -38,6 +38,7 @@ public class AdminUserController {
 		return JobResponse.successResponse(userService.getUserList(user,page,size));
 	}
 	
+	//禁用账号
 	@RequestMapping(value="forbidden",method=RequestMethod.POST)
 	@ResponseBody
 	public JobResponse stopUser(@RequestBody User user, HttpServletRequest request ) {

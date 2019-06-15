@@ -28,6 +28,7 @@ public class FileController {
 	@Autowired
 	private  PropertyUtil propertyUtil;
 	
+	//上传文件
 	@RequestMapping(value="upload" ,method=RequestMethod.POST)
 	public JobResponse upload(@RequestParam("file") MultipartFile file ) {
 		
