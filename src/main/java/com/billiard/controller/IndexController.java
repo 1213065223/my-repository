@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,15 @@ public class IndexController {
 		log.info(request.getRemoteAddr() + "   is at index!");
 		return JobResponse.successResponse(indexService.list());
 	}
+	
+	//首页banner 理事 等详情
+	@RequestMapping("detail/{iid}")
+	@ResponseBody
+	public JobResponse list(@PathVariable("iid") Integer iid ,HttpServletRequest request) {
+		log.info(request.getRemoteAddr() + "   is at index detail!"+iid);
+		return JobResponse.successResponse(indexService.getIndexDetail(iid));
+	}
+	
 	
 	//协会简介展示
 	@RequestMapping("association")
