@@ -46,7 +46,7 @@ public class ConfigServiceImpl implements ConfigService {
 		}
 		return null;
 	}
-	
+	//添加排行榜查询周数
 	@Override
 	public JobResponse addWeek(Week week) {
 		
@@ -61,6 +61,7 @@ public class ConfigServiceImpl implements ConfigService {
 		return JobResponse.successResponse(weekMapper.updateByPrimaryKeySelective(week));
 	}
 
+	//查询排行榜查询周数
 	@Override
 	public Week selectWeek() {
 		WeekExample example = new WeekExample();

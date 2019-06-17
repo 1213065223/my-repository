@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	//新增用户
 	@Override
 	public JobResponse insertUser(User user) {
 		UserExample userExample = new UserExample();
@@ -41,13 +42,14 @@ public class UserServiceImpl implements UserService {
 		
 			return JobResponse.successResponse(userMapper.insertSelective(user));
 	}
-
+	//更新用户信息
 	@Override
 	public JobResponse updateUser(User user) {
 		
 		return JobResponse.successResponse(userMapper.updateByPrimaryKeySelective(user));
 	}
-
+	
+	//获取用户详情
 	@Override
 	public User getUser(User user) {
 		UserExample example = new UserExample();
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
 			return selectByExample.get(0);
 		}
 	}
-
+	//获取用户列表
 	@Override
 	public PageInfo<Map<String, Object>> getUserList(User user, Integer page, Integer size) {
 		
@@ -71,7 +73,7 @@ public class UserServiceImpl implements UserService {
 		PageInfo<Map<String, Object>> res = new PageInfo<>(allUser);
 		return res;
 	}
-
+	//禁用与解禁用户
 	@Override
 	public Integer forbiddenUser(User user) {
 		
@@ -80,7 +82,7 @@ public class UserServiceImpl implements UserService {
 		dest.setIsstop(user.getIsstop());
 		return userMapper.updateByPrimaryKeySelective(dest);
 	}
-
+	//邮箱验证
 	@Override
 	public JobResponse verifyUserEamil(User user) {
 		

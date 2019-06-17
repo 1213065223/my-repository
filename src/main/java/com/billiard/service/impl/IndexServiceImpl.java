@@ -39,6 +39,7 @@ public class IndexServiceImpl implements IndexService {
 	@Autowired
 	private AnnouncementMapper announcementMapper;
 	
+	//首页信息列表
 	@Override
 	public Map<String, List<Index>> list() {
 		List<Index> all = new ArrayList<>();
@@ -70,6 +71,7 @@ public class IndexServiceImpl implements IndexService {
 		return res;
 	}
 
+	//协会简介
 	@Override
 	public Association association() {
 		AssociationExample example = new AssociationExample();
@@ -80,6 +82,7 @@ public class IndexServiceImpl implements IndexService {
 		return new Association();
 	}
 
+	//获取中8简介
 	@Override
 	public Organization organization() {
 		OrganizationExample  example= new OrganizationExample ();
@@ -89,7 +92,7 @@ public class IndexServiceImpl implements IndexService {
 		}
 		return new Organization();
 	}
-
+	//获取协会公告列表
 	@Override
 	public PageInfo<Announcement> organizationList(int page, int size) {
 		PageHelper.startPage(page, size,"create_time desc");
@@ -98,12 +101,14 @@ public class IndexServiceImpl implements IndexService {
 		PageInfo<Announcement> p =new PageInfo<>(selectByExampleWithBLOBs);
 		return p;
 	}
-
+	
+	//协会公告详情
 	@Override
 	public Announcement organizationDetail(int aid) {
 		return announcementMapper.selectByPrimaryKey(aid);
 	}
 
+	//管理员端首页内容列表
 	@Override
 	public PageInfo<Index> list(Integer type, Integer page, Integer size) {
 		IndexExample example= new IndexExample();
