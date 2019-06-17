@@ -82,20 +82,24 @@
 			<div class="login-div-2-1" class="column-div">
 				<h3
 					style="text-align: center; margin-bottom: 20px; margin-top: 20px;">{{title_name}}</h3>
-				<div class="column-div login-div-2--div-1" style="height: 60px">
+				<div class="column-div login-div-2--div-1"
+					style="height: 60px; margin-bottom: 40px;">
 					<p style="width: 100%;">ログインパスワード：</p>
 					<input type="password" placeholder="ログインパスワードを入力して下さい"
 						id="password1" autocomplete="off" spellcheck="false"
-						v-model="password1" />
-					<p style="width: 100%;" id="password1-p">*6文字～32文字の半角英数字</p>
+						v-model="password1" maxlength="32" />
+					<!-- <p style="width: 100%;" id="password1-p">*6文字～32文字の半角英数字</p> -->
+					<span class="form-message"><span>*</span><span
+						style="color: #333333FF;">6文字～32文字の半角英数字</span></span>
 				</div>
 
-				<div class="column-div login-div-2--div-1" style="height: 60px">
+				<div class="column-div login-div-2--div-1"
+					style="height: 60px; margin-bottom: 30px;">
 					<p style="width: 100%;">ログインパスワード（確認用）：</p>
 					<input type="password" placeholder="確認用パスワードを入力して下さい"
 						id="password2" autocomplete="off" spellcheck="false"
-						v-model="password2" />
-					<p style="width: 100%;" id="password2-p">*6文字～32文字の半角英数字</p>
+						v-model="password2" maxlength="32" /> <span class="form-message"><span>*</span><span
+						style="color: #333333FF;">6文字～32文字の半角英数字</span></span>
 
 				</div>
 
@@ -152,12 +156,12 @@
 
 
 		<div class="home-bottom-div column-div">
-			<div class="flex-around" >
+			<div class="flex-around">
 				<img src="img/home/home-2-2.png" style="width: 150px;" />
 				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 					<ul class="column justify-start align-start">
 						<li>一般社団法人</li>
-						<li class="p-hover" >全国ビリヤード協会</li>
+						<li class="p-hover">全国ビリヤード協会</li>
 						<li>JAPAN BILLIARD</li>
 						<li>ASSOCIATION</li>
 						<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
@@ -166,7 +170,7 @@
 						<li class="p-hover" onclick="href_url('home')">ホーム</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li class="p-hover" >協会について</li>
+						<li class="p-hover">協会について</li>
 						<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
 						<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
 
@@ -179,7 +183,7 @@
 						<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li class="p-hover" >ランキング</li>
+						<li class="p-hover">ランキング</li>
 						<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
 						<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
 					</ul>
@@ -253,7 +257,7 @@
 				style : 'warning',
 				autoclose : 5000
 			});
-			$("#password2-p").css('color', '#ed4014');
+			/* $("#password2-p").css('color', '#ed4014'); */
 			boo = false;
 		} else if ($("#password2").val() !== $("#password1").val()) {
 			boo = false;
@@ -263,13 +267,22 @@
 				style : 'warning',
 				autoclose : 5000
 			});
-			$("#password2-p").css('color', '#ed4014');
-			$("#password1-p").css('color', '#ed4014');
+			/* $("#password2-p").css('color', '#ed4014');
+			$("#password1-p").css('color', '#ed4014'); */
+		} else if ($("#password1").val().length < 6
+				|| $("#password2").val().length < 6) {
+			boo = false;
+			spop({
+				template : '请将密码设置为6文字～32文字の半角英数字',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
 		}
-		$("#password2-p").css('color', '#515a6e');
-		$("#password1-p").css('color', '#515a6e');
+		/* $("#password2-p").css('color', '#515a6e');
+		$("#password1-p").css('color', '#515a6e'); */
 		if (boo) {
-			login(event)
+			login()
 		}
 	};
 	function transfer_ok() {
@@ -279,7 +292,7 @@
 			$("#transfer-dom").hide();
 		}
 	}
-	function login(event) {
+	function login() {
 		$
 				.ajax({
 					type : "get",

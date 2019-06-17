@@ -26,78 +26,6 @@
 </script>
 <body>
 	<div>
-		<!-- <div class="menuBar" id="menuBar">
-			<dl class="column-div">
-				<dt active-name="display">
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>管理员管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd src='System_add_admin'
-					style="color: white; background: #2b85e4;">
-					<span>管理员列表</span>
-				</dd>
-				<dt>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>广告管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd src='System_AdvertisingSet'>
-					<span>广告设置</span>
-				</dd>
-				<dt>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>协会管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd src='System_AssociationProfile'>
-					<span>协会简介</span>
-				</dd>
-				<dd src='System_associationAffiche'>
-					<span>协会公告</span>
-				</dd>
-				<dd src='System_Add_associationAffiche'>
-					<span>添加协会公告</span>
-				</dd>
-				<dt>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>赛事管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd src='System_CompetitionList'>
-					<span>赛事列表</span>
-				</dd>
-				<dd src='System_applyManage'>
-					<span>报名管理</span>
-				</dd>
-				<dd src='System_CompetitionNews'>
-					<span>赛事新闻</span>
-				</dd>
-				<dd src='System_EventReview'>
-					<span>赛事回顾</span>
-				</dd>
-				<dt>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>排名管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd>
-					<span>战绩排名管理</span>
-				</dd>
-				<dd>
-					<span>积分排名管理</span>
-				</dd>
-				<dt>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>会员管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd>
-					<span>会员列表</span>
-				</dd>
-				<dt>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>系统管理</span>
-					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
-				</dt>
-				<dd>
-					<span>网站设置</span>
-				</dd>
-			</dl>
-		</div> -->
 		<div class="menuBar" id="menuBar">
 			<iframe
 				src="menuBar.jsp"
@@ -108,7 +36,15 @@
 
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
-			<div class="layout-header"></div>
+			<div class="layout-header flex-between">
+				<div></div>
+				<div style="margin-right: 20px;">
+					<p class="p-hover exit row-div" style="height:auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+						<span>退出</span>
+					</p>
+				</div>
+			</div>
 			<!-- style="padding: 0px 16px 16px;" -->
 			<div class="layout-content" style="padding: 0px 16px 16px;">
 				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
@@ -122,8 +58,6 @@
 				</div>
 
 				<div class="ivu-card ivu-card-body" id="ivu-card-div">
-
-
 					<form autocomplete="off"
 						class="ivu-form ivu-form-label-right ivu-form-inline">
 						<div class="ivu-form-item ivu-form-item-required">

@@ -103,7 +103,8 @@
 						<input type="text" placeholder="メールアドレスを入力してください"
 							class="ivu-input ivu-input-default" id="loginName"
 							autocomplete="off" spellcheck="false" v-model="loginName" /> <span
-							class="form-message">メールアドレスが会員IDとなります</span>
+							class="form-message"><span>*</span><span
+							style="color: #333333FF;">メールアドレスが会員IDとなります</span></span>
 					</div>
 				</div>
 				<div class="form-model-div flex-start" style="margin-bottom: 15px;">
@@ -113,16 +114,18 @@
 					</p>
 					<div class="flex-between" style="width: 60%">
 						<div class="form-input-parent" style="width: 45%">
-							<input type="text" placeholder="例）ヤマダ"
+							<input type="text" placeholder="例）ヤマダ" maxlength="5"
 								class="ivu-input ivu-input-default" id="surname"
 								autocomplete="off" spellcheck="false" v-model="surname" /> <span
-								class="form-message">カタカナ（セイ）</span>
+								class="form-message"><span>*</span><span
+								style="color: #333333FF;">カタカナ（セイ）</span></span>
 						</div>
 						<div class="form-input-parent" style="width: 45%">
-							<input type="text" placeholder="例）ヤマダ"
+							<input type="text" placeholder="例）ヤマダ" maxlength="5"
 								class="ivu-input ivu-input-default" id="nickname"
 								autocomplete="off" spellcheck="false" v-model="nickname" /> <span
-								class="form-message">カタカナ（メイ）</span>
+								class="form-message"><span>*</span><span
+								style="color: #333333FF;">カタカナ（メイ）</span></span>
 						</div>
 					</div>
 				</div>
@@ -158,7 +161,7 @@
 						<span>生年月日：</span>
 					</p>
 					<div class="form-input-parent" style="width: 60%">
-						<input type="text" class="ivu-input ivu-input-default"
+						<input type="text" readonly class="ivu-input ivu-input-default"
 							id="birthday" autocomplete="off" spellcheck="false"
 							v-model="birthday" />
 					</div>
@@ -171,7 +174,8 @@
 					<div class="form-input-parent" style="width: 60%">
 						<input type="text" class="ivu-input ivu-input-default" id="phone"
 							autocomplete="off" spellcheck="false" v-model="phone" /> <span
-							class="form-message">携帯電話・ご職場など、緊急時に連絡が取れる電話番号をご入力ください</span>
+							class="form-message"><span>*</span><span
+							style="color: #333333FF;">携帯電話・ご職場など、緊急時に連絡が取れる電話番号をご入力ください</span></span>
 					</div>
 				</div>
 
@@ -183,15 +187,18 @@
 						<p>次に進むことで、株式会社IN会員規約およびプライバシー ポリシーを読み、その内容に同意したものとみなされます。</p>
 					</div>
 				</div> -->
-				<div class="form-model-div flex-start"
-					style="height: auto; margin-top: 20px; align-items: flex-start;">
-					<p class="flex-end form-p" style="width: 130px">
-						<input type="checkbox" name="vehicle" value="Car" />
-					</p>
-					<div class="form-input-parent" style="width: 60%">
-						<p>次に進むことで、株式会社IN会員規約およびプライバシー ポリシーを読み、その内容に同意したものとみなされます。</p>
+				<label id="p-form-input-parent">
+					<div class="form-model-div flex-start"
+						style="height: auto; margin-top: 20px; align-items: flex-start;">
+						<p class="flex-end form-p" style="width: 130px">
+							<input type="checkbox" name="vehicle" value="Car" id="checkbox" />
+						</p>
+						<div class="form-input-parent" style="width: 60%">
+							<p id="p-form-input-parent">次に進むことで、株式会社IN会員規約およびプライバシー
+								ポリシーを読み、その内容に同意したものとみなされます。</p>
+						</div>
 					</div>
-				</div>
+				</label>
 				<div class="form-model-div flex-start" style="min-height: auto;">
 					<p class="flex-end form-p" style="width: 130px"></p>
 					<div class="form-input-parent row-div" style="width: 60%">
@@ -204,7 +211,7 @@
 					<button type="button" class="ivu-btn" onclick="Modal_ok()"
 						style="width: 56%">送信</button>
 				</div>
-				<div class="form-model-div flex-start" >
+				<div class="form-model-div flex-start">
 					<p class="flex-end form-p" style="width: 130px"></p>
 					<div class="form-input-parent flex-between" style="width: 60%">
 						<p>
@@ -321,7 +328,7 @@
 	jeDate("#birthday", {
 		format : "YYYY-MM-DD",
 		donefun : function(obj) {
-			RegExpEntity.birthday.Event.onceEvent();
+			RegExpEntity_reg.birthday.Event.onceEvent();
 			vm.birthday = obj.val;
 		}
 	});
@@ -370,10 +377,21 @@
 			id : 'birthday'
 		}
 	}
-	/* for ( let i in RegExpEntity) {
-		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
-	} */
+	let RegExpEntity_reg = {
+		birthday : {
+			RegExptype : 'string',
+			message : '请输选择生日',
+			trigger : 'blur',
+			id : 'birthday'
+		}
+	}
+	for ( let i in RegExpEntity_reg) {
+		RegExpEntity_reg[i].Event = new formRegExp(RegExpEntity[i],
+				'form-model');
+	}
 	function Modal_ok() {
+		// $("#checkbox").attr("checked")
+		console.log($("#checkbox").prop("checked"))
 		vm.sex = $('input[name="radio-name"]:checked').val()
 		let event = {
 			"loginName" : vm.loginName,
@@ -394,6 +412,36 @@
 				});
 				boo = false;
 			}
+		}
+		let reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+		let emailRegExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		if (!reg.test(vm.phone)) {
+			spop({
+				template : '请输入正确的手机号码!',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			boo = false;
+		}
+		if (!emailRegExp.test(vm.loginName)) {
+			spop({
+				template : '请输入正确的邮箱!',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			boo = false;
+		}
+
+		if (!$("#checkbox").prop("checked")) {
+			spop({
+				template : '次に進むことで、株式会社IN会員規約およびプライバシー ポリシーを読み、その内容に同意したものとみなされます。',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			boo = false;
 		}
 		if (boo) {
 			login(event)

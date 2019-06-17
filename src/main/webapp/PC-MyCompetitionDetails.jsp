@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="css/login.css" />
 <link rel="stylesheet" type="text/css" href="css/MemberCenter.css" />
 <link rel="stylesheet" type="text/css" href="css/zxf_page.css" />
+<link rel="stylesheet" type="text/css" href="css/spop.css" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
@@ -172,7 +173,7 @@
 												<p class="ivu-btn"
 													style="background: #2974B6FF; color: white;">上传凭证</p> <input 
 												type="file" id="filehei" style="display: none;"
-												onchange="UploadImage(this.files[0])" />
+												onchange="UploadImage(this.files[0])" />UploadImage(this.files[0])
 											</label>
 										</div> -->
 									</div>
@@ -267,7 +268,8 @@
 											<span>参加費：</span>
 										</p>
 										<div class="form-input-parent">
-											<p>￥200</p>
+											<p>{{enrollCost}}</p>
+											<!-- ￥200 -->
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
@@ -275,7 +277,7 @@
 											<span>口座番号：</span>
 										</p>
 										<div class="form-input-parent">
-											<p>6225551823951796</p>
+											<p>{{account}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
@@ -283,7 +285,7 @@
 											<span>銀行名：</span>
 										</p>
 										<div class="form-input-parent">
-											<p>招商银行</p>
+											<p>{{bankName}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
@@ -291,7 +293,7 @@
 											<span>支店名：</span>
 										</p>
 										<div class="form-input-parent">
-											<p>大连招商银行中山支行</p>
+											<p>{{bank}}</p>
 										</div>
 									</div>
 									<div class="form-model-div flex-start">
@@ -299,7 +301,7 @@
 											<span>会社名：</span>
 										</p>
 										<div class="form-input-parent">
-											<p>大连招商银行中山支行</p>
+											<p>{{society}}</p>
 										</div>
 									</div>
 								</form>
@@ -384,7 +386,11 @@
 			isEnd : '', // 订单状态
 			integral : '',//积分
 			ranking : '', // 名次
-			paymentTime : ''//付款时间
+			paymentTime : '',//付款时间
+			account : '',
+			bankName : '',
+			bank : '',
+			society : ''
 		}
 	});
 	if ("${user}") {
@@ -416,13 +422,35 @@
 	for (let i = 0; i < arr.length; i++) {
 		arr[i].style.width = label_width + 'px';
 	}
-	$("#Modal-Add").toggle(300);
-	function Modal_ok() {
+	function Modal_show() {
 		$("#Modal-Add").toggle(300);
+
+		$(document.body).css({
+			"overflow-x" : "hidden",
+			"overflow-y" : "hidden"
+		});
+	}
+	function Modal_ok() {
+		console.log('ok')
+		if (!vm.evidence) {
+			spop({
+				template : '请上传支付凭证',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+			return;
+		}
+		certificate()
+
 	};
 
 	function Modal_cancel() {
 		$("#Modal-Add").toggle(300);
+		$(document.body).css({
+			"overflow-x" : "auto",
+			"overflow-y" : "auto"
+		});
 	};
 	function request() {
 		$
@@ -443,12 +471,9 @@
 									//ov = '未付款';//  未入金    試合準備中    終了済み    取消済み
 									ov = '<p style="color: #ff9900;">未入金</p>'
 											+ '<div style="margin-left: 10px;">'
-											+ '<label for="filehei">'
 											+ '<p class="ivu-btn"'
-										+'style="background: #2974B6FF; color: white;">お支払い</p> <input '
-											+ 'type="file" id="filehei" style="display: none;"'
-											+ 'onchange="UploadImage(this.files[0])" />'
-											+ '</label>' + '</div>';
+											+ 'style="background: #2974B6FF; color: white;" onclick="Modal_show()">お支払い</p>'
+											+ '</div>';
 								} else if (data.result.enroll.enrollType === 2) {
 									ov = '待审核'
 								} else if (data.result.enroll.enrollType === 3) {
@@ -488,6 +513,10 @@
 							vm.phone = data.result.enroll.phone
 							vm.birthday = data.result.enroll.birthday;
 							vm.email = data.result.enroll.email
+							vm.account = data.result.config.account
+							vm.bankName = data.result.config.bankName
+							vm.bank = data.result.config.bank
+							vm.society = data.result.config.society
 						} else if (data.code === 0) {
 							window.location.href = "PC-login.jsp";
 						} else {
@@ -532,6 +561,11 @@
 						autoclose : 5000
 					});
 					request();
+					$("#Modal-Add").toggle(300);
+					$(document.body).css({
+						"overflow-x" : "auto",
+						"overflow-y" : "auto"
+					});
 				} else if (data.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {
@@ -568,8 +602,8 @@
 			success : function(data) {
 				if (data.code === 200) {
 					vm.evidence = data.result
-					certificate();
-					//$("#headPortrait").attr('src', data.result)
+					$(".label-2").css('background', 'url('+data.result+')');
+					$(".label-2").css('background-size', '100% 100%');
 				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {

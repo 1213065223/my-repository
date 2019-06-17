@@ -1,4 +1,7 @@
 $(function() {
+	$(".exit").click(function () {
+		window.location.href = "System_login.jsp";
+	});
 	$("#menuBar > dl > dd").hide();
 	let dl = $("#menuBar> dl > dt[active-name='display']");
 	dl.nextUntil("#menuBar > dl >dt").slideDown(300);

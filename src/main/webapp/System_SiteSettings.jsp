@@ -30,7 +30,15 @@
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
-			<div class="layout-header"></div>
+			<div class="layout-header flex-between">
+				<div></div>
+				<div style="margin-right: 20px;">
+					<p class="p-hover exit row-div" style="height:auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+						<span>退出</span>
+					</p>
+				</div>
+			</div>
 			<!-- style="padding: 0px 16px 16px;" -->
 			<div class="layout-content" style="padding: 0px 16px 16px;">
 				<div class="ivu-breadcrumb" style="padding: 16px 16px;">

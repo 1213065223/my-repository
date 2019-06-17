@@ -18,9 +18,6 @@
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<script type="text/javascript">
-	
-</script>
 <body>
 	<div id="mvvm">
 		<div class="home-div-1 column-div">
@@ -418,6 +415,9 @@
 		data : {
 			login_name : '请登录',
 			swiper3 : null,
+			banner : [],
+			council : [],
+			sponsor : []
 		}
 	});
 	window.addEventListener('resize', function() {
@@ -428,7 +428,19 @@
 			console.log(vm.swiper3.slidesPerView = 2) */
 		}
 	});
+	function image_url(index, state) {
+		let str = state === 1 ? 'banner' : state === 2 ? 'council' : 'sponsor';
+		let entity = vm[str][index];
+		if (entity.jumpType == 0) {
+			window.open(entity.hrefUrl);
+			// window.location.href = entity.hrefUrl
+		} else {
+			window.open("PC-image-introduce.jsp?id="+entity.id)
+			
+			// console.log(entity.hrefUrl, entity.jumpType)
+		}
 
+	}
 	function href_url(value) {
 		window.location.href = 'PC-' + value + '.jsp';
 	}
@@ -453,29 +465,40 @@
 					async : false,
 					success : function(res) {
 						if (res.code === 200) {
+							console.log(res, 'Request')
 							Entity = res.result
 							let banner = ''
+							vm.banner = Entity.banner;
 							Entity.banner.forEach(function(item, index) {
+
 								banner += '<div class="swiper-slide">'
-										+ '<img src="'+item.imageUrl+'" />'
-										+ '</div>'
+										+ '<img src="' + item.imageUrl
+										+ '" onclick="image_url(' + index
+										+ ',1)"/>' + '</div>';
 							})
 							$('#banner').html(banner)
 							AddSwiper('banner');
 							let council = ''
+							vm.council = Entity.council;
 							Entity.council.forEach(function(item, index) {
 								council += '<div class="swiper-slide">'
-										+ '<img src="'+item.imageUrl+'" />'
-										+ '</div>'
+										+ '<img src="' + item.imageUrl
+										+ '" onclick="image_url(' + index
+										+ ',2)"/>' + '</div>'
 							})
 							$('#council').html(council);
 							AddSwiper('council');
+							vm.sponsor = Entity.sponsor;
 							let sponsor = ''
 							Entity.sponsor
 									.forEach(function(item, index) {
 										sponsor += '<div class="swiper-slide column-div">'
 												+ '<div class="swiper-4-div">'
-												+ '<img src="'+item.imageUrl+'" style="width:175px;height:62px;">'
+												+ '<img src="'
+												+ item.imageUrl
+												+ '" style="width:175px;height:62px;" onclick="image_url('
+												+ index
+												+ ',3)">'
 												+ '</div></div>'
 									})
 							$('#sponsor').html(sponsor);
@@ -510,6 +533,7 @@
 			async : false,
 			success : function(res) {
 				if (res.code === 200) {
+					console.log(res, '排名')
 					let match = ''
 					res.result.forEach(function(item, index) {
 						match += '<li class="flex-around">' + '<p>'
@@ -551,6 +575,7 @@
 					async : false,
 					success : function(res) {
 						if (res.code === 200) {
+							console.log(res, '回顾')
 							let review = ''
 							let arr = res.result.list
 							arr
@@ -693,6 +718,7 @@
 					dataType : "json",
 					success : function(data) {
 						if (data.code === 200) {
+							console.log(data, '新闻')
 							let arr = data.result.list;
 							let news_A = '<img src="'+arr[0].titleImage+'" />'
 									+ '<p>'
