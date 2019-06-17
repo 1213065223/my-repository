@@ -123,5 +123,10 @@ public class IndexServiceImpl implements IndexService {
 		PageInfo<Index> res = new PageInfo<>(selectByExample);
 		return res;
 	}
+
+	@Override
+	public Index getIndexDetail(Integer iid) {
+		return indexMapper.selectByPrimaryKey(iid);
+	}
 	
 }
