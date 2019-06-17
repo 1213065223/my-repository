@@ -20,7 +20,8 @@ public class NewsServiceImpl implements NewsService {
 	
 	@Autowired
 	private NewsMapper newsMapper;
-
+	
+	//添加赛事新闻
 	@Override
 	public JobResponse addMatchNews(News news) {
 		
@@ -33,12 +34,14 @@ public class NewsServiceImpl implements NewsService {
 		news.setCreateTime(null);
 		return JobResponse.successResponse(newsMapper.updateByPrimaryKeySelective(news));
 	}
-
+	
+	//删除赛事新闻
 	@Override
 	public JobResponse deleteNews(News news) {
 		return JobResponse.successResponse(newsMapper.deleteByPrimaryKey(news.getId()));
 	}
-
+	
+	//赛事新闻列表
 	@Override
 	public PageInfo<News> newsList(Integer page, Integer size, String title) {
 		PageHelper.startPage(page, size, "create_time desc");
@@ -52,11 +55,13 @@ public class NewsServiceImpl implements NewsService {
 		return res;
 	}
 
+	//赛事详情
 	@Override
 	public News newsDetail(Integer nid) {
 		return newsMapper.selectByPrimaryKey(nid);
 	}
-
+	
+	//赛事详情  包括上一条、下一条记录
 	@Override
 	public Map<String, News> newsDetailPreviousAndNext(Integer nid) {
 		

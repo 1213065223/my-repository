@@ -48,6 +48,7 @@ public class MatchServiceImpl  implements MatchService{
 
 	@Autowired
 	private PropertyUtil propertyUtil;
+	//比赛列表
 	@Override
 	public PageInfo<MatchWithBLOBs> matchList(int page, int size, String match_name, String time_quantum) {
 		
@@ -65,7 +66,7 @@ public class MatchServiceImpl  implements MatchService{
 		PageInfo<MatchWithBLOBs> res = new PageInfo<>(selectByExampleWithBLOBs);
 		return res;
 	}
-
+	//选手报名
 	@Override
 	@Transactional
 	public JobResponse AddEnroll(Enroll enroll) {
@@ -166,12 +167,13 @@ public class MatchServiceImpl  implements MatchService{
 		return JobResponse.successResponse(enroll);
 	}
 
-
+	//我报名的比赛列表
 	@Override
 	public List<Map<String, Object>> myEnrollList(Enroll enroll) {
 		return enrollMapper.selectEnrollInfo(enroll);
 	}
-
+	
+	//我报名的比赛列表 分页
 	@Override
 	public PageInfo<Map<String, Object>> myEnrollList(Enroll enroll, Integer page, Integer size) {
 		
@@ -182,12 +184,14 @@ public class MatchServiceImpl  implements MatchService{
 		PageInfo<Map<String, Object>> res =  new PageInfo<>(selectEnrollInfo);
 		return res;
 	}
-
+	
+	//获取比赛详情
 	@Override
 	public Match matchDetail(String mid) {
 		return matchMapper.selectByPrimaryKey(mid);
 	}
 
+	//获取本场比赛
 	@Override
 	public MatchWithBLOBs matchCurrent() {
 		MatchWithBLOBs record = new MatchWithBLOBs();
@@ -196,7 +200,7 @@ public class MatchServiceImpl  implements MatchService{
 		MatchWithBLOBs currentMatch = matchMapper.getCurrentMatch(record);
 		return currentMatch;
 	}
-
+	//获取所有的比赛
 	@Override
 	public List<Match> selectAllMatch() {
 		MatchExample example= new MatchExample();
@@ -204,7 +208,8 @@ public class MatchServiceImpl  implements MatchService{
 		
 		return matchMapper.selectByExample(example);
 	}
-
+	
+	//获取比赛下报名成员
 	@Override
 	public List<Enroll> selectMembers(String matchId) {
 		EnrollExample example= new EnrollExample();
@@ -212,7 +217,8 @@ public class MatchServiceImpl  implements MatchService{
 		
 		return enrollMapper.selectByExample(example);
 	}
-
+	
+	//管理员查看比赛列表
 	@Override
 	public PageInfo<Map<String, Object>> allEnrollList(Enroll enroll, Integer page, Integer size) {
 		PageHelper.startPage(page, size, "create_time desc");

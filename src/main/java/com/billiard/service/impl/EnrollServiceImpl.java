@@ -34,6 +34,8 @@ public class EnrollServiceImpl implements EnrollService {
 	@Autowired
 	private PropertyUtil propertyUtil;
 	
+	
+	//报名审核
 	@Override
 	public Integer enrollVerify(Enroll enroll) {
 		
@@ -60,7 +62,7 @@ public class EnrollServiceImpl implements EnrollService {
 		return updateByPrimaryKeySelective;
 	}
 
-
+	//取消报名
 	@Override
 	public JobResponse cancelEnroll(String mid, String uid) {
 		EnrollExample example= new EnrollExample();
@@ -78,7 +80,7 @@ public class EnrollServiceImpl implements EnrollService {
 		return  JobResponse.errorResponse(100024, "改报名已不能取消！");
 	}
 
-
+	//提交支付凭证
 	@Override
 	public JobResponse certificateSubmit(Enroll enroll) {
 		
@@ -102,7 +104,7 @@ public class EnrollServiceImpl implements EnrollService {
 		return JobResponse.successResponse(enrollMapper.updateByPrimaryKeySelective(enrollSelect));
 	}
 
-
+	//获取报名详情
 	@Override
 	public Enroll getEnroll(String matchId, String id) {
 		EnrollExample example= new EnrollExample();

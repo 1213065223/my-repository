@@ -23,4 +23,6 @@ public interface IndexService {
 
 	PageInfo<Index> list(Integer type, Integer page, Integer size);
 
+	Index getIndexDetail(Integer iid);
+
 }

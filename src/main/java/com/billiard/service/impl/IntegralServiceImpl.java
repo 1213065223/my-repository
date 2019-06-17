@@ -38,6 +38,7 @@ public class IntegralServiceImpl implements IntegralService {
 	@Autowired
 	private WeekMapper weekMapper;
 	
+	//管理员录入战绩和积分
 	@Override
 	public JobResponse addIntegral(Integral integral) {
 		
@@ -68,11 +69,12 @@ public class IntegralServiceImpl implements IntegralService {
 		return JobResponse.successResponse(integralMapper.insertSelective(integral));
 	}
 
+	//删除战绩与积分
 	@Override
 	public JobResponse deleteIntegral(Integral integral) {
 		return JobResponse.successResponse(integralMapper.deleteByPrimaryKey(integral.getId()));
 	}
-
+	//积分列表
 	@Override
 	public PageInfo<Integral> listIntegral(Integer page, Integer size, String name, String match_name) {
 		
@@ -90,6 +92,7 @@ public class IntegralServiceImpl implements IntegralService {
 		return res;
 	}
 
+	//积分排行榜
 	@Override
 	public List<Map<String, Object>> rankIntegral() {
 		Integral  record = new Integral();
@@ -104,7 +107,7 @@ public class IntegralServiceImpl implements IntegralService {
 		
 		return integralMapper.selectIntegralRank(record);
 	}
-
+	//场次排行榜
 	@Override
 	public List<Map<String, Object>> rankWins() {
 		Integral  record = new Integral();
@@ -120,16 +123,17 @@ public class IntegralServiceImpl implements IntegralService {
 		return integralMapper.selectWinsRank(record);
 	}
 
+	//获取用户战绩积分
 	@Override
 	public Map<String, Object> getUserIntegral(String id) {
 		return integralMapper.getUserIntegral(id);
 	}
-
+	//获取用户所有战绩积分
 	@Override
 	public List<Map<String, Object>> getUserIntegralList(String id) {
 		return integralMapper.getUserIntegralList(id);
 	}
-
+	//获取用户战绩积分
 	@Override
 	public Integral getIntegral(String matchId, String userId) {
 	

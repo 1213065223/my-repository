@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.billiard.entity.Config;
 import com.billiard.entity.Enroll;
 import com.billiard.entity.Integral;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
 import com.billiard.entity.User;
 import com.billiard.redis.RedisCache;
+import com.billiard.service.ConfigService;
 import com.billiard.service.EnrollService;
 import com.billiard.service.IntegralService;
 import com.billiard.service.MatchService;
@@ -60,6 +62,9 @@ public class UserController {
 
 	@Autowired
 	private PropertyUtil propertyUtil;
+	
+	@Autowired
+	private ConfigService configService;
 	
 	//修改用户信息
 	@ResponseBody
@@ -206,11 +211,15 @@ public class UserController {
 		
 		Enroll e =  enrollService.getEnroll(matchId, u.getId());
 		
+		Config config = configService.getConfig();
+		
 		res.put("integral", integral);
 		
 		res.put("match", matchDetail);
 		
 		res.put("enroll", e);
+		
+		res.put("config", config);
 		
 		return JobResponse.successResponse(res);
 	}
