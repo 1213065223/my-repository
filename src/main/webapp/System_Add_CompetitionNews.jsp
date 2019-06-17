@@ -69,7 +69,7 @@
 					<!-- 标题图片 新闻标题 比赛名称 比赛地点 新闻简介 文本详情 -->
 					<div style="width: 100%;" class="column-center">
 						<form class="form-model column-start" label-width="100"
-							id="form-model" style="width: 50%;">
+							id="form-model" style="width: 100%;">
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>标题图片</span>
@@ -118,7 +118,7 @@
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>新闻简介</span>
 								</p>
-								<div class="form-input-parent">
+								<div class="form-input-parent" >
 									<!-- <input type="text" class="ivu-input ivu-input-default"
 										id="profile" autocomplete="off" spellcheck="false"
 										v-model="profile" /> -->
@@ -133,14 +133,14 @@
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>文本详情</span>
 								</p>
-								<div class="form-input-parent">
+								<div class="form-input-parent" style="width: 50%;">
 									<textarea class="content"
 										style="width: 100%; height: 200px; visibility: hidden;"></textarea>
 									<span class="form-message" id="content"></span>
 								</div>
 
 							</div>
-							<div class="flex-start" style="width: 100%;">
+							<div class="flex-start" style="width: 50%;">
 								<div class="row-div" style="width: 100%;">
 									<button type="button" class="ivu-btn"
 										style="margin-right: 20px;" onclick="cancel()">取消</button>

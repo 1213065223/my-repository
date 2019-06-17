@@ -9,6 +9,8 @@
 <title>赛事详情</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"
 	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/public.css" />
 <link rel="stylesheet" type="text/css" href="css/login.css" />
 <link rel="stylesheet" type="text/css" href="css/MemberCenter.css" />
@@ -115,13 +117,13 @@
 									<div class="row-div table-td-div">申込時間：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">{{createTime}}</div>
+									<div class="flex-between table-td-div">{{createTime}}</div>
 								</td>
 								<td>
 									<div class="row-div table-td-div">開催場所：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">东京</div>
+									<div class="flex-between table-td-div">{{matchPlace}}</div>
 								</td>
 							</tr>
 							<tr>
@@ -129,13 +131,13 @@
 									<div class="row-div table-td-div">入金時間：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">{{paymentTime}}</div>
+									<div class="flex-between table-td-div">{{paymentTime}}</div>
 								</td>
 								<td>
 									<div class="row-div table-td-div">順位：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">{{ranking}}</div>
+									<div class="flex-between table-td-div">{{ranking}}</div>
 								</td>
 							</tr>
 							<tr>
@@ -143,27 +145,27 @@
 									<div class="row-div table-td-div">試合開催日時：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">{{matchTime}}</div>
+									<div class="flex-between table-td-div">{{matchTime}}</div>
 								</td>
 								<td>
 									<div class="row-div table-td-div">ポイント：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">{{integral}}</div>
+									<div class="flex-between table-td-div">{{integral}}</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<div class="row-div table-td-div">参加費： </div>
+									<div class="row-div table-td-div">参加費：</div>
 								</td>
 								<td>
-									<div class="row-div table-td-div">{{enrollCost}}</div>
+									<div class="flex-between table-td-div">{{enrollCost}}</div>
 								</td>
 								<td>
 									<div class="row-div table-td-div">試合状況：</div>
 								</td>
 								<td style="width: 200px;">
-									<div id="isEnd" class="row-div table-td-div">
+									<div id="isEnd" class="flex-between table-td-div">
 										<!-- <p>未支付</p>
 										<div style="margin-left: 10px;">
 											<label for="filehei">
@@ -182,8 +184,145 @@
 			</div>
 		</div>
 
+
+
+		<div class="v-transfer-dom" id="Modal-Add" style="display: none;">
+			<div class="ivu-modal-mask" style="z-index: 1002;"></div>
+			<div class="ivu-modal-wrap" style="z-index: 1002;">
+				<div class="ivu-modal" style="width: 520px;">
+					<div class="ivu-modal-content">
+						<a class="ivu-modal-close" onclick="Modal_cancel()"><i
+							class="ivu-icon ivu-icon-ios-close"></i></a>
+						<div class="ivu-modal-header" style="border: none;">
+							<div class="ivu-modal-header-inner" style="text-align: center;">試合申し込み</div>
+						</div>
+						<div class="ivu-modal-body">
+							<div style="width: 100%;" class="column-center">
+								<form class="form-model column-start" label-width="200"
+									id="form-model">
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>大会名：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>{{matchName}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>会員の氏名：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>{{name}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>性 别：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>{{sex}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>生年月日：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>{{birthday}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>電話番号：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>{{phone}}</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>メールアドレス：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>{{email}}</p>
+										</div>
+									</div>
+									<div
+										style="width: 98%; height: 30px; border-bottom: 1px solid #E5E5E5FF; margin-bottom: 30px;"></div>
+									<div class="form-model-div flex-start"
+										style="align-items: flex-start; margin-top: 10px; margin-bottom: 10px;">
+										<p class="flex-end form-p">
+											<span>プロフィール画像：</span>
+										</p>
+										<div class="form-input-parent">
+											<label for="headImage" class="label-2 p-hover"> <input
+												type="file" id="headImage" style="display: none;"
+												onchange="UploadImage(this.files[0],this,1)" id="headImage" />
+											</label>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>参加費：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>￥200</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>口座番号：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>6225551823951796</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>銀行名：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>招商银行</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>支店名：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>大连招商银行中山支行</p>
+										</div>
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span>会社名：</span>
+										</p>
+										<div class="form-input-parent">
+											<p>大连招商银行中山支行</p>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="ivu-modal-footer" style="text-align: center;">
+							<button type="button" class="ivu-btn ivu-btn-text ivu-btn-large"
+								onclick="Modal_cancel()">取消</button>
+							<button type="button"
+								class="ivu-btn ivu-btn-primary ivu-btn-large"
+								onclick="Modal_ok()">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
 		<div class="home-bottom-div column-div">
-			<div class="flex-around" >
+			<div class="flex-around">
 				<img src="img/home/home-2-2.png" style="width: 150px;" />
 				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 					<ul class="column justify-start align-start">
@@ -229,9 +368,14 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
+			email : '',
+			name : '',
 			login_name : '请登录',
 			id : null,
 			evidence : null,
+			sex : '',
+			phone : '',
+			birthday : '',
 			createTime : '',
 			matchName : '', // 赛事名称
 			enrollCost : '', // 费用
@@ -266,6 +410,20 @@
 	if (vm.id) {
 		request();
 	}
+	let label_width = document.getElementById('form-model').getAttribute(
+			'label-width');
+	let arr = document.getElementsByClassName('form-p')
+	for (let i = 0; i < arr.length; i++) {
+		arr[i].style.width = label_width + 'px';
+	}
+	$("#Modal-Add").toggle(300);
+	function Modal_ok() {
+		$("#Modal-Add").toggle(300);
+	};
+
+	function Modal_cancel() {
+		$("#Modal-Add").toggle(300);
+	};
 	function request() {
 		$
 				.ajax({
@@ -324,6 +482,12 @@
 									: '--'; //付款时间
 							vm.matchID = data.result.match.id;
 							vm.userId = data.result.enroll.userId;
+							vm.name = data.result.enroll.surname
+									+ data.result.enroll.userName;
+							vm.sex = data.result.enroll.sex == 1 ? '男' : '女'
+							vm.phone = data.result.enroll.phone
+							vm.birthday = data.result.enroll.birthday;
+							vm.email = data.result.enroll.email
 						} else if (data.code === 0) {
 							window.location.href = "PC-login.jsp";
 						} else {
@@ -436,7 +600,7 @@
 		$('.my-tab-h>p:nth-child(2)').css('display', 'none')
 		$(this).next().css('display', 'block');
 	})
-	
+
 	$("#menuBar > dl > dd:nth-child(2)").css('background', '#2974B6').css(
 			'color', 'white');
 </script>

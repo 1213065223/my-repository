@@ -46,7 +46,7 @@
 				<div class="ivu-card ivu-card-body" id="ivu-card-div">
 					<div style="width: 100%;" class="column-center">
 						<form class="form-model column-start" label-width="120"
-							id="form-model">
+							id="form-model" style="width: 100%;">
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>网站名称</span>
@@ -186,10 +186,10 @@
 										v-model="weeks" />
 								</div>
 							</div>
-							<div class="form-model-div row-div">
+							<div class="form-model-div row-div" style="width: 38%;">
 								<button type="button"
 									class="ivu-btn ivu-btn-primary ivu-btn-small"
-									style="width: 80%; margin-right: 5px;" onclick="add_model()">保存</button>
+									style="width: 50%; margin-right: 5px;" onclick="add_model()">保存</button>
 							</div>
 						</form>
 					</div>

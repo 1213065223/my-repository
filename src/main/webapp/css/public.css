@@ -255,6 +255,17 @@ p {
 	border-color: #c5c8ce;
 }
 
+.ivu-btn-res>>div>button {
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid #dcdee2;
+	padding: 10px;
+	background: #0F4FA0;
+	color: white;
+	letter-spacing: 10px;
+}
 /** 搴曢儴閫氱敤鏍峰紡**/
 .home-bottom-div {
 	width: 100%;

@@ -315,3 +315,16 @@ input[type="radio"], input[type="checkbox"] {
 	height: 80px;
 	border-radius: 80px;
 }
+
+
+.form-model-div{
+	min-height: 30px;
+}
+
+.label-2 {
+	width: 80px;
+	height: 80px;
+	background: url(../img/uploading.png) no-repeat center;
+	background-size: 50% 50%;
+	border: 1px solid #dcdee2;
+}

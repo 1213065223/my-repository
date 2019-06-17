@@ -183,13 +183,12 @@
 									<div class="ivu-modal-body">
 										<div style="width: 100%;" class="column-center">
 											<form class="form-model column-start" label-width="100"
-												id="form-model">
-												<div class="form-model-div flex-start">
+												id="form-model" style="width: 100%;">
+												<div class="form-model-div flex-start" >
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>添加图片</span>
 													</p>
-													<div class="form-input-parent" style="width: 100px;"
-														id="imageUrl">
+													<div class="form-input-parent" id="imageUrl">
 														<label for="file" class="flex-start">
 															<p class="ivu-btn ivu-btn-primary ivu-btn-large">上传图片</p>
 															<input type="file" id="file" style="display: none;"
@@ -202,7 +201,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>选择位置</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<select class="je-select" v-model="insert.imageLocation"
 															id="imageLocation">
 															<option class="je-select-open" value="1">banner</option>
@@ -216,7 +215,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>连接方式</span>
 													</p>
-													<div class="form-input-parent flex-around">
+													<div class="form-input-parent flex-around" style="width: 100%;">
 														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
 														<label for="radio-1" class="row-div"> <span
 															style="margin-right: 5px">超连接</span> <input type="radio"
@@ -232,7 +231,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>超链接</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<input type="text" class="ivu-input ivu-input-default"
 															id="hrefUrl" autocomplete="off" spellcheck="false" v-model="insert.hrefUrl" />
 															
@@ -244,7 +243,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>富文本</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<form>
 															<textarea name="content" style="width: 100%;"
 																id="richText"></textarea>

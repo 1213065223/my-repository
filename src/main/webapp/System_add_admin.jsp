@@ -245,7 +245,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>用户名</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<input type="text" class="ivu-input ivu-input-default"
 															id="loginName" autocomplete="off" spellcheck="false"
 															v-model="details.loginName" />
@@ -255,7 +255,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>密码</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<input type="password" class="ivu-input ivu-input-default"
 															id="password" autocomplete="off" spellcheck="false"
 															v-model="details.password" value="" />
@@ -265,7 +265,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>昵称</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<input type="text" class="ivu-input ivu-input-default"
 															id="nickname" autocomplete="off" spellcheck="false"
 															v-model="details.nickname" />
@@ -275,7 +275,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>手机号</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<input type="email" class="ivu-input ivu-input-default"
 															id="phone" autocomplete="off" spellcheck="false"
 															v-model="details.phone" />
@@ -285,7 +285,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>选择用户组</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 100%;">
 														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
 														<select name="" class="ivu-input ivu-input-default">
 															<option value="1">管理员</option>
@@ -297,7 +297,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>启用状态</span>
 													</p>
-													<div class="form-input-parent flex-around" id="User-state">
+													<div class="form-input-parent flex-around" id="User-state" style="width: 100%;">
 														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
 														<label for="radio-1" class="row-div"> <span
 															style="margin-right: 5px">启用</span> <input type="radio"

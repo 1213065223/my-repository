@@ -65,7 +65,7 @@
 					<div style="width: 100%;" class="column-center">
 						<h2 class="text-title" id="h4lable">添加协会公告</h2>
 						<form class="form-model column-start" label-width="100"
-							id="form-model" style="width: 50%;">
+							id="form-model" style="width: 100%;">
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>标题</span>
@@ -92,9 +92,9 @@
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>富文本</span>
 								</p>
-								<div class="form-input-parent">
+								<div class="form-input-parent" style="width: 50%;">
 									<textarea class="content"
-										style="width: 98%; height: 200px; visibility: hidden;"></textarea>
+										style="width: 100%; height: 200px; visibility: hidden;"></textarea>
 								</div>
 							</div>
 							<div class="form-model-div flex-start">

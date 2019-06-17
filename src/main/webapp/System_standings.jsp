@@ -173,12 +173,12 @@
 									<div class="ivu-modal-body">
 										<div style="width: 100%;" class="column-center">
 											<form class="form-model column-start" label-width="100"
-												id="form-model">
-												<div class="form-model-div flex-start">
+												id="form-model"  style="width: 100%;">
+												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>赛事</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent"  style="width: 80%;">
 														<!-- <select name="" class="ivu-input ivu-input-default"
 															v-model="details.matchId" id="matchId">
 															<option value="1">管理员</option>
@@ -190,11 +190,11 @@
 														</select>
 													</div>
 												</div>
-												<div class="form-model-div flex-start">
+												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>用户</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent"  style="width: 80%;">
 														<!-- <select name="" class="ivu-input ivu-input-default"
 															v-model="details.userId" id="userId">
 															<option value="1">管理员</option>
@@ -206,41 +206,41 @@
 														</select>
 													</div>
 												</div>
-												<div class="form-model-div flex-start">
+												<div class="form-model-div flex-start"  style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>比赛时间</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent"  style="width: 80%;">
 														<input type="text" class="ivu-input ivu-input-default"
 															id="matchTime" autocomplete="off" spellcheck="false"
 															v-model="details.matchTime" />
 													</div>
 												</div>
-												<div class="form-model-div flex-start">
+												<div class="form-model-div flex-start"  style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>积分</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent"  style="width: 80%;">
 														<input type="number" class="ivu-input ivu-input-default"
 															id="integral" autocomplete="off" spellcheck="false"
 															v-model="details.integral" />
 													</div>
 												</div>
-												<div class="form-model-div flex-start">
+												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>比赛排名</span>
 													</p>
-													<div class="form-input-parent">
+													<div class="form-input-parent" style="width: 80%;">
 														<input type="email" class="ivu-input ivu-input-default"
 															id="ranking" autocomplete="off" spellcheck="false"
 															v-model="details.ranking" />
 													</div>
 												</div>
-												<div class="form-model-div flex-start">
+												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>输赢状态</span>
 													</p>
-													<div class="form-input-parent flex-around">
+													<div class="form-input-parent flex-around" style="width: 80%;">
 														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
 														<label for="radio-1" class="row-div"> <span
 															style="margin-right: 5px">胜</span> <input type="radio"

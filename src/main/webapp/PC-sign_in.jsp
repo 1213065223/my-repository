@@ -26,11 +26,11 @@
 <body>
 	<div id="mvvm">
 		<div class="login-div-1 column-div">
-			<div class="login-div-1-2 flex-between flex-wrap">
-				<p class="div-hover">台球协会官方网站</p>
-				<div class="row-div flex-wrap">
-					<div class="row-div">
-						<p class="div-hover">赛事报名</p>
+			<div class="login-div-1-2">
+				<p class="div-hover">全国ビリヤード協会</p>
+				<div class="row-div">
+					<div class="login-div-1-div-even">
+						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>
 						<div class="CuttingLine-white"></div>
 						<div class="row-div div-hover">
 							<img src="img/home/home-vip.png" />
@@ -43,17 +43,17 @@
 		</div>
 		<div class="login-div-1-3 column-div">
 			<div class="row row-around align-center">
-				<p class="p-hover" onclick="href_url('home')">首页</p>
+				<p class="p-hover" onclick="href_url('home')">ホーム</p>
 				<div class="CuttingLine-black"></div>
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-						协会介绍 <span class="caret"></span>
+						協会について<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="column-div" onclick="href_url('AssociationProfile')">协会介绍</li>
-						<li class="column-div" onclick="href_url('AssociationNotice')">协会公告</li>
+						<li class="column-div" onclick="href_url('AssociationProfile')">協会概要</li>
+						<li class="column-div" onclick="href_url('AssociationNotice')">公告</li>
 					</ul>
 				</div>
 				<div class="CuttingLine-black"></div>
@@ -61,33 +61,72 @@
 					<button class="btn btn-default btn-sm dropdown-toggle"
 						type="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-						赛事中心 <span class="caret"></span>
+						試合<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="column-div" onclick="href_url('TheGame')">本场比赛</li>
-						<li class="column-div" onclick="href_url('ScheduleIntroduce')">赛程介绍</li>
-						<li class="column-div" onclick="href_url('ScheduleReview')">比赛回顾</li>
-						<li class="column-div" onclick="href_url('CompetitionNews')">赛事新闻</li>
+						<li class="column-div" onclick="href_url('TheGame')">試合予定</li>
+						<li class="column-div" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+						<li class="column-div" onclick="href_url('ScheduleReview')">試合回顧</li>
+						<li class="column-div" onclick="href_url('CompetitionNews')">ニュース</li>
 					</ul>
 				</div>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('ranking')">赛手排名</p>
+				<p class="p-hover" onclick="href_url('ranking')">ランキング</p>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('introduce')">中8介绍</p>
+				<p class="p-hover" onclick="href_url('introduce')">チャイニーズ8ボール</p>
 				<div class="CuttingLine-black"></div>
-				<p class="p-hover" onclick="href_url('MemberCenter')">会员中心</p>
+				<p class="p-hover" onclick="href_url('MemberCenter')">会員センター</p>
 			</div>
 		</div>
-		<div class="login-div-2 column-div" style="height: 531px">
-			<div class="login-div-2-1" class="column-div">
-				<h3 style="text-align: center; margin-bottom: 10px;margin-top: 20px;">注册账户</h3>
-				<div class="column-div login-div-2--div-1">
-					<input type="email" placeholder="输入邮箱" id="loginName"
-						autocomplete="off" spellcheck="false" v-model="loginName" />
 
+
+
+		<div class="login-div-2 column-div" style="height: 700px">
+			<div class="login-div-2-1" class="column-div" style="width: 600px">
+				<h3
+					style="text-align: center; margin-bottom: 20px; margin-top: 20px;">新規会員登録</h3>
+				<!-- <div class="column-div login-div-2--div-1">
+					<div class="flex-start">
+						<p style="width: 150px">メールアドレス：</p>
+						<input type="email" placeholder="输入邮箱"
+							class="ivu-input ivu-input-default" id="loginName"
+							autocomplete="off" spellcheck="false" v-model="loginName" />
+					</div>
+					<P>メールアドレスが会員IDとなります</P>
+				</div> -->
+				<div class="form-model-div flex-start" style="">
+					<p class="flex-end form-p" style="width: 130px">
+						<!-- <span class="form-span">*</span>  -->
+						<span>メールアドレス：</span>
+					</p>
+					<div class="form-input-parent" style="width: 60%">
+						<input type="text" placeholder="メールアドレスを入力してください"
+							class="ivu-input ivu-input-default" id="loginName"
+							autocomplete="off" spellcheck="false" v-model="loginName" /> <span
+							class="form-message">メールアドレスが会員IDとなります</span>
+					</div>
 				</div>
-
-				<div class="flex-between surnameAndnickname">
+				<div class="form-model-div flex-start" style="margin-bottom: 15px;">
+					<p class="flex-end form-p" style="width: 130px">
+						<!-- <span class="form-span">*</span>  -->
+						<span>会員の氏名：</span>
+					</p>
+					<div class="flex-between" style="width: 60%">
+						<div class="form-input-parent" style="width: 45%">
+							<input type="text" placeholder="例）ヤマダ"
+								class="ivu-input ivu-input-default" id="surname"
+								autocomplete="off" spellcheck="false" v-model="surname" /> <span
+								class="form-message">カタカナ（セイ）</span>
+						</div>
+						<div class="form-input-parent" style="width: 45%">
+							<input type="text" placeholder="例）ヤマダ"
+								class="ivu-input ivu-input-default" id="nickname"
+								autocomplete="off" spellcheck="false" v-model="nickname" /> <span
+								class="form-message">カタカナ（メイ）</span>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="flex-between surnameAndnickname">
 					<div style="width: 45%">
 						<input type="text" placeholder="姓" autocomplete="off"
 							spellcheck="false" v-model="surname" id="surname" />
@@ -97,10 +136,13 @@
 						<input type="text" placeholder="名" autocomplete="off"
 							spellcheck="false" v-model="nickname" id="nickname" />
 					</div>
-				</div>
-				<div class="flex-between login-div-2--div-1">
-					<p>性别</p>
-					<div class="flex-around" style="width: 80%">
+				</div> -->
+				<div class="form-model-div flex-start">
+					<p class="flex-end form-p" style="width: 130px">
+						<!-- <span class="form-span">*</span>  -->
+						<span>性别：</span>
+					</p>
+					<div class="form-input-parent flex-around" style="width: 60%">
 						<label for="radio-1" class="row-div"> <input type="radio"
 							name="radio-name" id="radio-1" value="1" checked="checked" />
 							<p style="margin-left: 10px">男</p>
@@ -110,24 +152,74 @@
 						</label>
 					</div>
 				</div>
-				<div class="column-div jeinpbox login-div-2--div-1">
-					<input type="text" readonly placeholder="生日" id="birthday"
-						autocomplete="off" spellcheck="false" v-model="birthday"
-						class="jeinput" />
+				<div class="form-model-div flex-start">
+					<p class="flex-end form-p" style="width: 130px">
+						<!-- <span class="form-span">*</span>  -->
+						<span>生年月日：</span>
+					</p>
+					<div class="form-input-parent" style="width: 60%">
+						<input type="text" class="ivu-input ivu-input-default"
+							id="birthday" autocomplete="off" spellcheck="false"
+							v-model="birthday" />
+					</div>
 				</div>
-				<div class="column-div login-div-2--div-1 ">
-					<input type="text" placeholder="电话" autocomplete="off"
-						spellcheck="false" v-model="phone" id="phone" />
+				<div class="form-model-div flex-start" style="margin-bottom: 30px;">
+					<p class="flex-end form-p" style="width: 130px">
+						<!-- <span class="form-span">*</span>  -->
+						<span>電話番号：</span>
+					</p>
+					<div class="form-input-parent" style="width: 60%">
+						<input type="text" class="ivu-input ivu-input-default" id="phone"
+							autocomplete="off" spellcheck="false" v-model="phone" /> <span
+							class="form-message">携帯電話・ご職場など、緊急時に連絡が取れる電話番号をご入力ください</span>
+					</div>
 				</div>
-				<div class="column-div login-div-2--div-1">
-					<button type="button" class="ivu-btn" onclick="Modal_ok()">邮箱验证</button>
+
+				<!-- <div class="form-model-div flex-start">
+					<p class="flex-end form-p" style="width: 130px">
+						<span class="form-span">*</span> <span>電話番号：</span>
+					</p>
+					<div class="form-input-parent ivu-btn-res" style="width: 60%">
+						<p>次に進むことで、株式会社IN会員規約およびプライバシー ポリシーを読み、その内容に同意したものとみなされます。</p>
+					</div>
+				</div> -->
+				<div class="form-model-div flex-start"
+					style="height: auto; margin-top: 20px; align-items: flex-start;">
+					<p class="flex-end form-p" style="width: 130px">
+						<input type="checkbox" name="vehicle" value="Car" />
+					</p>
+					<div class="form-input-parent" style="width: 60%">
+						<p>次に進むことで、株式会社IN会員規約およびプライバシー ポリシーを読み、その内容に同意したものとみなされます。</p>
+					</div>
 				</div>
-				<div class="flex-between login-div-2--div-1">
+				<div class="form-model-div flex-start" style="min-height: auto;">
+					<p class="flex-end form-p" style="width: 130px"></p>
+					<div class="form-input-parent row-div" style="width: 60%">
+						<p>株式会社IN会員規約およびプライバシーポリシー</p>
+					</div>
+				</div>
+				<div class="flex-start login-div-2--div-1 form-model-div"
+					style="width: 100%">
+					<p class="flex-end form-p" style="width: 130px"></p>
+					<button type="button" class="ivu-btn" onclick="Modal_ok()"
+						style="width: 56%">送信</button>
+				</div>
+				<div class="form-model-div flex-start" >
+					<p class="flex-end form-p" style="width: 130px"></p>
+					<div class="form-input-parent flex-between" style="width: 60%">
+						<p>
+							会員の方は<a href="PC-login.jsp">こちら</a>からログインして下さい。
+						</p>
+						<p class="p-hover" onclick="href_url('login')">ログイン</p>
+					</div>
+				</div>
+				<!-- <div class="flex-between login-div-2--div-1">
+
 					<p>
 						已有账号？立即<a href="PC-login.jsp">登录</a>
 					</p>
 					<p></p>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -170,12 +262,12 @@
 
 
 		<div class="home-bottom-div column-div">
-			<div class="flex-around" >
+			<div class="flex-around">
 				<img src="img/home/home-2-2.png" style="width: 150px;" />
 				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
 					<ul class="column justify-start align-start">
 						<li>一般社団法人</li>
-						<li class="p-hover" >全国ビリヤード協会</li>
+						<li class="p-hover">全国ビリヤード協会</li>
 						<li>JAPAN BILLIARD</li>
 						<li>ASSOCIATION</li>
 						<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
@@ -184,7 +276,7 @@
 						<li class="p-hover" onclick="href_url('home')">ホーム</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li class="p-hover" >協会について</li>
+						<li class="p-hover">協会について</li>
 						<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
 						<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
 
@@ -197,7 +289,7 @@
 						<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
 					</ul>
 					<ul class="column justify-start align-start">
-						<li class="p-hover" >ランキング</li>
+						<li class="p-hover">ランキング</li>
 						<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
 						<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
 					</ul>
@@ -278,9 +370,9 @@
 			id : 'birthday'
 		}
 	}
-	for ( let i in RegExpEntity) {
+	/* for ( let i in RegExpEntity) {
 		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
-	}
+	} */
 	function Modal_ok() {
 		vm.sex = $('input[name="radio-name"]:checked').val()
 		let event = {
@@ -294,9 +386,12 @@
 		let boo = true;
 		for ( let i in event) {
 			if (!event[i]) {
-				let str = document.getElementById(i);
-				let spam = str.parentNode.getElementsByTagName("span");
-				RegExpEntity[i].Event.label_error(str)
+				spop({
+					template : RegExpEntity[i].message,
+					group : 'submit-satus',
+					style : 'warning',
+					autoclose : 5000
+				});
 				boo = false;
 			}
 		}

@@ -95,7 +95,7 @@
 				</div>
 
 
-				<div class="column-div login-div-2--div-1">
+				<div class="column-div login-div-2--div-1" style="height: 60px">
 					<button type="button" class="ivu-btn" onclick="Modal_ok()">送信</button>
 				</div>
 				<!-- <div class="flex-between login-div-2--div-1">
@@ -196,7 +196,7 @@
 			title_name : 'パスワード再設定',
 			state : null,
 			code : null,
-			transfer_name : '密码设置成功返回首页',
+			transfer_name : '密码设置成功返回登录页面',
 			login_name : '请登陆',
 			loginName : "",
 			surname : "",
@@ -285,7 +285,7 @@
 					//data : JSON.stringify(event),
 					success : function(data) {
 						if (data.code === 200) {
-							vm.transfer_name = '密码设置成功返回首页'
+							vm.transfer_name = '密码设置成功返回登录页面'
 							vm.transfer_state = 1
 							$("#transfer-dom").show();
 						} else {
