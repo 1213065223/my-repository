@@ -155,7 +155,7 @@ public class RegistController {
 		user.setIsstop(0);
 		 JobResponse verifyUserEamil = userService.verifyUserEamil(user);
 		 if(verifyUserEamil.getCode()==200) {
-			 httpServletRequest.getSession().setAttribute("user", 		user);
+			 httpServletRequest.getSession().setAttribute("user", 		verifyUserEamil.getResult());
 		 }
 		return verifyUserEamil;
 	}

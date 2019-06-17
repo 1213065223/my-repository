@@ -44,4 +44,8 @@ public class LoginController {
 		session.setAttribute("user", findUser);
 		return JobResponse.successResponse(findUser);
 	}
+	
+	
+
+
 }

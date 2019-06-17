@@ -224,7 +224,7 @@ public class UserController {
 		return JobResponse.successResponse(res);
 	}
 	
-		//忘记密码
+		//忘记密码 
 		@ResponseBody
 		@RequestMapping(value="forget/password",method=RequestMethod.POST)
 		public JobResponse forget(@RequestBody Map<String,String> param,HttpServletRequest request) {
@@ -262,5 +262,17 @@ public class UserController {
 			return JobResponse.successResponse();
 		}
 	
+		//退出登录
+		@ResponseBody
+		@RequestMapping(value="logout",method=RequestMethod.GET)
+		public JobResponse logout(HttpServletRequest request) {         
+			HttpSession session = request.getSession();       
+			if (session.getAttribute("user")!=null) {      
+				session.removeAttribute("user");           
+				}  
+			if (session.getAttribute("admin_user")!=null) {      
+				session.removeAttribute("admin_user");           
+				}   
+			return JobResponse.successResponse();    }
 	
 }
