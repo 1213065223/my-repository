@@ -99,6 +99,7 @@ public class UserServiceImpl implements UserService {
 		selectByPrimaryKey.setIsstop(user.getIsstop());
 		selectByPrimaryKey.setPassword(user.getPassword());
 		selectByPrimaryKey.setSalt(user.getSalt());
+		userMapper.updateByPrimaryKeySelective(selectByPrimaryKey);
 		return JobResponse.successResponse(selectByPrimaryKey);
 	}
 }
