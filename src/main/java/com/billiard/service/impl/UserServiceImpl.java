@@ -1,5 +1,6 @@
 package com.billiard.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
 		user.setSalt(MD5Util.getID());
 		user.setPassword(MD5Util.formPassToDBPass(user.getPassword(), user.getSalt()));
 		}
+		user.setCreateTime(new Date());
 		user.setId(MD5Util.getID());
 		
 			return JobResponse.successResponse(userMapper.insertSelective(user));
@@ -97,6 +99,7 @@ public class UserServiceImpl implements UserService {
 		selectByPrimaryKey.setIsstop(user.getIsstop());
 		selectByPrimaryKey.setPassword(user.getPassword());
 		selectByPrimaryKey.setSalt(user.getSalt());
+		userMapper.updateByPrimaryKeySelective(selectByPrimaryKey);
 		return JobResponse.successResponse(selectByPrimaryKey);
 	}
 }
