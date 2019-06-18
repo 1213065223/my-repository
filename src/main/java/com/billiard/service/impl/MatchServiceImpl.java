@@ -118,8 +118,6 @@ public class MatchServiceImpl  implements MatchService{
 			user.setPhone(enroll.getPhone());
 			user.setSex(enroll.getSex());
 			user.setSurname(enroll.getSurname());
-			user.setSalt(MD5Util.getID());
-			user.setPassword(MD5Util.formPassToDBPass(propertyUtil.getInitPassword(), user.getSalt()));
 			EnrollExample enrollExample = new EnrollExample();
 			com.billiard.entity.EnrollExample.Criteria createCriteria2 = enrollExample.createCriteria();
 			createCriteria2.andMatchIdEqualTo(enroll.getMatchId());
