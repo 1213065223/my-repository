@@ -562,7 +562,7 @@
 						style : 'warning',
 						autoclose : 5000
 					});
-				} else if (res.code === 100005) {
+				} else if (data.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {
 					spop({

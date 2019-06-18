@@ -186,7 +186,7 @@
 											</div>
 											<div class="ivu-modal-confirm-body">
 												<div>
-													<p>确定要禁用吗?</p>
+													<p>{{lable_name}}</p>
 												</div>
 											</div>
 											<div class="ivu-modal-confirm-footer">
@@ -230,6 +230,7 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
+			lable_name: '确定要禁用吗?',
 			nickname : '',
 			loginName : '',
 			phone : '',
@@ -381,6 +382,11 @@
 		$("#tbody").html(html);
 	}
 	function Modal_show(index, state) {
+		if (state===0) {
+			vm.lable_name = '确定要启用吗?'
+		} else {
+			vm.lable_name = '确定要禁用吗?'
+		}
 		vm.state = state
 		vm.userID = vm.table[index].id
 		$("#transfer-dom").toggle(300);

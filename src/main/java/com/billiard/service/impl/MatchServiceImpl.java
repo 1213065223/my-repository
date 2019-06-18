@@ -133,7 +133,7 @@ public class MatchServiceImpl  implements MatchService{
 			userInsert.setBirthday(enroll.getBirthday());
 			userInsert.setHeadImage(enroll.getHeadImage());
 			userInsert.setId(MD5Util.getID());
-			userInsert.setIsstop(2);
+			userInsert.setIsstop(0);
 			userInsert.setLoginName(enroll.getEmail());
 			userInsert.setNickname(enroll.getUserName());
 			userInsert.setSurname(enroll.getSurname());
