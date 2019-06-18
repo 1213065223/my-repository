@@ -65,8 +65,8 @@
                enableUpdateByExample="false">
         </table> -->
         
-         <table schema="job" tableName="t_config"
-               domainObjectName="Config" enableCountByExample="true"
+         <table schema="job" tableName="t_dictionary"
+               domainObjectName="Dictionary" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true">
         </table>

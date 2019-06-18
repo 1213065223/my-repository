@@ -133,12 +133,13 @@ public class MatchServiceImpl  implements MatchService{
 			userInsert.setBirthday(enroll.getBirthday());
 			userInsert.setHeadImage(enroll.getHeadImage());
 			userInsert.setId(MD5Util.getID());
-			userInsert.setIsstop(2);
+			userInsert.setIsstop(0);
 			userInsert.setLoginName(enroll.getEmail());
 			userInsert.setNickname(enroll.getUserName());
 			userInsert.setSurname(enroll.getSurname());
 			userInsert.setPhone(enroll.getPhone());
 			userInsert.setSex(enroll.getSex());
+			userInsert.setCreateTime(new Date());
 			enroll.setUserId(userInsert.getId());
 			userInsert.setSalt(MD5Util.getID());
 			userInsert.setPassword(MD5Util.formPassToDBPass(propertyUtil.getInitPassword(), userInsert.getSalt()));
