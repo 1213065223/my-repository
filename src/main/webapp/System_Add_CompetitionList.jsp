@@ -216,7 +216,7 @@
 							<div class="form-model-div">
 								<div class="row-div" style="width: 40%">
 									<button type="button" class="ivu-btn"
-										style="margin-right: 20px;" onclick="cancel()">取消</button>
+										style="margin-right: 20px;" onclick="cancel()">返回</button>
 									<button type="button" class="ivu-btn ivu-btn-primary"
 										onclick="modle_click()">确定</button>
 								</div>
@@ -296,6 +296,7 @@
 		for ( let i in vm._data) {
 			vm._data[i] = ''
 		}
+		window.location.href = "System_CompetitionList.jsp";
 		/* $("#matchName").val('');
 		$("#organization").val('');
 		$("#matchContent").val('');

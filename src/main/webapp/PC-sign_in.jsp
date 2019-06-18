@@ -27,7 +27,7 @@
 	<div id="mvvm">
 		<div class="login-div-1 column-div">
 			<div class="login-div-1-2">
-				<p class="div-hover">全国ビリヤード協会</p>
+				<p class="div-hover" onclick="href_url('home')">全国ビリヤード協会</p>
 				<div class="row-div">
 					<div class="login-div-1-div-even">
 						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>

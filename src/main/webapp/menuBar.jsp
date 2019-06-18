@@ -23,21 +23,21 @@
 		<div class="menuBar" id="menuBar">
 			<dl class="column-div">
 				<dt active-name="System_admin">
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>管理员管理</span>
+					<i class="ivu-icon ivu-icon-md-contact"></i> <span>管理员管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
 				<dd src='System_add_admin'>
 					<span>管理员列表</span>
 				</dd>
 				<dt active-name='AdvertisingSet'>
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>广告管理</span>
+					<i class="ivu-icon ivu-icon-md-images"></i> <span>广告管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
 				<dd src='System_AdvertisingSet'>
 					<span>广告设置</span>
 				</dd>
 				<dt active-name="AssociationProfile">
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>协会管理</span>
+					<i class="ivu-icon ivu-icon-ios-people"></i> <span>协会管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
 				<dd src='System_AssociationProfile'>
@@ -50,7 +50,7 @@
 					<span>添加协会公告</span>
 				</dd>
 				<dt active-name="CompetitionList">
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>赛事管理</span>
+					<i class="ivu-icon ivu-icon-ios-ribbon"></i> <span>赛事管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
 				<dd src='System_CompetitionList'>
@@ -66,7 +66,7 @@
 					<span>赛事回顾</span>
 				</dd>
 				<dt active-name="With-integral">
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>排名管理</span>
+					<i class="ivu-icon ivu-icon-md-trophy"></i> <span>排名管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
 				<dd src='System_standings'>
@@ -83,7 +83,7 @@
 					<span>会员列表</span>
 				</dd>
 				<dt active-name="SiteSettings">
-					<i class="ivu-icon ivu-icon-ios-contact-outline"></i> <span>系统管理</span>
+					<i class="ivu-icon ivu-icon-ios-settings"></i> <span>系统管理</span>
 					<i class="ivu-icon ivu-icon-ios-arrow-up"></i>
 				</dt>
 				<dd src='System_eight_introduce'>

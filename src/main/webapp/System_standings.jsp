@@ -36,16 +36,16 @@
 <body>
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
 				<div style="margin-right: 20px;">
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -55,8 +55,8 @@
 				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
 					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
 						class="ivu-breadcrumb-item-separator">/</span>
-					</span> <span> <span class="ivu-breadcrumb-item-link">排名管理</span>
-						<span class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">排名管理</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
 					</span> <span> <span class="ivu-breadcrumb-item-link">战绩排名管理</span>
 						<span class="ivu-breadcrumb-item-separator">/</span>
 					</span>
@@ -181,12 +181,12 @@
 									<div class="ivu-modal-body">
 										<div style="width: 100%;" class="column-center">
 											<form class="form-model column-start" label-width="100"
-												id="form-model"  style="width: 100%;">
+												id="form-model" style="width: 100%;">
 												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>赛事</span>
 													</p>
-													<div class="form-input-parent"  style="width: 80%;">
+													<div class="form-input-parent" style="width: 80%;">
 														<!-- <select name="" class="ivu-input ivu-input-default"
 															v-model="details.matchId" id="matchId">
 															<option value="1">管理员</option>
@@ -202,7 +202,7 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>用户</span>
 													</p>
-													<div class="form-input-parent"  style="width: 80%;">
+													<div class="form-input-parent" style="width: 80%;">
 														<!-- <select name="" class="ivu-input ivu-input-default"
 															v-model="details.userId" id="userId">
 															<option value="1">管理员</option>
@@ -214,21 +214,21 @@
 														</select>
 													</div>
 												</div>
-												<div class="form-model-div flex-start"  style="width: 100%;">
+												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>比赛时间</span>
 													</p>
-													<div class="form-input-parent"  style="width: 80%;">
+													<div class="form-input-parent" style="width: 80%;">
 														<input type="text" class="ivu-input ivu-input-default"
 															id="matchTime" autocomplete="off" spellcheck="false"
 															v-model="details.matchTime" />
 													</div>
 												</div>
-												<div class="form-model-div flex-start"  style="width: 100%;">
+												<div class="form-model-div flex-start" style="width: 100%;">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>积分</span>
 													</p>
-													<div class="form-input-parent"  style="width: 80%;">
+													<div class="form-input-parent" style="width: 80%;">
 														<input type="number" class="ivu-input ivu-input-default"
 															id="integral" autocomplete="off" spellcheck="false"
 															v-model="details.integral" />
@@ -248,7 +248,8 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>输赢状态</span>
 													</p>
-													<div class="form-input-parent flex-around" style="width: 80%;">
+													<div class="form-input-parent flex-around"
+														style="width: 80%;">
 														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
 														<label for="radio-1" class="row-div"> <span
 															style="margin-right: 5px">胜</span> <input type="radio"
@@ -329,7 +330,7 @@
 			details : {
 				ranking : "", //比赛名次
 				matchTime : "",//比赛时间
-				integral : null, // 积分
+				integral : '', // 积分
 				matchId : "", // 赛事ID
 				userId : "", // 用户ID
 				winning : null
@@ -496,10 +497,7 @@
 	}
 
 	for ( let i in RegExpEntity) {
-		if (i !== 'winning') {
-			RegExpEntity[i].Event = new formRegExp(RegExpEntity[i],
-					'form-model');
-		}
+		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
 	}
 	let label_width = document.getElementById('form-model').getAttribute(
 			'label-width');
@@ -513,6 +511,7 @@
 	};
 	function Modal_ok() {
 		let entity = vm.details;
+		console.log(entity);
 		entity.winning = $('input[name="radio-name"]:checked').val()
 		let boo = true;
 		for ( let i in entity) {
@@ -523,7 +522,7 @@
 		}
 		if (boo) {
 			insertRequesr()
-		} 
+		}
 	};
 	function Modal_cancel() {
 		$("#Modal-Add").toggle(300);
@@ -556,9 +555,16 @@
 						style : 'success',
 						autoclose : 5000
 					});
+				} else if (data.code === 100021) {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
 				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
-				}else {
+				} else {
 					spop({
 						template : data.message,
 						group : 'submit-satus',

@@ -30,7 +30,7 @@
 	<div id="mvvm">
 		<div class="login-div-1 column-div">
 			<div class="login-div-1-2">
-				<p class="div-hover">全国ビリヤード協会</p>
+				<p class="div-hover" onclick="href_url('home')">全国ビリヤード協会</p>
 				<div class="row-div">
 					<div class="login-div-1-div-even">
 						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>
@@ -161,7 +161,7 @@
 										<div class="form-input-parent" style="width: 130px">
 											<input type="text" class="ivu-input ivu-input-default"
 												id="surname" autocomplete="off" spellcheck="false"
-												placeholder="例）ヤマダ" v-model="Entity.surname" />
+												placeholder="例）ヤマダ" v-model="Entity.surname" maxlength="5"/>
 										</div>
 										<div class="row-div" style="width: 130px; margin-left: 10px;">
 											<!-- <p class="flex-end form-p">
@@ -170,7 +170,7 @@
 											<div class="form-input-parent">
 												<input type="text" class="ivu-input ivu-input-default"
 													id="userName" autocomplete="off" spellcheck="false"
-													placeholder="例）タロウ" v-model="Entity.userName" />
+													placeholder="例）タロウ" v-model="Entity.userName" maxlength="5"/>
 											</div>
 										</div>
 										<!-- <div style="width: 70%"></div> -->
@@ -540,7 +540,7 @@
 					<div class="flex-between modle-content-div-2">
 						<p>
 							<!-- 报名后生成账号？立即<a onclick="apply_login()">注册</a> -->
-							<a href="" class="a-href">パスワ－ドをお忘れの方</a>
+							<a href="PC-ForgetPassword.jsp" class="a-href">パスワ－ドをお忘れの方</a>
 						</p>
 						<a onclick="apply_login()" class="a-href">非会員の方はこちら ></a>
 					</div>
@@ -557,46 +557,46 @@
 
 
 		<div class="home-bottom-div column-div">
-			<div class="flex-around" >
-				<img src="img/home/home-2-2.png" style="width: 150px;" />
-				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
-					<ul class="column justify-start align-start">
-						<li>一般社団法人</li>
-						<li>全国ビリヤード協会</li>
-						<li>JAPAN BILLIARD</li>
-						<li>ASSOCIATION</li>
-						<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
-					</ul>
-					<ul class="column justify-start align-start">
-						<li>ホーム</li>
-					</ul>
-					<ul class="column justify-start align-start">
-						<li>協会について</li>
-						<li>協会概要</li>
-						<li>公告</li>
+		<div class="flex-around">
+			<img src="img/home/home-2-2.png" style="width: 150px;" />
+			<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
+				<ul class="column justify-start align-start">
+					<li>一般社団法人</li>
+					<li class="p-hover">全国ビリヤード協会</li>
+					<li>JAPAN BILLIARD</li>
+					<li>ASSOCIATION</li>
+					<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
+				</ul>
+				<ul class="column justify-start align-start">
+					<li class="p-hover" onclick="href_url('home')">ホーム</li>
+				</ul>
+				<ul class="column justify-start align-start">
+					<li class="p-hover">協会について</li>
+					<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
+					<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
 
-					</ul>
-					<ul class="column justify-start align-start">
-						<li>試合</li>
-						<li>試合予定</li>
-						<li>試合日程</li>
-						<li>試合回顧</li>
-						<li>ニュース</li>
-					</ul>
-					<ul class="column justify-start align-start">
-						<li>ランキング</li>
-						<li>得点ランキング</li>
-						<li>ポイントランキング</li>
-					</ul>
-					<ul class="column justify-start align-start">
-						<li>会員センター</li>
-					</ul>
-				</div>
+				</ul>
+				<ul class="column justify-start align-start">
+					<li class="p-hover">試合</li>
+					<li class="p-hover" onclick="href_url('TheGame')">試合予定</li>
+					<li class="p-hover" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+					<li class="p-hover" onclick="href_url('ScheduleReview')">試合回顧</li>
+					<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
+				</ul>
+				<ul class="column justify-start align-start">
+					<li class="p-hover">ランキング</li>
+					<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
+					<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
+				</ul>
+				<ul class="column justify-start align-start">
+					<li class="p-hover" onclick="href_url('MemberCenter')">会員センター</li>
+				</ul>
 			</div>
 		</div>
+	</div>
 
-		<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
-			WanPlus. All rights reserved. | 全国ビリヤード協会</div>
+	<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
+		WanPlus. All rights reserved. | 全国ビリヤード協会</div>
 	</div>
 </body>
 <script type="text/javascript">

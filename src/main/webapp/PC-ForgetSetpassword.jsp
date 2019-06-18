@@ -27,7 +27,7 @@
 	<div>
 		<div class="login-div-1 column-div">
 			<div class="login-div-1-2">
-				<p class="div-hover">全国ビリヤード協会</p>
+				<p class="div-hover" onclick="href_url('home')">全国ビリヤード協会</p>
 				<div class="row-div">
 					<div class="login-div-1-div-even">
 						<p class="div-hover" onclick="href_url('TheGame')">試合申し込み</p>
@@ -82,16 +82,20 @@
 			<div class="login-div-2-1" class="column-div">
 				<h3
 					style="text-align: center; margin-bottom: 20px; margin-top: 20px;">{{title_name}}</h3>
-				<div class="column-div login-div-2--div-1" style="height: 60px">
+				<div class="column-div login-div-2--div-1" style="margin-bottom: 30px;">
 					<input type="password" placeholder="新しいパスワード" id="password1"
 						autocomplete="off" spellcheck="false" v-model="password1" />
-					<p style="width: 100%;" id="password2-p">*6文字～32文字の半角英数字</p>
+					<!-- <p style="width: 100%;" id="password2-p">*6文字～32文字の半角英数字</p> -->
+					<span class="form-message"><span>*</span><span
+						style="color: #333333FF;">6文字～32文字の半角英数字</span></span>
 				</div>
 
-				<div class="column-div login-div-2--div-1" style="height: 60px">
+				<div class="column-div login-div-2--div-1" style="margin-bottom: 30px;">
 					<input type="password" placeholder="新しいパスワード（確認用）" id="password2"
 						autocomplete="off" spellcheck="false" v-model="password2" />
-					<p style="width: 100%;" id="password2-p">*6文字～32文字の半角英数字</p>
+					<!-- <p style="width: 100%;" id="password2-p">*6文字～32文字の半角英数字</p> -->
+					<span class="form-message"><span>*</span><span
+						style="color: #333333FF;">6文字～32文字の半角英数字</span></span>
 				</div>
 
 
@@ -238,7 +242,6 @@
 				style : 'warning',
 				autoclose : 5000
 			});
-			$("#password1-p").css('color', '#ed4014'); // #515a6e
 			boo = false;
 		} else if (!$("#password2").val()) {
 			spop({
@@ -247,7 +250,7 @@
 				style : 'warning',
 				autoclose : 5000
 			});
-			$("#password2-p").css('color', '#ed4014');
+			
 			boo = false;
 		} else if ($("#password2").val() !== $("#password1").val()) {
 			boo = false;
@@ -257,13 +260,11 @@
 				style : 'warning',
 				autoclose : 5000
 			});
-			$("#password2-p").css('color', '#ed4014');
-			$("#password1-p").css('color', '#ed4014');
+			
 		}
-		$("#password2-p").css('color', '#515a6e');
-		$("#password1-p").css('color', '#515a6e');
+		
 		if (boo) {
-			login(event)
+			login()
 		}
 	};
 	function transfer_ok() {
@@ -273,7 +274,7 @@
 			$("#transfer-dom").hide();
 		}
 	}
-	function login(event) {
+	function login() {
 		$
 				.ajax({
 					type : "get",

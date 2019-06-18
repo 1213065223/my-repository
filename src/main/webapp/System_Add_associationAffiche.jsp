@@ -111,7 +111,7 @@
 								</p>
 								<div class="form-input-parent flex-around">
 									<button type="button"
-										class="ivu-btn ivu-btn-text ivu-btn-large" onclick="cancel()">取消</button>
+										class="ivu-btn ivu-btn-text ivu-btn-large" onclick="cancel()">返回</button>
 									<button type="button"
 										class="ivu-btn ivu-btn-primary ivu-btn-large"
 										onclick="Modal_ok()">确定</button>
@@ -163,6 +163,7 @@
 		editor.html('');
 		$("#title").val('');
 		$("#introduce").val('');
+		window.location.href = "System_associationAffiche.jsp";
 	};
 	function UploadImage(file) {
 		let entity = null;

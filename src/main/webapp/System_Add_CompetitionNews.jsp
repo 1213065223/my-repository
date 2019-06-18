@@ -151,7 +151,7 @@
 							<div class="flex-start" style="width: 50%;">
 								<div class="row-div" style="width: 100%;">
 									<button type="button" class="ivu-btn"
-										style="margin-right: 20px;" onclick="cancel()">取消</button>
+										style="margin-right: 20px;" onclick="cancel()">返回</button>
 									<button type="button" class="ivu-btn ivu-btn-primary"
 										onclick="ok_click()">确定</button>
 								</div>
@@ -201,6 +201,7 @@
 		$("#place").val('');
 		$("#profile").val('');
 		Imagesrc = null;
+		window.location.href = "System_Add_CompetitionNews.jsp";
 	};
 	let RegExpEntity = {
 		titleImage : {

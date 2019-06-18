@@ -147,7 +147,7 @@
 							<div class="flex-start" style="width: 50%;">
 								<div class="row-div" style="width: 100%;">
 									<button type="button" class="ivu-btn"
-										style="margin-right: 20px;" onclick="cancel()">取消</button>
+										style="margin-right: 20px;" onclick="cancel()">返回</button>
 									<button type="button" class="ivu-btn ivu-btn-primary"
 										onclick="ok_click()">确定</button>
 								</div>
@@ -199,6 +199,7 @@
 		vm.teamTwoName = '';// 参赛队伍-次
 		vm.coursePlace = '';//比赛地点
 		vm.courseTime = ''; //比赛时间
+		window.location.href = "System_EventReview.jsp";
 	};
 	let RegExpEntity = {
 		title : {

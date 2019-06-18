@@ -292,7 +292,7 @@
 						autoclose : 5000
 					});
 					request();
-					$("#transfer-dom").toggle(300);
+					$("#transfer-dom").hide();
 				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {
