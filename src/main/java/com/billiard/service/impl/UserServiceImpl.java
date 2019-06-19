@@ -102,4 +102,8 @@ public class UserServiceImpl implements UserService {
 		userMapper.updateByPrimaryKeySelective(selectByPrimaryKey);
 		return JobResponse.successResponse(selectByPrimaryKey);
 	}
+	@Override
+	public User getUser(String uId) {
+		return userMapper.selectByPrimaryKey(uId);
+	}
 }

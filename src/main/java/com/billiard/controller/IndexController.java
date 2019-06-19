@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billiard.entity.JobResponse;
+import com.billiard.service.DictionaryService;
 import com.billiard.service.IndexService;
 
 @Controller
@@ -22,6 +23,9 @@ public class IndexController {
 
 	@Autowired
 	private IndexService indexService;
+	
+	@Autowired
+	private DictionaryService dictionaryService;
 
 	//首页banner 理事 等信息
 	@RequestMapping("list")
@@ -69,5 +73,14 @@ public class IndexController {
 		log.info("   at announcement detail! "+aid);
 		return JobResponse.successResponse(indexService.organizationDetail(aid));
 	}
+	
+	//级别 等级  衣服尺码 下拉列表
+	@RequestMapping("dictionary/detail")
+	@ResponseBody
+	public JobResponse dictionary( ) {
+		log.info("   at dictionary detail! ");
+		return JobResponse.successResponse(dictionaryService.getAll());
+	}
+	
 	
 }

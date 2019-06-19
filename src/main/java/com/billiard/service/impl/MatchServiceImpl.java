@@ -118,6 +118,10 @@ public class MatchServiceImpl  implements MatchService{
 			user.setPhone(enroll.getPhone());
 			user.setSex(enroll.getSex());
 			user.setSurname(enroll.getSurname());
+			user.setUserLevel(enroll.getUserLevel());
+			user.setUserGrade(enroll.getUserGrade());
+			user.setUserProfile(enroll.getUserProfile());
+			user.setClothesSize(enroll.getClothesSize());
 			EnrollExample enrollExample = new EnrollExample();
 			com.billiard.entity.EnrollExample.Criteria createCriteria2 = enrollExample.createCriteria();
 			createCriteria2.andMatchIdEqualTo(enroll.getMatchId());
@@ -140,6 +144,10 @@ public class MatchServiceImpl  implements MatchService{
 			userInsert.setPhone(enroll.getPhone());
 			userInsert.setSex(enroll.getSex());
 			userInsert.setCreateTime(new Date());
+			userInsert.setUserLevel(enroll.getUserLevel());
+			userInsert.setUserGrade(enroll.getUserGrade());
+			userInsert.setUserProfile(enroll.getUserProfile());
+			userInsert.setClothesSize(enroll.getClothesSize());
 			enroll.setUserId(userInsert.getId());
 			userInsert.setSalt(MD5Util.getID());
 			userInsert.setPassword(MD5Util.formPassToDBPass(propertyUtil.getInitPassword(), userInsert.getSalt()));
@@ -226,5 +234,10 @@ public class MatchServiceImpl  implements MatchService{
 		
 		PageInfo<Map<String, Object>> res =  new PageInfo<>(selectEnrollInfo);
 		return res;
+	}
+	@Override
+	public Match selectMatch(String matchId) {
+		MatchWithBLOBs selectByPrimaryKey = matchMapper.selectByPrimaryKey(matchId);
+		return selectByPrimaryKey;
 	}
 }

@@ -30,4 +30,6 @@ public interface MatchService {
 
 	PageInfo<Map<String, Object>> allEnrollList(Enroll enroll, Integer page, Integer size);
 
+	Match selectMatch(String matchId);
+
 }

@@ -21,6 +21,10 @@ surname" />
 		<result column="is_hidden" jdbcType="BIT" property="isHidden" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
+		    <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
+    <result column="user_grade" jdbcType="VARCHAR" property="userGrade" />
+    <result column="user_profile" jdbcType="VARCHAR" property="userProfile" />
+    <result column="clothes_size" jdbcType="VARCHAR" property="clothesSize" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -89,7 +93,7 @@ surname" />
 		id,
 		surname, user_name, user_id, sex, birthday, phone, head_image, email,
 		enroll_cost,
-		certificate_image, enroll_type, user_type, match_id, is_hidden, create_time ,payment_time
+		certificate_image, enroll_type, user_type, match_id, is_hidden, create_time ,payment_time,user_level ,user_grade,user_profile,clothes_size 
 	</sql>
 	<select id="selectByExample" parameterType="com.billiard.entity.EnrollExample"
 		resultMap="BaseResultMap">
@@ -194,6 +198,18 @@ surname != null">
 			<if test="createTime != null">
 				create_time,
 			</if>
+			     <if test="userLevel != null">
+        user_level,
+      </if>
+       <if test="userGrade != null">
+        user_grade,
+      </if>
+       <if test="userProfile != null">
+        user_profile,
+      </if>
+       <if test="clothesSize != null">
+        clothes_size,
+      </if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -246,6 +262,18 @@ surname != null">
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
 			</if>
+			  <if test="userLevel != null">
+        #{userLevel},
+      </if>
+        <if test="userGrade != null">
+        #{userGrade},
+      </if>
+        <if test="userProfile != null">
+        #{userProfile},
+      </if>
+        <if test="clothesSize != null">
+        #{clothesSize},
+      </if>
 		</trim>
 	</insert>
 	<select id="countByExample" parameterType="com.billiard.entity.EnrollExample"
