@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css"
 	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
+<link rel="stylesheet" href="jeui/css/jeui.css">
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
@@ -25,6 +26,12 @@
 <script src="js/formRegExp.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/PC-home.js" type="text/javascript" charset="utf-8"></script>
+<script src="jeui/js/modules/jeSelect.js" charset="utf-8"></script>
+<style type="text/css">
+.je-select {
+	min-width: 130px
+}
+</style>
 </head>
 <body>
 	<div id="mvvm">
@@ -242,7 +249,60 @@
 											</label>
 										</div>
 									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span class="form-span">*</span> <span>级别：</span>
+										</p>
+										<div class="form-input-parent" style="width: 130px">
+											<!-- <input type="text" class="ivu-input ivu-input-default" id="userGrade"
+												autocomplete="off" spellcheck="false" placeholder="例）ヤマダ"
+												v-model="" maxlength="5" /> -->
+											<select class="je-select" id="userGrade"
+												v-model="userGrade_value">
+												<!-- <option class="je-select-open" value="1">1</option>
+												<option class="je-select-open" value="2">2</option>
+												<option class="je-select-open" value="3">3</option> -->
+											</select>
 
+										</div>
+										<div class="row-div" style="width: 200px; margin-left: 10px;">
+											<span class="flex-end" style="width: 60px;"> <span>等级：</span>
+											</span>
+											<div class="form-input-parent">
+
+												<select class="je-select" id="userLevel"
+													v-model="userLevel_value">
+													<!-- <option class="je-select-open" value="1">1</option>
+													<option class="je-select-open" value="2">2</option>
+													<option class="je-select-open" value="3">3</option> -->
+												</select>
+											</div>
+										</div>
+										<!-- <div style="width: 70%"></div> -->
+									</div>
+									<div class="form-model-div flex-start">
+										<p class="flex-end form-p">
+											<span class="form-span">*</span> <span>衣服：</span>
+										</p>
+										<div class="form-input-parent" style="width: 75%">
+											<select class="je-select" id="clothesSize"
+												v-model="clothesSize_value">
+												<!-- <option class="je-select-open" value="1">1</option>
+												<option class="je-select-open" value="2">2</option>
+												<option class="je-select-open" value="3">3</option> -->
+											</select>
+										</div>
+									</div>
+									<div class="form-model-div flex-start"
+										style="align-items: flex-start;">
+										<p class="flex-end form-p">
+											<span class="form-span">*</span> <span>自我介绍：</span>
+										</p>
+										<div class="form-input-parent" style="width: 40%">
+											<textarea rows="5" cols="10" style="resize: none"
+												class="ivu-input ivu-input-default" id="userProfile"></textarea>
+										</div>
+									</div>
 									<div class="form-model-div flex-start"
 										style="min-height: 30px;">
 										<p class="flex-end form-p">
@@ -612,6 +672,12 @@
 			login_name : '请登录',
 			paymentID : null,
 			matchId : null,
+			userGrade : [],
+			clothesSize : [],
+			userLevel : [],
+			userGrade_value : '',
+			clothesSize_value : '',
+			userLevel_value : '',
 			Entity : {
 				matchId : '',
 				surname : '',
@@ -631,6 +697,29 @@
 			}
 		}
 	});
+	$.jeSelect("#userLevel", {
+		size : 8, //设置高度(个数)
+		zIndex : 2099, //下拉弹层的层级高度
+		sosList : false
+	});
+	$.jeSelect("#clothesSize", {
+		size : 8, //设置高度(个数)
+		zIndex : 2099, //下拉弹层的层级高度
+		sosList : false
+	});
+	$.jeSelect("#userGrade", {
+		size : 8, //设置高度(个数)
+		zIndex : 2099, //下拉弹层的层级高度
+		itemfun : function(elem, index, val) {
+			console.log(elem, index, val);
+			 if (elem.attr('id') === 'userGrade') {
+				
+				console.log(vm.userGrade[index].id)
+			}
+		}, //点击当前的回调，elem：当前Select的ID index：索引 val：选中的值
+		success : null,
+		sosList : false
+	})
 	function href_url_login() {
 		if (vm.login_name === '请登录') {
 			window.location.href = "PC-login.jsp";
@@ -1035,32 +1124,61 @@
 		});
 	}
 	function detailrequest() {
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/index/dictionary/detail",
-			dataType : "json",
-			success : function(data) {
-				if (data.code === 200) {
-					console.log(data,'detail')
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '查询接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
+		$
+				.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}/index/dictionary/detail",
+					dataType : "json",
+					success : function(data) {
+						if (data.code === 200) {
+							console.log(data.result, 'detail');
+							vm.userGrade = data.result['2']; //级别
+							//vm.userLevel = data.result['1']; //等级
+							vm.clothesSize = data.result['3']; // 衣服 
+							let entity = {
+								userGrade : vm.userGrade,
+								clothesSize : vm.clothesSize
+							}
+							for ( let i in entity) {
+								let html = ''
+								let name = ''
+								let var_id = i + '_value'
+								entity[i]
+										.forEach(function(item, index) {
+											if (index == 0) {//selected
+												html += '<option class="je-select-open" selected value="'+item.dicName+'">'
+														+ item.dicName
+														+ '</option>'
+												name = item.dicName
+											} else {
+												html += '<option class="je-select-open" value="'+item.dicName+'">'
+														+ item.dicName
+														+ '</option>'
+											}
+										})
+								$("#" + i).html(html);
+								$("#" + i).next().text(name);
+								vm._data[var_id] = name
+							}
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '查询接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			}
-		});
 	}
 </script>
 </html>

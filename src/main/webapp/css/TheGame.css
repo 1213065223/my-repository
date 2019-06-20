@@ -213,7 +213,9 @@ input[type="checkbox"] {
 	list-style: none;
 	color: black;
 }
-
+.je-select{
+	min-width:130px
+}
 
 .span-titou{
 	font-size: 14px;
