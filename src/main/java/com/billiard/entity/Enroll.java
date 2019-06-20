@@ -36,6 +36,14 @@ public class Enroll {
     private Date createTime;
     
     private Date paymentTime;
+    
+    private String userLevel;
+    
+    private String userGrade;
+    
+    private String userProfile;
+    
+    private String clothesSize;
 
     public Integer getId() {
         return id;
@@ -179,4 +187,37 @@ surname.trim();
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	public String getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
+	}
+
+	public String getUserGrade() {
+		return userGrade;
+	}
+
+	public void setUserGrade(String userGrade) {
+		this.userGrade = userGrade;
+	}
+
+	public String getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public String getClothesSize() {
+		return clothesSize;
+	}
+
+	public void setClothesSize(String clothesSize) {
+		this.clothesSize = clothesSize;
+	}
+    
 }

@@ -29,6 +29,14 @@ public class User {
     
     private String surname;
     
+    private String userLevel;
+    
+    private String userGrade;
+    
+    private String userProfile;
+    
+    private String clothesSize;
+    
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -44,8 +52,43 @@ public class User {
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
+    
+    
+    
+    
+    public String getUserLevel() {
+		return userLevel;
+	}
 
-    public String getNickname() {
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
+	}
+
+	public String getUserGrade() {
+		return userGrade;
+	}
+
+	public void setUserGrade(String userGrade) {
+		this.userGrade = userGrade;
+	}
+
+	public String getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public String getClothesSize() {
+		return clothesSize;
+	}
+
+	public void setClothesSize(String clothesSize) {
+		this.clothesSize = clothesSize;
+	}
+
+	public String getNickname() {
         return nickname;
     }
 

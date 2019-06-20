@@ -1,14 +1,17 @@
 package com.billiard.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +23,13 @@ import com.billiard.entity.Enroll;
 import com.billiard.entity.JobResponse;
 import com.billiard.entity.Match;
 import com.billiard.entity.MatchWithBLOBs;
+import com.billiard.entity.User;
 import com.billiard.service.ConfigService;
 import com.billiard.service.IntegralService;
 import com.billiard.service.MatchCourseService;
 import com.billiard.service.MatchService;
 import com.billiard.service.NewsService;
+import com.billiard.service.UserService;
 
 @Controller
 @RequestMapping("match")
@@ -46,6 +51,9 @@ public class MatchController {
 	
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private UserService userService;
 	
 	//比赛列表用户端
 	@RequestMapping(value="",method=RequestMethod.GET)
@@ -139,4 +147,35 @@ public class MatchController {
 	}
 	
 	
+	//比赛下的报名成员
+	@RequestMapping(value="/members/{match_id}",method=RequestMethod.GET)
+	@ResponseBody
+	public JobResponse membersMatch(@PathVariable("match_id") String matchId,HttpServletRequest request ) {
+		Match m = matchService.selectMatch(matchId);
+		
+		if(m==null||m.getMatchDel()==1) {
+			return JobResponse.errorResponse(100039, "该比赛不存在！");
+		}
+		
+		if(m.getEnrollTimeEnd()!=null&&m.getEnrollTimeEnd().before(new Date())) {
+			return JobResponse.errorResponse(100040, "比赛报名还未结束，不能观看人员信息！");
+		}
+		return JobResponse.successResponse(matchService.selectMembers(matchId));
+	}
+	
+	//报名成员详情
+		@RequestMapping(value="/members/info/{member_id}",method=RequestMethod.GET)
+		@ResponseBody
+		public JobResponse memberInfo(@PathVariable("member_id") String memberId,HttpServletRequest request ) {
+			
+			User user = userService.getUser(memberId);
+			if(user==null) {
+				return JobResponse.errorResponse(100041, "该用户不存在！");
+			}
+			user.setPassword(null);
+			user.setSalt(null);
+			
+			
+			return JobResponse.successResponse(user);
+		}
 }

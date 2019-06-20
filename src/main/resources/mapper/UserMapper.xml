@@ -15,6 +15,10 @@
     <result column="isStop" jdbcType="BIT" property="isstop" />
     <result column="surname" jdbcType="VARCHAR" property="surname" />
     <result column="create_time" property="createTime" />
+    <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
+    <result column="user_grade" jdbcType="VARCHAR" property="userGrade" />
+    <result column="user_profile" jdbcType="VARCHAR" property="userProfile" />
+    <result column="clothes_size" jdbcType="VARCHAR" property="clothesSize" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List">
     id,surname, `nickname`, login_name, password, salt, phone, birthday, integral, sex, head_image, 
-    isStop
+    isStop ,create_time,user_level ,user_grade,user_profile,clothes_size 
   </sql>
   <select id="selectByExample" parameterType="com.billiard.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -157,6 +161,18 @@
        <if test="surname != null">
         surname,
       </if>
+       <if test="userLevel != null">
+        user_level,
+      </if>
+       <if test="userGrade != null">
+        user_grade,
+      </if>
+       <if test="userProfile != null">
+        user_profile,
+      </if>
+       <if test="clothesSize != null">
+        clothes_size,
+      </if>
        <if test="createTime != null">
         create_time,
       </if>
@@ -197,6 +213,18 @@
       </if>
         <if test="surname != null">
         #{surname},
+      </if>
+        <if test="userLevel != null">
+        #{userLevel},
+      </if>
+        <if test="userGrade != null">
+        #{userGrade},
+      </if>
+        <if test="userProfile != null">
+        #{userProfile},
+      </if>
+        <if test="clothesSize != null">
+        #{clothesSize},
       </if>
        <if test="createTime != null">
        now(),
@@ -303,6 +331,18 @@
        <if test="surname != null">
         surname = #{surname},
       </if>
+       <if test="userLevel != null">
+        user_level = #{userLevel},
+      </if>
+       <if test="userGrade != null">
+        user_grade = #{userGrade},
+      </if>
+       <if test="userProfile != null">
+        user_profile = #{userProfile},
+      </if>
+       <if test="clothesSize != null">
+        clothes_size = #{clothesSize},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -322,7 +362,7 @@
   </update>
   
   <select id="getAllUser" resultType="HashMap" parameterType="com.billiard.entity.User">
-  SELECT t_user.id,t_user.surname,t_user.nickname,t_user.login_name,t_user.phone,t_user.birthday,CASE t_user.sex WHEN 1 THEN '男' ELSE '女' END sex ,t_user.head_image ,t_user.isStop ,t_user.create_time ,IFNULL(b.wins,0)wins,IFNULL(b.lose,0)lose,IFNULL(b.plan,0)plan,IFNULL(b.intg,0)intg from t_user LEFT JOIN (SELECT user_id,SUM(CASE t_integral.winning WHEN 1 THEN 1 ELSE 0 END)wins ,SUM(CASE t_integral.winning WHEN -1 THEN 1 ELSE 0 END)lose,SUM(CASE t_integral.winning WHEN 0 THEN 1 ELSE 0 END)plan , SUM(CASE t_integral.winning WHEN 1 THEN IFNULL(t_integral.integral,0) ELSE 0 END) intg FROM t_integral GROUP BY user_id ) b ON b.user_id =t_user.id  
+  SELECT t_user.id,t_user.surname,t_user.nickname,t_user.login_name,t_user.phone,t_user.birthday,CASE t_user.sex WHEN 1 THEN '男' ELSE '女' END sex ,t_user.head_image ,t_user.isStop ,t_user.create_time,t_user.user_level,t_user.user_grade,t_user.user_profile,t_user.clothes_size ,IFNULL(b.wins,0)wins,IFNULL(b.lose,0)lose,IFNULL(b.plan,0)plan,IFNULL(b.intg,0)intg from t_user LEFT JOIN (SELECT user_id,SUM(CASE t_integral.winning WHEN 1 THEN 1 ELSE 0 END)wins ,SUM(CASE t_integral.winning WHEN -1 THEN 1 ELSE 0 END)lose,SUM(CASE t_integral.winning WHEN 0 THEN 1 ELSE 0 END)plan , SUM(CASE t_integral.winning WHEN 1 THEN IFNULL(t_integral.integral,0) ELSE 0 END) intg FROM t_integral GROUP BY user_id ) b ON b.user_id =t_user.id  
   <where>
   	  <trim  prefixOverrides="and" >
   	  	 <if test="paramStart != null" >
