@@ -49,16 +49,21 @@
 
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
-				<div style="margin-right: 20px;">
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+				<div style="margin-right: 20px;" class="row-div">
+					<p class="p-hover row-div"
+						style="height: auto; margin-right: 20px;">
+						<i class="ivu-icon ivu-icon-ios-contact-outline"
+							style="font-size: 20px"></i> <span>{{user_name}}</span>
+					</p>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -126,9 +131,9 @@
 									<span class="form-span">*</span> <span>比赛时间</span>
 								</p>
 								<div class="form-input-parent jeinpbox">
-									<input type="text" readonly class="ivu-input ivu-input-default jeinput"
-										id="courseTime" autocomplete="off" spellcheck="false"
-										v-model="courseTime" />
+									<input type="text" readonly
+										class="ivu-input ivu-input-default jeinput" id="courseTime"
+										autocomplete="off" spellcheck="false" v-model="courseTime" />
 
 								</div>
 							</div>
@@ -177,6 +182,7 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
+			user_name : "${admin_user.nickname}",
 			id : null,
 			title : '',// 标题 title
 			teamOneName : '',// 参赛队伍-主
@@ -243,7 +249,8 @@
 			teamOneName : vm.teamOneName,// 参赛队伍-主
 			teamTwoName : vm.teamTwoName,// 参赛队伍-次
 			coursePlace : vm.coursePlace,//比赛地点
-			courseTime : vm.courseTime //比赛时间
+			courseTime : vm.courseTime
+		//比赛时间
 		}
 		let boo = true;
 		for ( let i in entity) {
@@ -277,13 +284,19 @@
 		request()
 	}
 	function insertRequest() {
+		let entity = {}
+		for ( let i in vm._data) {
+			if (i !== 'user_name') {
+				entity[i] = vm._data[i]
+			}
+		}
 		$.ajax({
 			type : "POST",
 			async : true,
 			url : "${pageContext.request.contextPath}/admin/match/review",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
-			data : JSON.stringify(vm._data),
+			data : JSON.stringify(entity),
 			success : function(data) {
 				if (data.code === 200) {
 					spop({

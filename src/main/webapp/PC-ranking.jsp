@@ -261,7 +261,7 @@
 												+ '<div>'
 												+ '<img src="'+item.head_image+'" class="table-image">'
 												+ '</div>' + '</td>' + '<td>'
-												+ '<div>' + item.nickname
+												+ '<div>' + item.surname + item.nickname
 												+ '</div>' + '</td>' + '<td>'
 												+ '<div>' + item.s + '</div>'
 												+ '</td>' + '</tr>'
@@ -314,7 +314,7 @@
 												+ '</div></td>'
 												+ '<td><div><img src="'+item.head_image+'" class="table-image"></div></td>'
 												+ '<td><div>'
-												+ item.nickname
+												+ item.surname + item.nickname
 												+ '</div></td>'
 												+ '<td style="width: 60px;"><div>'
 												+ item.win

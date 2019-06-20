@@ -72,7 +72,7 @@
 					<p class="p-hover" onclick="href_url('MemberCenter')">会員センター</p>
 				</div>
 			</div>
-			<div class="home-div-1-4">
+			<div class="home-div-1-4 div-swiper-3">
 				<div class="swiper-container swiper-1">
 					<div class="swiper-wrapper" id="banner">
 						<div class="swiper-slide">
@@ -80,9 +80,11 @@
 						</div>
 					</div>
 					<div class="swiper-pagination swiper-1-pagination"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
+					<!-- <div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div> -->
 				</div>
+				<div class="swiper-button-next swiper1-button-next"></div>
+				<div class="swiper-button-prev swiper1-button-prev"></div>
 			</div>
 		</div>
 
@@ -244,8 +246,8 @@
 					</div>
 
 				</div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next swiper3-button-next"></div>
+				<div class="swiper-button-prev swiper3-button-prev"></div>
 			</div>
 
 		</div>
@@ -361,8 +363,8 @@
 					<div class="swiper-pagination"></div>
 
 				</div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next swiper4-button-next"></div>
+				<div class="swiper-button-prev swiper4-button-prev"></div>
 			</div>
 		</div>
 	</div>
@@ -435,8 +437,8 @@
 			window.open(entity.hrefUrl);
 			// window.location.href = entity.hrefUrl
 		} else {
-			window.open("PC-image-introduce.jsp?id="+entity.id)
-			
+			window.open("PC-image-introduce.jsp?id=" + entity.id)
+
 			// console.log(entity.hrefUrl, entity.jumpType)
 		}
 
@@ -644,8 +646,8 @@
 					clickable : true,
 				},
 				navigation : {
-					nextEl : '.swiper-button-next',
-					prevEl : '.swiper-button-prev',
+					nextEl : '.swiper1-button-next',
+					prevEl : '.swiper1-button-prev',
 				},
 			});
 		} else if (name === 'council') {
@@ -672,8 +674,8 @@
 					clickable : true,
 				},
 				navigation : {
-					nextEl : '.swiper-button-next',
-					prevEl : '.swiper-button-prev',
+					nextEl : '.swiper4-button-next',
+					prevEl : '.swiper4-button-prev',
 				},
 			});
 		} else if (name === 'review') {
@@ -686,8 +688,8 @@
 					clickable : true,
 				},
 				navigation : {
-					nextEl : '.swiper-button-next',
-					prevEl : '.swiper-button-prev',
+					nextEl : '.swiper3-button-next',
+					prevEl : '.swiper3-button-prev',
 				},
 			});
 		}

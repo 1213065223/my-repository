@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>添加赛事新闻</title>
+<title>添加广告</title>
 <link rel="stylesheet" type="text/css"
 	href="iview/dist/styles/iview.css" />
 <link rel="stylesheet" type="text/css" href="css/System_public.css" />
@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/spop.css" />
 <link rel="stylesheet" type="text/css" href="themes/default/default.css" />
 <link rel="stylesheet" type="text/css" href="skin/jedate.css" />
-
+<link rel="stylesheet" href="jeui/css/jeui.css">
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/home.js" type="text/javascript" charset="utf-8"></script>
@@ -24,10 +24,11 @@
 <script charset="utf-8" type="text/javascript" src="lang/zh_CN.js"
 	charset="utf-8"></script>
 <script src="src/jedate.js" type="text/javascript" charset="utf-8"></script>
+<script src="jeui/js/modules/jeSelect.js" charset="utf-8"></script>
 </head>
 <script>
-	$.cookie('active-name', 'CompetitionList');
-	$.cookie('active-src', 'System_CompetitionNews');
+	$.cookie('active-name', 'AdvertisingSet');
+	$.cookie('active-src', 'System_AdvertisingSet');
 	KindEditor.plugin('image', function(K) {
 		var self = this, name = 'image';
 		self.clickToolbar(name, function() {
@@ -47,8 +48,8 @@
 <body>
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
@@ -59,8 +60,8 @@
 						<i class="ivu-icon ivu-icon-ios-contact-outline" style="font-size: 20px"></i>
 						<span>{{user_name}}</span>
 					</p>
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -70,21 +71,20 @@
 				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
 					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
 						class="ivu-breadcrumb-item-separator">/</span>
-					</span> <span> <span class="ivu-breadcrumb-item-link">赛事管理</span> <span
-						class="ivu-breadcrumb-item-separator">/</span>
-					</span> <span> <span class="ivu-breadcrumb-item-link">添加新闻</span> <span
+					</span> <span> <span class="ivu-breadcrumb-item-link">广告管理 </span>
+						<span class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">添加广告</span> <span
 						class="ivu-breadcrumb-item-separator">/</span>
 					</span>
 				</div>
 
 				<div class="ivu-card ivu-card-body" id="ivu-card-div">
-					<!-- 标题图片 新闻标题 比赛名称 比赛地点 新闻简介 文本详情 -->
 					<div style="width: 100%;" class="column-center">
 						<form class="form-model column-start" label-width="100"
 							id="form-model" style="width: 100%;">
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
-									<span class="form-span">*</span> <span>标题图片</span>
+									<span class="form-span">*</span> <span>广告图片</span>
 								</p>
 								<div class="form-input-parent flex-start">
 									<label for="titleImage" class="row-div" style="width: 100px">
@@ -97,51 +97,46 @@
 							</div>
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
-									<span class="form-span">*</span> <span>新闻标题</span>
+									<span class="form-span">*</span> <span>选择位置</span>
 								</p>
-								<div class="form-input-parent">
-									<input type="text" class="ivu-input ivu-input-default"
-										id="title" autocomplete="off" spellcheck="false"
-										v-model="title" />
+								<div class="form-input-parent" style="width: 20%;">
+									<select class="je-select" v-model="insert.imageLocation"
+										id="imageLocation">
+										<option class="je-select-open" value="1" id="select-1">banner</option>
+										<option class="je-select-open" value="2" id="select-2">理事</option>
+										<option class="je-select-open" value="3" id="select-3">赞助商</option>
+										<option class="je-select-open" value="4" id="select-4">赛事冠名广告位</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-model-div flex-start">
 								<p class="flex-end form-p">
-									<span class="form-span">*</span> <span>比赛名称</span>
+									<span class="form-span">*</span> <span>连接方式</span>
 								</p>
-								<div class="form-input-parent">
-									<input type="text" class="ivu-input ivu-input-default"
-										id="matchName" autocomplete="off" spellcheck="false"
-										v-model="matchName" />
+								<div class="form-input-parent flex-around" style="width: 20%;">
+									<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
+									<label for="radio-1" class="row-div"> <span
+										style="margin-right: 5px">超连接</span> <input type="radio"
+										name="radio-name" id="radio-1" value="0" checked="checked" />
+									</label> <label for="radio-2" class="row-div"> <span
+										style="margin-right: 5px">富文本</span> <input type="radio"
+										name="radio-name" id="radio-2" value="1" />
+									</label>
 								</div>
 							</div>
-							<div class="form-model-div flex-start">
+							<div class="form-model-div flex-start" id="hyperlink">
 								<p class="flex-end form-p">
-									<span class="form-span">*</span> <span>比赛地点</span>
+									<span class="form-span">*</span> <span>超链接</span>
 								</p>
-								<div class="form-input-parent">
+								<div class="form-input-parent" style="width: 30%;">
 									<input type="text" class="ivu-input ivu-input-default"
-										id="place" autocomplete="off" spellcheck="false"
-										v-model="place" />
+										id="hrefUrl" autocomplete="off" spellcheck="false"
+										v-model="insert.hrefUrl" />
+
 								</div>
 							</div>
-							<div class="form-model-div flex-start"
-								style="height: auto; margin-top: 10px; align-items: flex-start;">
-								<p class="flex-end form-p">
-									<span class="form-span">*</span> <span>新闻简介</span>
-								</p>
-								<div class="form-input-parent" >
-									<!-- <input type="text" class="ivu-input ivu-input-default"
-										id="profile" autocomplete="off" spellcheck="false"
-										v-model="profile" /> -->
-									<textarea rows="3" cols="20"
-										class="ivu-input ivu-input-default"
-										style="height: 150px; resize: none;" id="profile"
-										v-model="profile"></textarea>
-								</div>
-							</div>
-							<div class="form-model-div flex-start"
-								style="height: auto; margin-top: 20px; margin-bottom: 10px; align-items: flex-start;">
+							<div class="form-model-div flex-start" id="richText-p"
+								style="height: auto; margin-top: 20px; margin-bottom: 10px; align-items: flex-start; display: none;">
 								<p class="flex-end form-p">
 									<span class="form-span">*</span> <span>文本详情</span>
 								</p>
@@ -179,125 +174,138 @@
 	</div>
 </body>
 <script type="text/javascript">
+	$.jeSelect("#imageLocation", {
+		size : 8, //设置高度(个数)
+		zIndex : 2099, //下拉弹层的层级高度
+		currCls : "on",
+		itemfun : function(elem, index, val) {
+			vm.insert.imageLocation = index + 1
+		}, //点击当前的回调，elem：当前Select的ID index：索引 val：选中的值
+		success : null,
+		sosList : false
+	})
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
-			user_name : "${admin_user.nickname}",
+			user_name: "${admin_user.nickname}",
+			insert : {
+				imageUrl : '',
+				hrefUrl : '',
+				imageLocation : '1',
+				jumpType : 0,
+				isHidden : false
+			},
 			id : null,
 			title : '',// 标题
 			matchName : '',// 比赛名称
 			place : '',// 比赛地点
 			profile : '',//新闻简介
 			titleImage : null, // 标题图片
-			content : '', //文本详情
+			content : '' //文本详情
 		}
 	});
-	let label_width = document.getElementById('form-model').getAttribute(
-			'label-width');
-	let arr = document.getElementsByClassName('form-p')
-	for (let i = 0; i < arr.length; i++) {
-		arr[i].style.width = label_width + 'px';
-	}
+	$('input[name=radio-name]').click(function() {
+		$('#richText-p').hide();
+		$('#hyperlink').hide();
+		vm.insert.jumpType = $(this).val();
+		if ($(this).val() === '1') {
+			$('#hyperlink').hide();
+			$('#richText-p').show();
+		} else {
+			$('#hyperlink').show();
+			$('#richText-p').hide();
+		}
+		;
+	});
+	let label_width = $("#form-model").attr('label-width');
+	$(".form-p").css('width', label_width + 'px');
 
 	function cancel() {
 		editor.html('');
-		$("#title").val('');
-		$("#matchName").val('');
-		$("#place").val('');
-		$("#profile").val('');
-		Imagesrc = null;
-		window.location.href = "System_Add_CompetitionNews.jsp";
+		window.location.href = "System_AdvertisingSet.jsp";
 	};
 	let RegExpEntity = {
-		titleImage : {
+		hrefUrl : {
 			RegExptype : 'string',
-			message : '请上传图片',
-			trigger : 'change',
-			id : 'titleImage'
-		},
-		title : {
-			RegExptype : 'string',
-			message : '请输入新闻标题',
+			message : '请输入网站地址',
 			trigger : 'blur',
-			id : 'title'
-		},
-		matchName : {
-			RegExptype : 'string',
-			message : '请输入比赛名称',
-			trigger : 'blur',
-			id : 'matchName'
-		},
-		place : {
-			RegExptype : 'string',
-			message : '请输入比赛地点',
-			trigger : 'blur',
-			id : 'place'
-		},
-		profile : {
-			RegExptype : 'string',
-			message : '请输入新闻简介',
-			trigger : 'blur',
-			id : 'profile'
+			id : 'hrefUrl'
 		}
 	}
 	for ( let i in RegExpEntity) {
 		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
 	}
+	function label_error(vm, str) {
+		let brother = vm.getElementsByTagName("span");
+		if (!brother.length) {
+			let span = document.createElement("span");
+			span.innerText = str;
+			span.setAttribute('class', 'form-message');
+			vm.appendChild(span);
+		}
+	}
+	function label_succeed(vm) {
+		let brother = vm.getElementsByTagName("span");
+		if (brother.length) {
+			vm.removeChild(brother[0])
+			vm.style.borderColor = '#dcdee2';
+		}
+	}
 	function ok_click() {
-		vm.content = editor.html()
-		let entity = {
-			title : vm.title,// 标题 
-			matchName : vm.matchName,// 比赛名称
-			place : vm.place,// 比赛地点
-			profile : vm.profile,//新闻简介
-			titleImage : vm.titleImage, // 标题图片
-			content : editor.html()
-		}
 		let boo = true;
-		for ( let i in entity) {
-			if (!entity[i] && i !== 'content') {
-				boo = false;
-				RegExpEntity[i].Event.label_error(document.getElementById(i));
-			}
-		}
-		if (!entity.content) {
-			$("#content").html('请输入文本内容');
+		if (!vm.insert.imageUrl) {
+			$("#titleImage-name").text("请上传图片");
+			$("#titleImage-name").css("color", "red");
 			boo = false;
 		} else {
-			$("#content").html('');
+			$("#titleImage-name").text("");
+			$("#titleImage-name").css("color", "#515a6e");
 		}
-		if (boo) {
-			insertRequest();
+		if (vm.insert.jumpType == 0 && !vm.insert.hrefUrl) {
+			boo = false;
+			RegExpEntity.hrefUrl.Event.label_error(document
+					.getElementById('hrefUrl'), '请输入网站地址')
 		}
+		if (vm.insert.jumpType == 1 && !editor.html()) {
+			boo = false;
+			spop({
+				template : '请填写富文本内容',
+				group : 'submit-satus',
+				style : 'warning',
+				autoclose : 5000
+			});
+		}
+		if (boo)
+			insertRequesr()
 	};
 	let url = window.location.search;
-	let id = null;
 	if (url.indexOf("?") !== -1) {
 		let str = url.substr(1);
 		let strs = str.split("&");
 		for (let i = 0; i < strs.length; i++) {
 			let arr = strs[i].split("=");
-			id = arr[1];
 			vm.id = arr[1];
+			console.log(vm.id)
 		}
 	}
-	if (id) {
+	if (vm.id) {
 		request()
 	}
-	function insertRequest() {
-		let entity = {}
-		for ( let i in vm._data) {
-			if (i !== 'user_name') {
-				entity[i] = vm._data[i]
-			}
+	function insertRequesr() {
+		let url = ''
+		if (vm.id) {
+			vm.insert.id = vm.id
+			url = "/admin/index/update";
+		} else {
+			url = '/admin/index'
 		}
 		$.ajax({
 			type : "POST",
 			async : true,
-			url : "${pageContext.request.contextPath}/admin/match/news",
+			url : "${pageContext.request.contextPath}" + url,
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
-			data : JSON.stringify(entity),
+			data : JSON.stringify(vm.insert),
 			success : function(data) {
 				if (data.code === 200) {
 					spop({
@@ -306,7 +314,7 @@
 						style : 'success',
 						autoclose : 5000
 					});
-					window.location.href = 'System_CompetitionNews.jsp'
+					window.location.href = "System_AdvertisingSet.jsp";
 				} else if (data.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {
@@ -333,21 +341,37 @@
 		$.ajax({
 			type : "get",
 			async : true,
-			url : "${pageContext.request.contextPath}/match/news/detail?nid="
-					+ vm.id,
+			url : "${pageContext.request.contextPath}/index/detail/" + vm.id,
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function(res) {
 				if (res.code === 200) {
-					console.log = (res.result.current)
-					vm.title = res.result.current.title;// 标题
-					vm.matchName = res.result.current.matchName;// 比赛名称
-					vm.place = res.result.current.place;// 比赛地点
-					vm.profile = res.result.current.profile;//新闻简介
-					vm.titleImage = res.result.current.titleImage; // 标题图片
-					vm.content = res.result.current.content; //文本详情
-					$("#titleImage-name").text(res.result.current.titleImage)
-					editor.insertHtml(res.result.current.content);
+					console.log(res)
+					// je-select-open selected select-1
+					vm.insert.imageLocation = '' + res.result.imageLocation
+					$(".je-select-open").removeAttr("selected");
+					$("#select-" + res.result.imageLocation).attr("selected",
+							"selected");
+					$('#imageLocation').next().text(
+							res.result.imageLocationDetail)
+					console.log();
+					vm.insert.jumpType = res.result.jumpType;
+					if (res.result.imageUrl) {
+						vm.insert.imageUrl = res.result.imageUrl;
+						$("#titleImage-name").text(res.result.imageUrl);
+					}
+					$('input[name=radio-name]').removeAttr("checked");
+					if (vm.insert.jumpType == 0) {
+						$('#radio-1').attr("checked", "checked");
+						vm.insert.hrefUrl = res.result.hrefUrl;
+						$('#hyperlink').show();
+						$('#richText-p').hide();
+					} else {
+						$('#radio-2').attr("checked", "checked");
+						editor.html(res.result.hrefUrl)
+						$('#hyperlink').hide();
+						$('#richText-p').show();
+					}
 				} else if (data.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {
@@ -419,8 +443,9 @@
 			async : false,
 			success : function(data) {
 				if (data.code === 200) {
-					vm.titleImage = data.result
-					$("#titleImage-name").text(file.name)
+					vm.insert.imageUrl = data.result
+					$("#titleImage-name").text(file.name);
+					$("#titleImage-name").css("color", "#515a6e");
 				} else if (data.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {

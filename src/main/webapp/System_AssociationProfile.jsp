@@ -18,6 +18,7 @@
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/home.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript"
 	src="js/kindeditor-min.js" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript" src="lang/zh_CN.js"
@@ -42,19 +43,24 @@
 	});
 </script>
 </head>
-<body>
+<body id="mvvm">
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
-				<div style="margin-right: 20px;">
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+				<div style="margin-right: 20px;" class="row-div">
+					<p class="p-hover row-div"
+						style="height: auto; margin-right: 20px;">
+						<i class="ivu-icon ivu-icon-ios-contact-outline"
+							style="font-size: 20px"></i> <span>{{user_name}}</span>
+					</p>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -83,7 +89,8 @@
 								</form>
 							</div>
 
-							<div class="form-model-div row-div" style="width: 30%;margin: auto;">
+							<div class="form-model-div row-div"
+								style="width: 30%; margin: auto;">
 								<button type="button"
 									class="ivu-btn ivu-btn-primary ivu-btn-small"
 									style="width: 80%;" onclick="insert()">保存</button>
@@ -134,6 +141,12 @@
 		onchange="UploadImage(this.files[0])" />
 </body>
 <script type="text/javascript">
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			user_name : "${admin_user.nickname}",
+		}
+	});
 	function transfer_ok() {
 
 	};
@@ -155,7 +168,7 @@
 					editor.insertHtml(data.result.introduction);
 				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
-				}else {
+				} else {
 					spop({
 						template : data.message,
 						group : 'submit-satus',
@@ -206,7 +219,7 @@
 					});
 				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
-				}else {
+				} else {
 					spop({
 						template : data.message,
 						group : 'submit-satus',
@@ -240,7 +253,7 @@
 			success : function(data) {
 				if (data.code === 200) {
 					editor.appendHtml('<img src="'+data.result+'" />');
-				}else if (res.code === 100005) {
+				} else if (res.code === 100005) {
 					window.location.href = "System_login.jsp";
 				} else {
 					spop({

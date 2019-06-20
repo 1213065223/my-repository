@@ -33,19 +33,24 @@
 }
 </style>
 </head>
-<body>
+<body id="mvvm">
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" id="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 		<div class="ivu-layout-content ivu-layout" style="margin-left: 200px;"
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
-				<div style="margin-right: 20px;">
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+				<div style="margin-right: 20px;" class="row-div">
+					<p class="p-hover row-div"
+						style="height: auto; margin-right: 20px;">
+						<i class="ivu-icon ivu-icon-ios-contact-outline"
+							style="font-size: 20px"></i> <span>{{user_name}}</span>
+					</p>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -55,8 +60,8 @@
 				<div class="ivu-breadcrumb" style="padding: 16px 16px;">
 					<span> <span class="ivu-breadcrumb-item-link">首页</span> <span
 						class="ivu-breadcrumb-item-separator">/</span>
-					</span> <span> <span class="ivu-breadcrumb-item-link">排名管理</span>
-						<span class="ivu-breadcrumb-item-separator">/</span>
+					</span> <span> <span class="ivu-breadcrumb-item-link">排名管理</span> <span
+						class="ivu-breadcrumb-item-separator">/</span>
 					</span> <span> <span class="ivu-breadcrumb-item-link">积分排名管理</span>
 						<span class="ivu-breadcrumb-item-separator">/</span>
 					</span>
@@ -124,7 +129,7 @@
 							</tbody>
 						</table>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -133,6 +138,12 @@
 
 </body>
 <script type="text/javascript">
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			user_name : "${admin_user.nickname}",
+		}
+	});
 	Request();
 	function Request() {
 		let url = "/match/rank/integral";
@@ -170,7 +181,7 @@
 				+ '<div class="ivu-table-cell">姓名</div></th>'
 				+ '<th class="ivu-table-column-center">'
 				+ '<div class="ivu-table-cell">积分</div></th></tr>';
-				
+
 		arr
 				.forEach(function(item, index) {
 					html += '<tr class="ivu-table-row">'
@@ -183,12 +194,10 @@
 							+ '<img src="'+item.head_image+'" style="width: 50px;height: 50px;"/>'
 							+ '</div></td>'
 							+ '<td class="ivu-table-column-center">'
-							+ '<div class="ivu-table-cell">'
-							+ item.nickname
+							+ '<div class="ivu-table-cell">' + item.nickname
 							+ '</div></td>'
 							+ '<td class="ivu-table-column-center">'
-							+ '<div class="ivu-table-cell">'
-							+ item.s
+							+ '<div class="ivu-table-cell">' + item.s
 							+ '</div></td></tr>';
 
 				})

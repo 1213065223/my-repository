@@ -32,7 +32,11 @@
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
-				<div style="margin-right: 20px;">
+				<div style="margin-right: 20px;" class="row-div">
+					<p class="p-hover row-div" style="height: auto;margin-right: 20px;">
+						<i class="ivu-icon ivu-icon-ios-contact-outline" style="font-size: 20px"></i>
+						<span>{{user_name}}</span>
+					</p>
 					<p class="p-hover exit row-div" style="height:auto;">
 						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
 						<span>退出</span>
@@ -247,6 +251,7 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
+			user_name : "${admin_user.nickname}",
 			webName : '',//  网站名称
 			website : '',//网址
 			webDescribe : '',//网站描述
@@ -419,7 +424,7 @@
 	function insertRequesr() {
 		let entity = {};
 		for ( let i in vm._data) {
-			if (i !== 'weeks') {
+			if (i !== 'weeks' && i!=='user_name') {
 				entity[i] = vm._data[i];
 			}
 		}

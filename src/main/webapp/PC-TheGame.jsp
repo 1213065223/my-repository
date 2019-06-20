@@ -135,7 +135,7 @@
 		<div class="v-transfer-dom" id="Modal-Add" style="display: none;">
 			<div class="ivu-modal-mask" style="z-index: 1002;"></div>
 			<div class="ivu-modal-wrap" style="z-index: 1002;">
-				<div class="ivu-modal" style="width: 600px;">
+				<div class="ivu-modal ivu-modal-div">
 					<div class="ivu-modal-content">
 						<a class="ivu-modal-close" onclick="Modal_cancel()"><i
 							class="ivu-icon ivu-icon-ios-close"></i></a>
@@ -144,7 +144,7 @@
 						</div>
 						<div class="ivu-modal-body">
 							<div style="width: 100%;" class="column-center">
-								<form class="form-model column-start" label-width="170"
+								<form class="form-model column-start" label-width="200"
 									id="form-model" style="width: 100%;">
 									<div class="form-model-div flex-start">
 										<p class="flex-end form-p">
@@ -161,7 +161,9 @@
 										<div class="form-input-parent" style="width: 130px">
 											<input type="text" class="ivu-input ivu-input-default"
 												id="surname" autocomplete="off" spellcheck="false"
-												placeholder="例）ヤマダ" v-model="Entity.surname" maxlength="5"/>
+												placeholder="例）ヤマダ" v-model="Entity.surname" maxlength="5" />
+											<span class="form-message" style="color: black;"><span
+												style="color: red;">*</span>カタカナ（セイ）</span>
 										</div>
 										<div class="row-div" style="width: 130px; margin-left: 10px;">
 											<!-- <p class="flex-end form-p">
@@ -170,7 +172,9 @@
 											<div class="form-input-parent">
 												<input type="text" class="ivu-input ivu-input-default"
 													id="userName" autocomplete="off" spellcheck="false"
-													placeholder="例）タロウ" v-model="Entity.userName" maxlength="5"/>
+													placeholder="例）タロウ" v-model="Entity.userName" maxlength="5" />
+												<span class="form-message" style="color: black;"><span
+													style="color: red;">*</span>カタカナ（メイ）</span>
 											</div>
 										</div>
 										<!-- <div style="width: 70%"></div> -->
@@ -179,7 +183,7 @@
 										<p class="flex-end form-p">
 											<span class="form-span">*</span> <span>性 别：</span>
 										</p>
-										<div class="form-input-parent flex-around" style="width: 50%">
+										<div class="form-input-parent flex-around" style="width: 30%">
 											<label for="radio-1" class="row-div"> <input
 												type="radio" name="radio-name" id="radio-1" value="1"
 												checked="checked" />
@@ -198,7 +202,7 @@
 											<input type="text"
 												class="jeinput ivu-input ivu-input-default" id="birthday"
 												autocomplete="off" readonly="readonly" placeholder="生年月日"
-												v-model="Entity.birthday">
+												v-model="Entity.birthday" style="width: 62%">
 										</div>
 									</div>
 
@@ -209,8 +213,9 @@
 										<div class="form-input-parent" style="width: 50%">
 											<input type="text" class="ivu-input ivu-input-default"
 												id="phone" autocomplete="off" spellcheck="false"
-												placeholder="電話番号" v-model="Entity.phone" />
-
+												placeholder="電話番号" v-model="Entity.phone" style="width: 62%" />
+											<span class="form-message" style="color: black;"><span
+												style="color: red;">*</span>携帯電話・ご職場など、緊急時に連絡が取れる電話番号をご入力ください</span>
 										</div>
 
 									</div>
@@ -221,7 +226,8 @@
 										<div class="form-input-parent" style="width: 50%">
 											<input type="email" class="ivu-input ivu-input-default"
 												id="email" autocomplete="off" spellcheck="false"
-												placeholder="メールアドレス" v-model="Entity.email" />
+												placeholder="メールアドレス" v-model="Entity.email"
+												style="width: 62%" />
 										</div>
 									</div>
 									<div class="form-model-div flex-start"
@@ -525,13 +531,13 @@
 
 					<div class="column-div modle-content-div">
 						<p style="width: 100%; text-align: left; margin-right: auto;">メ－ルアドレス入力：</p>
-						<input type="text" id="email" class="gd-input"
+						<input type="text" id="email-login" class="gd-input"
 							placeholder="メールアドレスが会員IDとなります" />
 					</div>
 
 					<div class="column-div modle-content-div-2">
 						<p style="width: 100%">パスワ－ド：</p>
-						<input type="password" id="password" class="gd-input"
+						<input type="password" id="password-login" class="gd-input"
 							placeholder="6文字～32文字の半角英数字" />
 					</div>
 					<div class="column-div modle-content-div-2">
@@ -557,46 +563,46 @@
 
 
 		<div class="home-bottom-div column-div">
-		<div class="flex-around">
-			<img src="img/home/home-2-2.png" style="width: 150px;" />
-			<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
-				<ul class="column justify-start align-start">
-					<li>一般社団法人</li>
-					<li class="p-hover">全国ビリヤード協会</li>
-					<li>JAPAN BILLIARD</li>
-					<li>ASSOCIATION</li>
-					<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
-				</ul>
-				<ul class="column justify-start align-start">
-					<li class="p-hover" onclick="href_url('home')">ホーム</li>
-				</ul>
-				<ul class="column justify-start align-start">
-					<li class="p-hover">協会について</li>
-					<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
-					<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
+			<div class="flex-around">
+				<img src="img/home/home-2-2.png" style="width: 150px;" />
+				<div class="flex-around home-bottom-div-3" style="flex-wrap: wrap;">
+					<ul class="column justify-start align-start">
+						<li>一般社団法人</li>
+						<li class="p-hover">全国ビリヤード協会</li>
+						<li>JAPAN BILLIARD</li>
+						<li>ASSOCIATION</li>
+						<li class="row-div"><img src="img/home/home-number.png" />0411-xxxx-xxxx</li>
+					</ul>
+					<ul class="column justify-start align-start">
+						<li class="p-hover" onclick="href_url('home')">ホーム</li>
+					</ul>
+					<ul class="column justify-start align-start">
+						<li class="p-hover">協会について</li>
+						<li class="p-hover" onclick="href_url('AssociationProfile')">協会概要</li>
+						<li class="p-hover" onclick="href_url('AssociationNotice')">公告</li>
 
-				</ul>
-				<ul class="column justify-start align-start">
-					<li class="p-hover">試合</li>
-					<li class="p-hover" onclick="href_url('TheGame')">試合予定</li>
-					<li class="p-hover" onclick="href_url('ScheduleIntroduce')">試合日程</li>
-					<li class="p-hover" onclick="href_url('ScheduleReview')">試合回顧</li>
-					<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
-				</ul>
-				<ul class="column justify-start align-start">
-					<li class="p-hover">ランキング</li>
-					<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
-					<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
-				</ul>
-				<ul class="column justify-start align-start">
-					<li class="p-hover" onclick="href_url('MemberCenter')">会員センター</li>
-				</ul>
+					</ul>
+					<ul class="column justify-start align-start">
+						<li class="p-hover">試合</li>
+						<li class="p-hover" onclick="href_url('TheGame')">試合予定</li>
+						<li class="p-hover" onclick="href_url('ScheduleIntroduce')">試合日程</li>
+						<li class="p-hover" onclick="href_url('ScheduleReview')">試合回顧</li>
+						<li class="p-hover" onclick="href_url('CompetitionNews')">ニュース</li>
+					</ul>
+					<ul class="column justify-start align-start">
+						<li class="p-hover">ランキング</li>
+						<li class="p-hover" onclick="href_url('ranking')">得点ランキング</li>
+						<!-- <li class="p-hover" onclick="href_url('ranking')">ポイントランキング</li> -->
+					</ul>
+					<ul class="column justify-start align-start">
+						<li class="p-hover" onclick="href_url('MemberCenter')">会員センター</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
-		WanPlus. All rights reserved. | 全国ビリヤード協会</div>
+		<div class="home-bottom-div-2 column-div">Copyright © 2015-2018
+			WanPlus. All rights reserved. | 全国ビリヤード協会</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -658,7 +664,7 @@
 		},
 		email : {
 			RegExptype : 'email',
-			message : '请输入邮箱',
+			message : 'メールアドレス',
 			trigger : 'blur',
 			id : 'email'
 		},
@@ -682,7 +688,7 @@
 		},
 		headImage : {
 			RegExptype : 'string',
-			message : '请上传头像',
+			message : 'プロフィール画像',
 			trigger : 'change',
 			id : 'headImage'
 		},
@@ -752,61 +758,10 @@
 		});
 	}
 	request();
-	function request() {
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/match/current",
-			dataType : "json",
-			success : function(data) {
-				if (data.code === 200) {
-					console.log(data)
-					let entity = data.result.match;
-					let entity2 = data.result.config;
-					let arr = entity.createTime.split(' ');
-					$("#createTime").text('開催日時：' + arr[0]);
-					$("#details").html(entity.details);
-					$("#enrollTime").text(entity.enrollTime);
-					$("#enrollTimeEnd").text(entity.enrollTimeEnd);
-					$("#matchContent").text(entity.matchContent);
-					$("#matchName").text(entity.matchName);
-					$("#matchPlace").text(
-							entity.matchTime + '   地点:' + entity.matchPlace);
-					$("#organization").text(entity.organization);
-					$("#schedule").text(entity.schedule);
-					vm.Entity.matchName = entity.matchName;
-					vm.Entity.matchId = entity.id;
-					vm.Entity.account = entity2.account;
-					vm.Entity.society = entity2.society;
-					vm.Entity.bankName = entity2.bankName;
-					vm.Entity.bank = entity2.bank;
-					vm.Entity.enrollCost = '￥' + entity.enrollCost;
-					if (entity.result) {
-						$("#result").html(
-								'<img src="' + entity.result
-										+ '" width="100%" />');
-					}
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '查询接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
-				});
-			}
-		});
-	}
+	detailrequest();
 	function login() {
-		if (!$('#password').val() || !$('#email').val()) {
+		console.log($('#password-login').val(), $('#email-login').val())
+		if (!$('#password-login').val() || !$('#email-login').val()) {
 			spop({
 				template : '请输入账号和密码',
 				group : 'submit-satus',
@@ -822,16 +777,18 @@
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			data : JSON.stringify({
-				"loginName" : $('#email').val(),
-				"password" : $('#password').val()
+				"loginName" : $('#email-login').val(),
+				"password" : $('#password-login').val()
 			}),
 			success : function(data) {
 				if (data.code === 200) {
-					//window.location.href = "http://localhost:9090/billiard/System_home.jsp";
-					let str = "${user.loginName}"
-					console.log(str);
+					if (data.result.loginName) {
+						vm.login_name = data.result.loginName
+					} else {
+						vm.login_name = "请登录"
+					}
 					$('#Modal-dl').hide();
-					$('#Modal-fu').show();
+					$('#Modal-Add').show();
 				} else {
 					spop({
 						template : data.message,
@@ -1017,6 +974,87 @@
 				console.log("Error: " + jqXHR.status);
 				spop({
 					template : '禁用或启用接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+	}
+	function request() {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/match/current",
+			dataType : "json",
+			success : function(data) {
+				if (data.code === 200) {
+					console.log(data)
+					let entity = data.result.match;
+					let entity2 = data.result.config;
+					let arr = entity.createTime.split(' ');
+					$("#createTime").text('開催日時：' + arr[0]);
+					$("#details").html(entity.details);
+					$("#enrollTime").text(entity.enrollTime);
+					$("#enrollTimeEnd").text(entity.enrollTimeEnd);
+					$("#matchContent").text(entity.matchContent);
+					$("#matchName").text(entity.matchName);
+					$("#matchPlace").text(
+							entity.matchTime + '   地点:' + entity.matchPlace);
+					$("#organization").text(entity.organization);
+					$("#schedule").text(entity.schedule);
+					vm.Entity.matchName = entity.matchName;
+					vm.Entity.matchId = entity.id;
+					vm.Entity.account = entity2.account;
+					vm.Entity.society = entity2.society;
+					vm.Entity.bankName = entity2.bankName;
+					vm.Entity.bank = entity2.bank;
+					vm.Entity.enrollCost = '￥' + entity.enrollCost;
+					if (entity.result) {
+						$("#result").html(
+								'<img src="' + entity.result
+										+ '" width="100%" />');
+					}
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '查询接口访问失败,请与系统管理员联系',
+					group : 'submit-satus',
+					style : 'error',
+					autoclose : 5000
+				});
+			}
+		});
+	}
+	function detailrequest() {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/index/dictionary/detail",
+			dataType : "json",
+			success : function(data) {
+				if (data.code === 200) {
+					console.log(data,'detail')
+				} else {
+					spop({
+						template : data.message,
+						group : 'submit-satus',
+						style : 'warning',
+						autoclose : 5000
+					});
+				}
+			},
+			error : function(jqXHR) {
+				console.log("Error: " + jqXHR.status);
+				spop({
+					template : '查询接口访问失败,请与系统管理员联系',
 					group : 'submit-satus',
 					style : 'error',
 					autoclose : 5000

@@ -45,8 +45,8 @@
 <body>
 	<div>
 		<div class="menuBar" id="menuBar">
-			<iframe src="menuBar.jsp"
-				class="iframe" scrolling="yes" frameborder="0"></iframe>
+			<iframe src="menuBar.jsp" class="iframe" scrolling="yes"
+				frameborder="0"></iframe>
 		</div>
 
 
@@ -55,9 +55,13 @@
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
-				<div style="margin-right: 20px;">
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+				<div style="margin-right: 20px;" class="row-div">
+					<p class="p-hover row-div" style="height: auto;margin-right: 20px;">
+						<i class="ivu-icon ivu-icon-ios-contact-outline" style="font-size: 20px"></i>
+						<span>{{user_name}}</span>
+					</p>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -192,7 +196,7 @@
 										<div style="width: 100%;" class="column-center">
 											<form class="form-model column-start" label-width="100"
 												id="form-model" style="width: 100%;">
-												<div class="form-model-div flex-start" >
+												<div class="form-model-div flex-start">
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>添加图片</span>
 													</p>
@@ -223,7 +227,8 @@
 													<p class="flex-end form-p">
 														<span class="form-span">*</span> <span>连接方式</span>
 													</p>
-													<div class="form-input-parent flex-around" style="width: 100%;">
+													<div class="form-input-parent flex-around"
+														style="width: 100%;">
 														<!-- <input type="email" class="ivu-input ivu-input-default" /> -->
 														<label for="radio-1" class="row-div"> <span
 															style="margin-right: 5px">超连接</span> <input type="radio"
@@ -241,8 +246,9 @@
 													</p>
 													<div class="form-input-parent" style="width: 100%;">
 														<input type="text" class="ivu-input ivu-input-default"
-															id="hrefUrl" autocomplete="off" spellcheck="false" v-model="insert.hrefUrl" />
-															
+															id="hrefUrl" autocomplete="off" spellcheck="false"
+															v-model="insert.hrefUrl" />
+
 													</div>
 												</div>
 												<div class="form-model-div flex-start"
@@ -316,6 +322,7 @@
 	var vm = new MVVM({
 		el : '#mvvm',
 		data : {
+			user_name : "${admin_user.nickname}",
 			Add_header : '添加广告',
 			size : 10,
 			pageNum : 1,
@@ -435,7 +442,7 @@
 							+ '<td class="ivu-table-column-center" style="width: 20%;">'
 							+ '<div class="ivu-table-cell">'
 							+ '<button type="button" class="ivu-btn ivu-btn-primary ivu-btn-small" style="margin-right: 5px;" onclick="Modal_show('
-							+ index
+							+ item.id
 							+ ')">编辑</button>'
 							+ '<button type="button" class="ivu-btn ivu-btn-warning ivu-btn-small" style="margin-right: 5px;" onclick="forbidden('
 							+ index
@@ -471,33 +478,10 @@
 	}
 	function Modal_show(index) {
 		if (index) {
-			let entity = vm.table[index];
-			vm.image_name = entity.imageUrl;
-			vm.insertType = 2
-			vm.insert = {
-				imageUrl : entity.imageUrl,
-				hrefUrl : entity.hrefUrl,
-				imageLocation : entity.imageLocation,
-				isHidden : entity.isHidden,
-			}
-			if (entity.jumpType == 1) {
-				$('input[name=radio-name]').removeAttr('checked')
-				$('#radio-2').attr('checked', 'checked');
-				$('#hyperlink').hide();
-				$('#richText-p').show();
-				editor.html(entity.hrefUrl)
-			} else {
-				$('input[name=radio-name]').removeAttr('checked')
-				$('#radio-1').attr('checked', 'checked');
-				$('#richText-p').hide();
-				$('#hyperlink').show();
-				editor.html('')
-			}
+			window.location.href = 'System_Add_AdvertisingSet.jsp?id=' + index
 		} else {
-			cancel_modle();
-			console.log('添加')
+			window.location.href = 'System_Add_AdvertisingSet.jsp'
 		}
-		$("#Modal-Add").toggle(300);
 	};
 	let RegExpEntity = {
 		hrefUrl : {
@@ -511,7 +495,6 @@
 		RegExpEntity[i].Event = new formRegExp(RegExpEntity[i], 'form-model');
 	}
 	function Modal_ok() {
-		console.log(vm.insert.hrefUrl)
 		vm.insert.hrefUrl = $("#hrefUrl").val()
 		let boo = true;
 		if (!vm.file && !vm.image_name) {
@@ -560,7 +543,7 @@
 			updataShowRequesr()
 		}
 	};
-	function cancel_modle () {
+	function cancel_modle() {
 		vm.file = null;
 		vm.image_name = '';
 		vm.insert.jumpType = 0;

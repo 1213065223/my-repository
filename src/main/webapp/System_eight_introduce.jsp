@@ -18,6 +18,7 @@
 <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/home.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/spop.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mvvm.js" type="text/javascript" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript"
 	src="js/kindeditor-min.js" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript" src="lang/zh_CN.js"
@@ -42,7 +43,7 @@
 	});
 </script>
 </head>
-<body>
+<body id="mvvm">
 	<div>
 		<div class="menuBar" id="menuBar">
 			<iframe src="menuBar.jsp" class="iframe" id="iframe" scrolling="yes"
@@ -52,9 +53,14 @@
 			id="mvvm">
 			<div class="layout-header flex-between">
 				<div></div>
-				<div style="margin-right: 20px;">
-					<p class="p-hover exit row-div" style="height:auto;">
-						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size:20px"></i>
+				<div style="margin-right: 20px;" class="row-div">
+					<p class="p-hover row-div"
+						style="height: auto; margin-right: 20px;">
+						<i class="ivu-icon ivu-icon-ios-contact-outline"
+							style="font-size: 20px"></i> <span>{{user_name}}</span>
+					</p>
+					<p class="p-hover exit row-div" style="height: auto;">
+						<i class="ivu-icon ivu-icon-ios-log-out" style="font-size: 20px"></i>
 						<span>退出</span>
 					</p>
 				</div>
@@ -135,6 +141,12 @@
 		onchange="UploadImage(this.files[0])" />
 </body>
 <script type="text/javascript">
+	var vm = new MVVM({
+		el : '#mvvm',
+		data : {
+			user_name : "${admin_user.nickname}",
+		}
+	});
 	function transfer_ok() {
 
 	};
@@ -188,45 +200,46 @@
 			});
 			return;
 		}
-		$.ajax({
-			type : "POST",
-			async : true,
-			url : "${pageContext.request.contextPath}/admin/association/organization",
-			contentType : "application/json; charset=utf-8",
-			dataType : "json",
-			data : JSON.stringify({
-				"introduction" : html
-			}),
-			success : function(data) {
-				if (data.code === 200) {
-					request();
-					spop({
-						template : '成功',
-						group : 'submit-satus',
-						style : 'success',
-						autoclose : 5000
-					});
-				} else if (res.code === 100005) {
-					window.location.href = "System_login.jsp";
-				} else {
-					spop({
-						template : data.message,
-						group : 'submit-satus',
-						style : 'warning',
-						autoclose : 5000
-					});
-				}
-			},
-			error : function(jqXHR) {
-				console.log("Error: " + jqXHR.status);
-				spop({
-					template : '禁用或启用接口访问失败,请与系统管理员联系',
-					group : 'submit-satus',
-					style : 'error',
-					autoclose : 5000
+		$
+				.ajax({
+					type : "POST",
+					async : true,
+					url : "${pageContext.request.contextPath}/admin/association/organization",
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : JSON.stringify({
+						"introduction" : html
+					}),
+					success : function(data) {
+						if (data.code === 200) {
+							request();
+							spop({
+								template : '成功',
+								group : 'submit-satus',
+								style : 'success',
+								autoclose : 5000
+							});
+						} else if (res.code === 100005) {
+							window.location.href = "System_login.jsp";
+						} else {
+							spop({
+								template : data.message,
+								group : 'submit-satus',
+								style : 'warning',
+								autoclose : 5000
+							});
+						}
+					},
+					error : function(jqXHR) {
+						console.log("Error: " + jqXHR.status);
+						spop({
+							template : '禁用或启用接口访问失败,请与系统管理员联系',
+							group : 'submit-satus',
+							style : 'error',
+							autoclose : 5000
+						});
+					}
 				});
-			}
-		});
 	}
 	function UploadImage(file) {
 		let entity = null;
