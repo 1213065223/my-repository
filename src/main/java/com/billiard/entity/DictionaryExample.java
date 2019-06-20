@@ -293,6 +293,66 @@ public class DictionaryExample {
             addCriterion("dic_type not between", value1, value2, "dicType");
             return (Criteria) this;
         }
+
+        public Criteria andDicParentIsNull() {
+            addCriterion("dic_parent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentIsNotNull() {
+            addCriterion("dic_parent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentEqualTo(Integer value) {
+            addCriterion("dic_parent =", value, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentNotEqualTo(Integer value) {
+            addCriterion("dic_parent <>", value, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentGreaterThan(Integer value) {
+            addCriterion("dic_parent >", value, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("dic_parent >=", value, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentLessThan(Integer value) {
+            addCriterion("dic_parent <", value, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentLessThanOrEqualTo(Integer value) {
+            addCriterion("dic_parent <=", value, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentIn(List<Integer> values) {
+            addCriterion("dic_parent in", values, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentNotIn(List<Integer> values) {
+            addCriterion("dic_parent not in", values, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentBetween(Integer value1, Integer value2) {
+            addCriterion("dic_parent between", value1, value2, "dicParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDicParentNotBetween(Integer value1, Integer value2) {
+            addCriterion("dic_parent not between", value1, value2, "dicParent");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

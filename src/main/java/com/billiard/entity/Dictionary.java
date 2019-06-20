@@ -7,6 +7,8 @@ public class Dictionary {
 
     private Integer dicType;
 
+    private Integer dicParent;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Dictionary {
 
     public void setDicType(Integer dicType) {
         this.dicType = dicType;
+    }
+
+    public Integer getDicParent() {
+        return dicParent;
+    }
+
+    public void setDicParent(Integer dicParent) {
+        this.dicParent = dicParent;
     }
 }
