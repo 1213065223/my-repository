@@ -10,8 +10,10 @@ public interface DictionaryService {
 
 	JobResponse addDictionary(Dictionary dictionary);
 
-	Integer deleteDictionary(Integer id);
+	JobResponse deleteDictionary(Integer id);
 
 	Map<Integer,List<Dictionary>> getAll();
+
+	List<Dictionary> getGrade(Integer parentId);
 
 }

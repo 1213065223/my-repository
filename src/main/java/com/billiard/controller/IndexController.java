@@ -81,6 +81,12 @@ public class IndexController {
 		log.info("   at dictionary detail! ");
 		return JobResponse.successResponse(dictionaryService.getAll());
 	}
-	
+	//级别 下的等级
+		@RequestMapping("dictionary/grade/{parentId}")
+		@ResponseBody
+		public JobResponse grade( @PathVariable("parentId") Integer parentId) {
+			log.info("   at dictionary detail! ");
+			return JobResponse.successResponse(dictionaryService.getGrade(parentId));
+		}
 	
 }

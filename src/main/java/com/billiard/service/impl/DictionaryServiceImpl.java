@@ -42,15 +42,26 @@ public class DictionaryServiceImpl implements DictionaryService {
 	}
 
 	@Override
-	public Integer deleteDictionary(Integer id) {
+	public JobResponse deleteDictionary(Integer id) {
 		
-		return dictionaryMapper.deleteByPrimaryKey(id);
+		Dictionary selectByPrimaryKey = dictionaryMapper.selectByPrimaryKey(id);
+		if(selectByPrimaryKey!=null&&selectByPrimaryKey.getDicType()==1) {
+			
+			DictionaryExample example = new DictionaryExample();
+			example.createCriteria().andDicTypeEqualTo(2).andDicParentEqualTo(id);
+			List<Dictionary> selectByExample = dictionaryMapper.selectByExample(example);
+			if(!selectByExample.isEmpty()) {
+				return JobResponse.errorResponse(100042, "该记录下还有内容不能删除！");
+			}
+		}
+		return JobResponse.successResponse(dictionaryMapper.deleteByPrimaryKey(id));
 	}
 
 	@Override
 	public Map<Integer, List<Dictionary>> getAll() {
 		Map<Integer, List<Dictionary>> res = new HashMap<>();
 		DictionaryExample example= new DictionaryExample();
+		example.createCriteria().andDicTypeNotEqualTo(2);
 		List<Dictionary> selectByExample = dictionaryMapper.selectByExample(example);
 		for(Dictionary d :selectByExample) {
 			if(res.get(d.getDicType())==null) {
@@ -59,5 +70,12 @@ public class DictionaryServiceImpl implements DictionaryService {
 			res.get(d.getDicType()).add(d);
 		}
 		return res;
+	}
+
+	@Override
+	public List<Dictionary> getGrade(Integer parentId) {
+		
+		
+		return dictionaryMapper.selectTwoLevel(parentId);
 	}
 }

@@ -27,4 +27,8 @@ public interface DictionaryMapper {
     int updateByPrimaryKeySelective(Dictionary record);
 
     int updateByPrimaryKey(Dictionary record);
+    
+    List<Dictionary> selectOneLevel();
+    
+    List<Dictionary> selectTwoLevel(Integer parentId);
 }
