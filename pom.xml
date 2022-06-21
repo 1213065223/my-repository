@@ -13,7 +13,7 @@
 		<!-- log4j日志文件管理包版本 -->
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
-		<mysql.version>5.1.35</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 
 	</properties>
 
@@ -212,7 +212,7 @@
 					<dependency>
 						<groupId>mysql</groupId>
 						<artifactId>mysql-connector-java</artifactId>
-						<version>5.1.35</version>
+						<version>8.0.28</version>
 					</dependency>
 				</dependencies>
 				<configuration>                         <!--配置文件的路径 -->
